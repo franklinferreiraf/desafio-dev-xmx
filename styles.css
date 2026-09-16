@@ -884,7 +884,7 @@ p {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 190px;
+  width: 220px;
   max-width: none;
   transform: translate(-50%, -50%);
 }
@@ -987,7 +987,7 @@ p {
 .why__product {
   order: -1;
   justify-self: center;
-  width: min(100%, 260px);
+  width: min(100%, 320px);
 }
 
 .why__product img {
@@ -1015,7 +1015,7 @@ p {
 
   .why__product {
     order: 0;
-    width: 320px;
+    width: clamp(300px, 30vw, 420px);
   }
 
   /* Leve curvatura das badges ao redor do produto */
@@ -1383,11 +1383,11 @@ p {
 }
 
 .price-card__pair picture {
-  width: 55%;
+  width: 62%;
 }
 
 .price-card__pair picture + picture {
-  margin-left: -14%;
+  margin-left: -30%;
 }
 
 .price-card__pair img {
