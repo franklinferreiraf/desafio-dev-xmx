@@ -19,11 +19,11 @@
     <rect x="14" y="78" width="132" height="130" fill="url(#bLabel)"/>
     <path d="M80 92 C80 92 66 108 66 118 A14 14 0 0 0 94 118 C94 108 80 92 80 92 Z" fill="#b33a3a"/>
     <text x="80" y="156" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="20" fill="#2a0a0f" letter-spacing="1">TENURIMA</text>
-    <text x="80" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#a91e2c">BLOOD PRESSURE SUPPORT</text>
-    <text x="80" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" fill="#555">DIETARY SUPPLEMENT · 60 CAPSULES</text>
+    <text x="80" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="8" fill="#a91e2c">BLOOD PRESSURE SUPPORT</text>
+    <text x="80" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.5" fill="#555">DIETARY SUPPLEMENT · 60 CAPSULES</text>
     <rect x="30" y="52" width="10" height="186" rx="5" fill="#fff" opacity=".08"/>
   </g>
-  <g transform="translate(190 20) scale(1)">
+  <g transform="translate(200 20) scale(1)">
     <ellipse cx="80" cy="248" rx="78" ry="8" fill="#000" opacity=".18"/>
     <rect x="22" y="0" width="116" height="42" rx="8" fill="url(#bCap)"/>
     <rect x="22" y="8" width="116" height="3" fill="#000" opacity=".15"/>
@@ -33,7 +33,7 @@
     <rect x="14" y="78" width="132" height="130" fill="url(#bLabel)"/>
     <path d="M80 92 C80 92 66 108 66 118 A14 14 0 0 0 94 118 C94 108 80 92 80 92 Z" fill="#b33a3a"/>
     <text x="80" y="156" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="20" fill="#2a0a0f" letter-spacing="1">TENURIMA</text>
-    <text x="80" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#a91e2c">BLOOD PRESSURE SUPPORT</text>
-    <text x="80" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" fill="#555">DIETARY SUPPLEMENT · 60 CAPSULES</text>
+    <text x="80" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="8" fill="#a91e2c">BLOOD PRESSURE SUPPORT</text>
+    <text x="80" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.5" fill="#555">DIETARY SUPPLEMENT · 60 CAPSULES</text>
     <rect x="30" y="52" width="10" height="186" rx="5" fill="#fff" opacity=".08"/>
   </g></svg>

@@ -52,8 +52,8 @@ const bottle = (x = 0, y = 0, s = 1) => `
     <rect x="14" y="78" width="132" height="130" fill="url(#bLabel)"/>
     <path d="M80 92 C80 92 66 108 66 118 A14 14 0 0 0 94 118 C94 108 80 92 80 92 Z" fill="#b33a3a"/>
     <text x="80" y="156" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="20" fill="#2a0a0f" letter-spacing="1">TENURIMA</text>
-    <text x="80" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#a91e2c">BLOOD PRESSURE SUPPORT</text>
-    <text x="80" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" fill="#555">DIETARY SUPPLEMENT · 60 CAPSULES</text>
+    <text x="80" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="8" fill="#a91e2c">BLOOD PRESSURE SUPPORT</text>
+    <text x="80" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="6.5" fill="#555">DIETARY SUPPLEMENT · 60 CAPSULES</text>
     <rect x="30" y="52" width="10" height="186" rx="5" fill="#fff" opacity=".08"/>
   </g>`;
 
@@ -73,15 +73,14 @@ save('product-hero.svg', svg(560, 440,
   bottleDefs));
 
 const bundle = (count) => {
-  // Posições dos potes para 2, 3 e 6 unidades (fileira de trás menor e mais alta)
+  // [x, y, escala] de cada pote, desenhados de trás para frente
   const layouts = {
-    2: [[40, 20, 1], [190, 20, 1]],
-    3: [[20, 30, .9], [240, 30, .9], [120, 10, 1]],
-    6: [[0, 0, .72], [120, 0, .72], [240, 0, .72], [30, 70, .8], [160, 70, .8], [95, 90, .9]],
+    2: { w: 400, h: 300, items: [[40, 20, 1], [200, 20, 1]] },
+    3: { w: 420, h: 300, items: [[0, 50, .85], [284, 50, .85], [130, 25, 1]] },
+    6: { w: 420, h: 320, items: [[150, 0, .7], [80, 40, .72], [220, 40, .72], [10, 100, .75], [150, 100, .75], [290, 100, .75]] },
   };
-  const w = 400, h = 300;
-  const items = layouts[count].map(([x, y, s]) => bottle(x + (count === 6 ? 25 : 0), y, s)).join('');
-  return svg(w, h, items, bottleDefs);
+  const { w, h, items } = layouts[count];
+  return svg(w, h, items.map(([x, y, s]) => bottle(x, y, s)).join(''), bottleDefs);
 };
 save('bottles-2.svg', bundle(2));
 save('bottles-3.svg', bundle(3));
