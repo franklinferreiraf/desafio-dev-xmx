@@ -1188,10 +1188,6 @@ p {
   touch-action: pan-y;
 }
 
-.carousel__track.is-dragging {
-  transition: none;
-}
-
 .carousel__slide {
   flex: 0 0 calc(100% / var(--per-view));
   min-width: 0;
