@@ -12,51 +12,42 @@
 
 /* --------------------------------------------------------------------------
    Dados
-   Michael R. e Susan L. vêm do layout de referência; os demais são
-   placeholders plausíveis (ver README).
+   Michael R. e Susan L. (nomes e falas) vêm do briefing; Walter J. e Diane K.
+   são nomes e falas placeholder para as fotos 3 e 4 (ver README).
+   `photo` é o caminho sem extensão: o .webp é a fonte principal e o .png o fallback.
    -------------------------------------------------------------------------- */
 const TESTIMONIALS = [
   {
     name: 'Michael R.',
     age: 62,
     location: 'Texas',
-    photo: 'assets/img/customer-michael.svg',
-    text: 'I was skeptical at first, but after a few weeks with Tenurima my readings at the doctor\'s office looked better than they had in years. I feel more energetic on my morning walks, too.',
+    photo: 'assets/img/testimonial-michael',
+    alt: 'Michael R., a senior man in a black T-shirt, holding a bottle of Tenurima in his living room',
+    text: 'My blood pressure used to worry me at every checkup. After two months on Tenurima™, my doctor noticed the difference — and so did I.',
   },
   {
     name: 'Susan L.',
     age: 65,
     location: 'Florida',
-    photo: 'assets/img/customer-susan.svg',
-    text: 'Taking two capsules a day is so easy to fit into my routine. My hands and feet don\'t feel cold anymore and I just feel more balanced overall. I already ordered my second bundle!',
+    photo: 'assets/img/testimonial-susan',
+    alt: 'Susan L., a smiling senior woman in a striped sweater, holding a bottle of Tenurima',
+    text: "I've wasted money on supplements that did nothing. Tenurima™ is different — I have more energy for my grandkids and finally feel like myself again.",
   },
   {
-    name: 'Robert K.',
-    age: 58,
-    location: 'Ohio',
-    photo: 'assets/img/customer-robert.svg',
-    text: 'I like that the formula uses ingredients I recognize, like hawthorn and garlic. After three months I have more stamina and I don\'t get winded climbing stairs like I used to.',
-  },
-  {
-    name: 'Linda M.',
-    age: 70,
-    location: 'Arizona',
-    photo: 'assets/img/customer-linda.svg',
-    text: 'My daughter bought me the 6 bottle package and shipping was fast and free. It\'s become part of my breakfast routine and I feel great. Customer support was very kind as well.',
-  },
-  {
-    name: 'James T.',
-    age: 67,
+    name: 'Walter J.',
+    age: 71,
     location: 'Georgia',
-    photo: 'assets/img/customer-james.svg',
-    text: 'I\'ve tried several supplements over the years and this is the first one I actually stuck with. I feel steadier and more alert throughout the day. Highly recommend giving it a try.',
+    photo: 'assets/img/testimonial-walter',
+    alt: 'Walter J., a senior man in a blue button-up shirt, holding a bottle of Tenurima in his kitchen',
+    text: "By the end of the day my legs used to feel heavy and cold. A few weeks into Tenurima™ my circulation feels better, and I'm back to my evening walks.",
   },
   {
-    name: 'Patricia W.',
-    age: 61,
-    location: 'Oregon',
-    photo: 'assets/img/customer-patricia.svg',
-    text: 'The 60 day guarantee made it an easy decision. Two months later I\'m still taking it — I have more energy for my grandkids and my circulation feels so much better.',
+    name: 'Diane K.',
+    age: 58,
+    location: 'Arizona',
+    photo: 'assets/img/testimonial-diane',
+    alt: 'Diane K., a woman with long gray hair in a blue linen shirt, holding a bottle of Tenurima',
+    text: 'I wanted something natural to add to my routine. With Tenurima™ my readings have been steadier and I have the energy to keep up with my day.',
   },
 ];
 
@@ -249,13 +240,19 @@ function createTestimonialSlide(testimonial, index, total) {
 
   const card = createEl('article', 'testimonial');
 
+  const picture = document.createElement('picture');
+  const source = document.createElement('source');
+  source.srcset = `${testimonial.photo}.webp`;
+  source.type = 'image/webp';
+
   const photo = document.createElement('img');
   photo.className = 'testimonial__photo';
-  photo.src = testimonial.photo;
-  photo.width = 200;
-  photo.height = 240;
+  photo.src = `${testimonial.photo}.png`;
+  photo.width = 226;
+  photo.height = 330;
   photo.loading = 'lazy';
-  photo.alt = `Photo of ${testimonial.name}, a ${testimonial.age}-year-old Tenurima customer from ${testimonial.location}`;
+  photo.alt = testimonial.alt;
+  picture.append(source, photo);
 
   const body = createEl('div', 'testimonial__body');
 
@@ -273,7 +270,7 @@ function createTestimonialSlide(testimonial, index, total) {
   verified.append(createIcon('check'), document.createTextNode('Verified Purchase'));
 
   body.append(stars, quote, author, verified);
-  card.append(photo, body);
+  card.append(picture, body);
   slide.append(card);
   return slide;
 }
