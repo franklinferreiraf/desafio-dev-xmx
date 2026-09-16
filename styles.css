@@ -16,7 +16,7 @@
   --coral: #e86a64;
   --green-400: #8bc34a;
   --green-600: #4caf50;
-  --green-700: #3d8b40;
+  --green-700: #2e7d32;
   --yellow-400: #ffd400;
   --yellow-500: #ffc107;
   --gold: #e0a800;
@@ -430,7 +430,7 @@ p {
   font-weight: 700;
   color: var(--white);
   letter-spacing: .06em;
-  background: var(--green-600);
+  background: var(--green-700);
   border-radius: var(--radius-pill);
 }
 

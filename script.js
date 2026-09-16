@@ -242,7 +242,7 @@ function initAccordion(accordion) {
    - Suporta teclado (← →), swipe e bolinhas de paginação
    -------------------------------------------------------------------------- */
 function createTestimonialSlide(testimonial, index, total) {
-  const slide = createEl('li', 'carousel__slide');
+  const slide = createEl('div', 'carousel__slide');
   slide.setAttribute('role', 'group');
   slide.setAttribute('aria-roledescription', 'slide');
   slide.setAttribute('aria-label', `${index + 1} of ${total}`);
