@@ -12,7 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="preload" as="image" href="assets/img/product-hero.svg">
+
+  <link rel="preload" as="image" href="assets/img/hero-bottle.webp" type="image/webp">
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.replace("no-js", "js");</script>
   <script src="script.js" defer></script>
@@ -104,8 +105,11 @@
         </div>
 
         <div class="hero__media">
-          <img class="hero__image" src="assets/img/product-hero.svg" width="560" height="440" fetchpriority="high"
-               alt="Two bottles of Tenurima Blood Pressure Support with red and white capsules scattered in front of them">
+          <picture>
+            <source srcset="assets/img/hero-bottle.webp" type="image/webp">
+            <img class="hero__image" src="assets/img/hero-bottle.png" width="650" height="650" fetchpriority="high"
+                 alt="Tilted bottle of Tenurima Blood Pressure Support dietary supplement with 60 capsules and a burgundy label">
+          </picture>
 
           <div class="hero-card">
             <ul class="check-list">
@@ -130,18 +134,16 @@
     <section class="section section--gray about" id="about" aria-labelledby="about-title">
       <div class="container about__inner">
         <div class="about__media">
-          <img class="about__elder" src="assets/img/about-elder.svg" width="520" height="560" loading="lazy"
-               alt="Black and white portrait of a smiling senior man">
-          <img class="about__body" src="assets/img/about-body.svg" width="240" height="460" loading="lazy"
-               alt="Illustration of a human silhouette showing the heart and the arteries and veins of the circulatory system">
-          <ul class="about__vessels">
-            <li><img src="assets/img/vessel-1.svg" width="120" height="120" loading="lazy" alt="Close-up of a healthy artery with red blood cells flowing"></li>
-            <li><img src="assets/img/vessel-2.svg" width="120" height="120" loading="lazy" alt="Close-up of a flexible blood vessel wall"></li>
-            <li><img src="assets/img/vessel-3.svg" width="120" height="120" loading="lazy" alt="Close-up of oxygen-rich blood circulating through a vein"></li>
-            <li><img src="assets/img/vessel-4.svg" width="120" height="120" loading="lazy" alt="Close-up of capillaries delivering blood to tissue"></li>
-          </ul>
-          <img class="about__bottle" src="assets/img/bottle.svg" width="160" height="260" loading="lazy"
-               alt="Front of a Tenurima Blood Pressure Support bottle with 60 capsules">
+          <picture>
+            <source srcset="assets/img/about-woman-capsule.webp" type="image/webp">
+            <img class="about__photo" src="assets/img/about-woman-capsule.png" width="955" height="591" loading="lazy"
+                 alt="Smiling senior woman holding a glass of water and a red capsule">
+          </picture>
+          <picture>
+            <source srcset="assets/img/about-composition.webp" type="image/webp">
+            <img class="about__composition" src="assets/img/about-composition.png" width="570" height="431" loading="lazy"
+                 alt="Tenurima bottle next to a human body illustration of the circulatory system and four close-ups of arteries, from clear to narrowed by plaque">
+          </picture>
         </div>
 
         <div class="about__content">
@@ -177,32 +179,50 @@
 
         <ul class="ingredients__grid">
           <li class="ingredient-card">
-            <img class="ingredient-card__icon" src="assets/img/ing-hawthorn.svg" width="120" height="120" loading="lazy" alt="Hawthorn branch with red berries and green leaves">
+            <picture>
+              <source srcset="assets/img/ing-hawthorn.webp" type="image/webp">
+              <img class="ingredient-card__icon" src="assets/img/ing-hawthorn.png" width="231" height="120" loading="lazy" alt="White bowl filled with red hawthorn berries, hawthorn flowers and leaves">
+            </picture>
             <h3 class="ingredient-card__title">Hawthorn Leaf &amp; Flower</h3>
             <p>Hawthorn has been used for centuries to support heart health and healthy circulation. It helps promote proper blood flow and supports overall cardiovascular balance, making it a cornerstone ingredient in Tenurima™.</p>
           </li>
           <li class="ingredient-card">
-            <img class="ingredient-card__icon" src="assets/img/ing-garlic.svg" width="120" height="120" loading="lazy" alt="Whole white garlic bulb">
+            <picture>
+              <source srcset="assets/img/ing-garlic.webp" type="image/webp">
+              <img class="ingredient-card__icon" src="assets/img/ing-garlic.png" width="231" height="120" loading="lazy" alt="Bowl of whole garlic bulbs and peeled garlic cloves">
+            </picture>
             <h3 class="ingredient-card__title">Garlic Bulb</h3>
             <p>Garlic is widely known for its ability to support cardiovascular wellness. It helps promote healthy blood vessel function and supports balanced blood pressure levels already within the normal range.</p>
           </li>
           <li class="ingredient-card">
-            <img class="ingredient-card__icon" src="assets/img/ing-olive.svg" width="120" height="120" loading="lazy" alt="Olive branch with green leaves and a dark olive">
+            <picture>
+              <source srcset="assets/img/ing-olive-leaf.webp" type="image/webp">
+              <img class="ingredient-card__icon" src="assets/img/ing-olive-leaf.png" width="231" height="120" loading="lazy" alt="Bowl with green olives, olive leaves and a small bottle of olive oil">
+            </picture>
             <h3 class="ingredient-card__title">Olive Leaf</h3>
             <p>Olive leaf is rich in antioxidants that help protect cells from oxidative stress. It supports circulation and helps maintain healthy cardiovascular function as part of a daily wellness routine.</p>
           </li>
           <li class="ingredient-card">
-            <img class="ingredient-card__icon" src="assets/img/ing-hibiscus.svg" width="120" height="120" loading="lazy" alt="Open pink hibiscus flower">
+            <picture>
+              <source srcset="assets/img/ing-hibiscus.webp" type="image/webp">
+              <img class="ingredient-card__icon" src="assets/img/ing-hibiscus.png" width="231" height="120" loading="lazy" alt="Bowl of dried hibiscus flower petals">
+            </picture>
             <h3 class="ingredient-card__title">Hibiscus Flower</h3>
             <p>Hibiscus has been traditionally used to support healthy blood flow and blood pressure levels already within the normal range. Its naturally occurring antioxidants help protect blood vessels from everyday oxidative stress.</p>
           </li>
           <li class="ingredient-card">
-            <img class="ingredient-card__icon" src="assets/img/ing-b6.svg" width="120" height="120" loading="lazy" alt="Orange vitamin B6 capsule">
+            <picture>
+              <source srcset="assets/img/ing-vitamin-b6.webp" type="image/webp">
+              <img class="ingredient-card__icon" src="assets/img/ing-vitamin-b6.png" width="231" height="120" loading="lazy" alt="Bowl of yellow vitamin B6 tablets">
+            </picture>
             <h3 class="ingredient-card__title">Vitamin B6 (Pyridoxal-5-Phosphate)</h3>
             <p>Vitamin B6 plays a key role in red blood cell formation and in the normal metabolism of homocysteine. Its active P-5-P form is readily used by the body to support energy and cardiovascular function.</p>
           </li>
           <li class="ingredient-card">
-            <img class="ingredient-card__icon" src="assets/img/ing-b12.svg" width="120" height="120" loading="lazy" alt="Red vitamin B12 capsule">
+            <picture>
+              <source srcset="assets/img/ing-vitamin-b12.webp" type="image/webp">
+              <img class="ingredient-card__icon" src="assets/img/ing-vitamin-b12.png" width="231" height="120" loading="lazy" alt="Bowl with red vitamin B12 capsules and small white granules">
+            </picture>
             <h3 class="ingredient-card__title">Vitamin B12 (Cyanocobalamin)</h3>
             <p>Supports red blood cell production and helps maintain healthy oxygen transport throughout the body. It also contributes to normal energy metabolism and nervous system function.</p>
           </li>
@@ -212,7 +232,11 @@
 
     <!-- 5. WHY THOUSANDS CHOOSE -->
     <section class="section section--dark why" id="why" aria-labelledby="why-title">
-      <img class="why__bg" src="assets/img/why-bg.svg" width="1440" height="720" loading="lazy" alt="">
+      <picture>
+        <source srcset="assets/img/why-couple-running.webp" type="image/webp">
+        <img class="why__bg" src="assets/img/why-couple-running.png" width="989" height="757" loading="lazy"
+             alt="Smiling senior couple jogging together outdoors on a sunny day">
+      </picture>
       <div class="container why__inner">
         <a class="btn btn--green" href="#pricing">
           <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
@@ -227,11 +251,11 @@
             <li class="pill-badge"><span class="pill-badge__icon"><svg class="icon" aria-hidden="true"><use href="#icon-capsule"/></svg></span>Easy daily routine — just 1 capsule twice daily</li>
           </ul>
 
-          <figure class="why__product">
-            <img src="assets/img/bottle.svg" width="160" height="260" loading="lazy"
-                 alt="Tenurima bottle displayed on a white pedestal">
-            <span class="why__pedestal" aria-hidden="true"></span>
-          </figure>
+          <picture class="why__product">
+            <source srcset="assets/img/why-product-pedestal.webp" type="image/webp">
+            <img src="assets/img/why-product-pedestal.png" width="608" height="687" loading="lazy"
+                 alt="Bottle of Tenurima Blood Pressure Support standing on a light pink pedestal with a soft red glow behind it">
+          </picture>
 
           <ul class="why__badges why__badges--right">
             <li class="pill-badge"><span class="pill-badge__icon"><svg class="icon" aria-hidden="true"><use href="#icon-gauge"/></svg></span>Supports healthy blood pressure levels</li>
@@ -341,8 +365,17 @@
               <div class="price-card__body">
                 <h3 class="price-card__title" id="plan-basic">2 Bottles</h3>
                 <p class="price-card__supply">60 Day Supply</p>
-                <img class="price-card__image" src="assets/img/bottles-2.svg" width="400" height="300" loading="lazy"
-                     alt="Two bottles of Tenurima, a 60 day supply">
+                <div class="price-card__pair">
+                  <picture>
+                    <source srcset="assets/img/bottle-basic.webp" type="image/webp">
+                    <img src="assets/img/bottle-basic.png" width="293" height="287" loading="lazy"
+                         alt="Two bottles of Tenurima Blood Pressure Support, a 60 day supply">
+                  </picture>
+                  <picture aria-hidden="true">
+                    <source srcset="assets/img/bottle-basic.webp" type="image/webp">
+                    <img src="assets/img/bottle-basic.png" width="293" height="287" loading="lazy" alt="">
+                  </picture>
+                </div>
                 <p class="price-card__price"><span class="price-card__amount">$79.98</span><span class="price-card__unit">/Bottle</span></p>
                 <ul class="price-card__features">
                   <li class="is-no"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg>No Free Bonuses</li>
@@ -371,12 +404,11 @@
               <div class="price-card__body">
                 <h3 class="price-card__title" id="plan-popular">6 Bottles</h3>
                 <p class="price-card__supply">180 Day Supply</p>
-                <p class="tag">FREE SHIPPING</p>
-                <div class="price-card__media">
-                  <img class="price-card__image" src="assets/img/bottles-6.svg" width="420" height="320" loading="lazy"
-                       alt="Six bottles of Tenurima, a 180 day supply">
-                  <p class="save-badge">SAVE <strong>$774</strong> TODAY</p>
-                </div>
+                <picture>
+                  <source srcset="assets/img/pack-6-bottles.webp" type="image/webp">
+                  <img class="price-card__image" src="assets/img/pack-6-bottles.png" width="350" height="265" loading="lazy"
+                       alt="Six bottles of Tenurima, a 180 day supply, with a Free Shipping ribbon and a Save $774 Today badge">
+                </picture>
                 <p class="price-card__price"><span class="price-card__amount">$49.98</span><span class="price-card__unit">/Bottle</span></p>
                 <ul class="price-card__features">
                   <li class="is-yes"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>2 Free Bonuses</li>
@@ -405,12 +437,11 @@
               <div class="price-card__body">
                 <h3 class="price-card__title" id="plan-bundle">3 Bottles</h3>
                 <p class="price-card__supply">90 Day Supply</p>
-                <p class="tag">FREE SHIPPING</p>
-                <div class="price-card__media">
-                  <img class="price-card__image" src="assets/img/bottles-3.svg" width="420" height="300" loading="lazy"
-                       alt="Three bottles of Tenurima, a 90 day supply">
-                  <p class="save-badge">SAVE <strong>$327</strong> TODAY</p>
-                </div>
+                <picture>
+                  <source srcset="assets/img/pack-3-bottles.webp" type="image/webp">
+                  <img class="price-card__image" src="assets/img/pack-3-bottles.png" width="384" height="300" loading="lazy"
+                       alt="Three bottles of Tenurima, a 90 day supply, with a Free Shipping ribbon and a Save $327 Today badge">
+                </picture>
                 <p class="price-card__price"><span class="price-card__amount">$69.98</span><span class="price-card__unit">/Bottle</span></p>
                 <ul class="price-card__features">
                   <li class="is-gold"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>1 Free Bonus</li>
@@ -439,19 +470,8 @@
     <section class="section guarantee" id="guarantee" aria-labelledby="guarantee-title">
       <div class="container">
         <div class="guarantee__card">
-          <svg class="guarantee__seal" viewBox="0 0 220 220" role="img" aria-label="100% satisfaction guaranteed for 60 days seal">
-            <defs>
-              <path id="seal-top" d="M30 110 A80 80 0 0 1 190 110"/>
-              <path id="seal-bottom" d="M36 110 A74 74 0 0 0 184 110"/>
-            </defs>
-            <circle cx="110" cy="110" r="106" fill="#a91e2c"/>
-            <circle cx="110" cy="110" r="96" fill="none" stroke="#ffd400" stroke-width="3" stroke-dasharray="2 5"/>
-            <circle cx="110" cy="110" r="58" fill="#5c1015"/>
-            <text class="guarantee__seal-curve" fill="#fff"><textPath href="#seal-top" startOffset="50%" text-anchor="middle">100% SATISFACTION</textPath></text>
-            <text class="guarantee__seal-curve" fill="#fff"><textPath href="#seal-bottom" startOffset="50%" text-anchor="middle">GUARANTEED</textPath></text>
-            <text x="110" y="112" text-anchor="middle" class="guarantee__seal-big" fill="#ffd400">60</text>
-            <text x="110" y="136" text-anchor="middle" class="guarantee__seal-small" fill="#fff">DAYS</text>
-          </svg>
+          <img class="guarantee__seal" src="assets/img/seal-guarantee.svg" width="387" height="453" loading="lazy"
+               alt="Red seal reading 100% Satisfaction Guaranteed, 60 Days">
 
           <div class="guarantee__content">
             <h2 class="section-title" id="guarantee-title">100% Satisfaction <span class="text-red">Guaranteed</span></h2>
@@ -589,50 +609,58 @@
           </div>
         </div>
 
-        <!-- Rótulo do produto (Supplement Facts) -->
-        <article class="label" aria-labelledby="label-title">
-          <h3 class="visually-hidden" id="label-title">Tenurima product label</h3>
-          <div class="label__info">
-            <h4 class="label__heading">Suggested Use</h4>
-            <p>As a dietary supplement, take one (1) capsule twice daily, preferably with meals and a glass of water, or as directed by your healthcare professional.</p>
-            <h4 class="label__heading">Caution / Warning</h4>
-            <p>Do not exceed recommended dose. Pregnant or nursing mothers, children under the age of 18, and individuals with a known medical condition should consult a physician before using this or any dietary supplement. Keep out of reach of children.</p>
-            <h4 class="label__heading">Storage</h4>
-            <p>Store in a cool, dry place. Do not use if safety seal is damaged or missing.</p>
-          </div>
+        <!-- Rótulo do produto (Supplement Facts): imagem pronta do Figma + transcrição acessível -->
+        <figure class="label">
+          <a class="label__zoom" href="assets/img/label-supplement-facts.png" target="_blank" rel="noopener">
+            <picture>
+              <source srcset="assets/img/label-supplement-facts.webp" type="image/webp">
+              <img class="label__image" src="assets/img/label-supplement-facts.png" width="1050" height="393" loading="lazy"
+                   alt="Full Tenurima product label with suggested use, warnings, storage instructions, the Supplement Facts panel and other ingredients">
+            </picture>
+            <span class="visually-hidden">(opens the full-size label in a new tab)</span>
+          </a>
 
-          <div class="facts">
-            <table class="facts__table">
-              <caption class="facts__caption">Supplement Facts</caption>
-              <thead>
-                <tr class="facts__serving"><td colspan="3">Serving Size: 2 Capsules<br>Servings Per Container: 30</td></tr>
-                <tr>
-                  <th scope="col">Amount Per Serving</th>
-                  <th scope="col" class="facts__num">Amount</th>
-                  <th scope="col" class="facts__num">%DV</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row">Vitamin C (as Ascorbic Acid)</th><td class="facts__num">60 mg</td><td class="facts__num">67%</td></tr>
-                <tr><th scope="row">Niacin (Vitamin B3)</th><td class="facts__num">2.5 mg</td><td class="facts__num">16%</td></tr>
-                <tr><th scope="row">Vitamin B6 (as Pyridoxal-5-Phosphate)</th><td class="facts__num">5 mg</td><td class="facts__num">294%</td></tr>
-                <tr><th scope="row">Folate</th><td class="facts__num">100 mcg DFE</td><td class="facts__num">25%</td></tr>
-                <tr><th scope="row">Vitamin B12 (as Cyanocobalamin)</th><td class="facts__num">100 mcg</td><td class="facts__num">4167%</td></tr>
-                <tr class="facts__blend">
-                  <th scope="row">
-                    Proprietary Blend
-                    <span class="facts__blend-list">Hawthorn (Leaf &amp; Flower), Garlic (Bulb), Olive Leaf, Hibiscus (Flower), Buchu Leaf, Uva Ursi (Leaf), Juniper Berry, Green Tea (Leaf)</span>
-                  </th>
-                  <td class="facts__num">620 mg</td><td class="facts__num">**</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr><td colspan="3">** Daily Value (DV) not established.</td></tr>
-                <tr><td colspan="3"><strong>Other Ingredients:</strong> Gelatin (bovine), Microcrystalline Cellulose, Vegetable Magnesium Stearate, Silicon Dioxide.</td></tr>
-              </tfoot>
-            </table>
-          </div>
-        </article>
+          <figcaption class="label__caption">
+            <details class="label__details">
+              <summary>Read the label as text</summary>
+              <div class="label__text">
+                <p><strong>Suggested Use:</strong> As a dietary supplement, take one (1) capsule twice daily.</p>
+                <p><strong>Caution/Warning:</strong> Do not exceed the recommended dose. This product is not intended for pregnant or nursing mothers, children under the age of 18, or individuals with a known medical condition, including cardiovascular disorders or hypotension (low blood pressure). If you are currently taking any prescription medication, including medication for high blood pressure, consult a physician prior to use.</p>
+                <p><strong>Storage:</strong> Store this product in a cool dry place below 30&deg;C (86&deg;F). Keep out of reach of children. Do not use if safety seal is damaged or missing.</p>
+
+                <table class="facts__table">
+                  <caption class="facts__caption">Supplement Facts</caption>
+                  <thead>
+                    <tr class="facts__serving"><td colspan="3">Serving Size: 1 Capsule<br>Servings Per Container: 60</td></tr>
+                    <tr>
+                      <th scope="col">Nutrient</th>
+                      <th scope="col" class="facts__num">Amount</th>
+                      <th scope="col" class="facts__num">% DV</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><th scope="row">Vitamin C (Ascorbic Acid)</th><td class="facts__num">60 mg</td><td class="facts__num">67%</td></tr>
+                    <tr><th scope="row">Niacin (Vitamin B3)</th><td class="facts__num">2.5 mg</td><td class="facts__num">16%</td></tr>
+                    <tr><th scope="row">Vitamin B6 (as Pyridoxal-5-Phosphate)</th><td class="facts__num">5 mg</td><td class="facts__num">294%</td></tr>
+                    <tr><th scope="row">Folate (Folic Acid)</th><td class="facts__num">100 mcg DFE</td><td class="facts__num">25%</td></tr>
+                    <tr><th scope="row">Vitamin B12 (as Cyanocobalamin)</th><td class="facts__num">100 mcg</td><td class="facts__num">4167%</td></tr>
+                    <tr>
+                      <th scope="row">
+                        Proprietary Blend
+                        <span class="facts__blend-list">Hawthorn (Leaf &amp; Flower), Garlic (Bulb), Olive (Leaf), Hibiscus (Flower), Buchu (Leaf), Uva Ursi (Leaf), Juniper (Berry), Green Tea (Leaf)</span>
+                      </th>
+                      <td class="facts__num">620 mg</td><td class="facts__num">*</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr><td colspan="3">Percent Daily Values are based on a 2,000 calorie diet. * Daily Value not established.</td></tr>
+                    <tr><td colspan="3"><strong>Other Ingredients:</strong> Gelatin (bovine), Microcrystalline Cellulose, Vegetable Magnesium Stearate, Silicon Dioxide.</td></tr>
+                  </tfoot>
+                </table>
+              </div>
+            </details>
+          </figcaption>
+        </figure>
       </div>
     </section>
   </main>
