@@ -47,6 +47,16 @@ for (const file of htmlFiles) {
   }
 }
 
+// Imagens referenciadas pelo script.js (fotos dos depoimentos: caminho sem extensão → .webp + .png)
+const script = readFileSync(join(root, 'script.js'), 'utf8');
+for (const [, path] of script.matchAll(/['"`](assets\/[^'"`]+)['"`]/g)) {
+  const files = /\.\w+$/.test(path) ? [path] : [`${path}.webp`, `${path}.png`];
+  for (const file of files) {
+    checked += 1;
+    if (!existsSync(join(root, file))) problems.push(`script.js: arquivo inexistente → ${file}`);
+  }
+}
+
 if (problems.length) {
   console.error(`✖ ${problems.length} problema(s):\n  ${problems.join('\n  ')}`);
   process.exit(1);
