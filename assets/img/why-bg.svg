@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 720" width="1440" height="720"><rect width="1440" height="720" fill="#6b5a55"/>
+  <g transform="translate(200 120) scale(1.1)">
+    <circle cy="80" r="70" fill="#a38b82"/>
+    <path d="M-40 90 Q0 130 40 90" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M-150 520 Q-140 190 0 170 Q140 190 150 520 Z" fill="#a38b82"/>
+  </g>
+  <g transform="translate(470 120) scale(1)">
+    <circle cy="80" r="70" fill="#8d7169"/>
+    <path d="M-40 90 Q0 130 40 90" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M-150 520 Q-140 190 0 170 Q140 190 150 520 Z" fill="#8d7169"/>
+  </g>
+  <g transform="translate(980 120) scale(1.05)">
+    <circle cy="80" r="70" fill="#9a7f76"/>
+    <path d="M-40 90 Q0 130 40 90" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M-150 520 Q-140 190 0 170 Q140 190 150 520 Z" fill="#9a7f76"/>
+  </g>
+  <g transform="translate(1250 120) scale(1.15)">
+    <circle cy="80" r="70" fill="#b09890"/>
+    <path d="M-40 90 Q0 130 40 90" stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <path d="M-150 520 Q-140 190 0 170 Q140 190 150 520 Z" fill="#b09890"/>
+  </g></svg>

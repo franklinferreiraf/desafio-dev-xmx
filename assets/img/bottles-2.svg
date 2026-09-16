@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300"><defs>
+  <linearGradient id="bBody" x1="0" x2="1">
+    <stop offset="0" stop-color="#1a0508"/><stop offset=".35" stop-color="#4a0d14"/>
+    <stop offset=".6" stop-color="#2f070c"/><stop offset="1" stop-color="#140305"/>
+  </linearGradient>
+  <linearGradient id="bCap" x1="0" x2="1">
+    <stop offset="0" stop-color="#6b0f18"/><stop offset=".45" stop-color="#b33a3a"/><stop offset="1" stop-color="#5a0c14"/>
+  </linearGradient>
+  <linearGradient id="bLabel" x1="0" x2="1">
+    <stop offset="0" stop-color="#e9e4e1"/><stop offset=".4" stop-color="#ffffff"/><stop offset="1" stop-color="#d9d2cf"/>
+  </linearGradient></defs>
+  <g transform="translate(40 20) scale(1)">
+    <ellipse cx="80" cy="248" rx="78" ry="8" fill="#000" opacity=".18"/>
+    <rect x="22" y="0" width="116" height="42" rx="8" fill="url(#bCap)"/>
+    <rect x="22" y="8" width="116" height="3" fill="#000" opacity=".15"/>
+    <rect x="22" y="18" width="116" height="3" fill="#000" opacity=".15"/>
+    <rect x="22" y="28" width="116" height="3" fill="#000" opacity=".15"/>
+    <path d="M14 52 Q14 40 28 40 H132 Q146 40 146 52 V236 Q146 248 132 248 H28 Q14 248 14 236 Z" fill="url(#bBody)"/>
+    <rect x="14" y="78" width="132" height="130" fill="url(#bLabel)"/>
+    <path d="M80 92 C80 92 66 108 66 118 A14 14 0 0 0 94 118 C94 108 80 92 80 92 Z" fill="#b33a3a"/>
+    <text x="80" y="156" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="20" fill="#2a0a0f" letter-spacing="1">TENURIMA</text>
+    <text x="80" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#a91e2c">BLOOD PRESSURE SUPPORT</text>
+    <text x="80" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" fill="#555">DIETARY SUPPLEMENT · 60 CAPSULES</text>
+    <rect x="30" y="52" width="10" height="186" rx="5" fill="#fff" opacity=".08"/>
+  </g>
+  <g transform="translate(190 20) scale(1)">
+    <ellipse cx="80" cy="248" rx="78" ry="8" fill="#000" opacity=".18"/>
+    <rect x="22" y="0" width="116" height="42" rx="8" fill="url(#bCap)"/>
+    <rect x="22" y="8" width="116" height="3" fill="#000" opacity=".15"/>
+    <rect x="22" y="18" width="116" height="3" fill="#000" opacity=".15"/>
+    <rect x="22" y="28" width="116" height="3" fill="#000" opacity=".15"/>
+    <path d="M14 52 Q14 40 28 40 H132 Q146 40 146 52 V236 Q146 248 132 248 H28 Q14 248 14 236 Z" fill="url(#bBody)"/>
+    <rect x="14" y="78" width="132" height="130" fill="url(#bLabel)"/>
+    <path d="M80 92 C80 92 66 108 66 118 A14 14 0 0 0 94 118 C94 108 80 92 80 92 Z" fill="#b33a3a"/>
+    <text x="80" y="156" text-anchor="middle" font-family="Poppins, Arial, sans-serif" font-weight="800" font-size="20" fill="#2a0a0f" letter-spacing="1">TENURIMA</text>
+    <text x="80" y="174" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="9" fill="#a91e2c">BLOOD PRESSURE SUPPORT</text>
+    <text x="80" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="7.5" fill="#555">DIETARY SUPPLEMENT · 60 CAPSULES</text>
+    <rect x="30" y="52" width="10" height="186" rx="5" fill="#fff" opacity=".08"/>
+  </g></svg>
