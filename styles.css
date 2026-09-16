@@ -1931,3 +1931,53 @@ p {
 .site-footer__copy span {
   color: rgb(255 255 255 / .6);
 }
+
+/* 19. Páginas internas (placeholders legais, contato e checkout)
+   ========================================================================== */
+.page__inner {
+  display: grid;
+  gap: var(--space-4);
+  max-width: calc(800px + var(--gutter) * 2);
+  min-height: 50vh;
+  align-content: start;
+}
+
+.page__inner h2 {
+  margin-top: var(--space-4);
+  font-size: 1.35rem;
+  color: var(--red-700);
+}
+
+.page__inner p,
+.page__list,
+.contact-list {
+  color: var(--gray-700);
+}
+
+.page__lead {
+  font-size: 1.125rem;
+}
+
+.page__note {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-small);
+  background: var(--gray-50);
+  border-left: 4px solid var(--yellow-500);
+  border-radius: var(--radius-sm);
+}
+
+.page__list {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: 1.25rem;
+  list-style: decimal;
+}
+
+.contact-list {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.footer-links a[aria-current="page"] {
+  color: var(--coral);
+}
