@@ -480,10 +480,8 @@ p {
    própria. Ao rolar (classe do JS) ele ganha fundo sólido para continuar
    legível sobre as seções claras. */
 .site-header {
-  position: fixed;
+  position: sticky;
   top: 0;
-  right: 0;
-  left: 0;
   z-index: 50;
   color: var(--white);
   background: transparent;
@@ -517,106 +515,37 @@ p {
 
 .logo__text {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.15rem;
   font-weight: 800;
-  letter-spacing: .06em;
+  letter-spacing: .04em;
 }
 
-/* Botão hambúrguer (somente mobile/tablet) */
-.nav-toggle {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-sm);
+@media (min-width: 600px) {
+  .logo__text {
+    font-size: 1.35rem;
+    letter-spacing: .06em;
+  }
 }
 
-.nav-toggle__bar,
-.nav-toggle__bar::before,
-.nav-toggle__bar::after {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: currentColor;
-  border-radius: 2px;
-  transition: transform .25s var(--ease-out), opacity .2s;
-}
-
-.nav-toggle__bar {
-  position: relative;
-}
-
-.nav-toggle__bar::before,
-.nav-toggle__bar::after {
-  position: absolute;
-  left: 0;
-  content: "";
-}
-
-.nav-toggle__bar::before {
-  top: -7px;
-}
-
-.nav-toggle__bar::after {
-  top: 7px;
-}
-
-.nav-toggle[aria-expanded="true"] .nav-toggle__bar {
-  background: transparent;
-}
-
-.nav-toggle[aria-expanded="true"] .nav-toggle__bar::before {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.nav-toggle[aria-expanded="true"] .nav-toggle__bar::after {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
+/* No mobile o Figma mostra só logo + Contact Us; os links âncora aparecem
+   a partir de 1024px */
 .site-nav {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  left: 0;
-  display: grid;
-  gap: var(--space-4);
-  padding: var(--space-4) var(--gutter) var(--space-6);
-  background: var(--wine-900);
-  border-bottom: 1px solid rgb(255 255 255 / .1);
-  box-shadow: 0 12px 24px rgb(0 0 0 / .35);
-}
-
-/* Sem JS o menu fica sempre visível; com JS ele vira um dropdown */
-.js .site-nav:not(.is-open) {
   display: none;
-}
-
-.no-js .nav-toggle {
-  display: none;
-}
-
-.site-nav__list {
-  display: grid;
-}
-
-.site-nav__link {
-  display: block;
-  padding: var(--space-3) var(--space-2);
-  font-weight: 500;
-  text-decoration: none;
-  border-bottom: 1px solid rgb(255 255 255 / .08);
-  transition: color .2s;
-}
-
-.site-nav__link:hover {
-  color: var(--coral);
 }
 
 .site-header__contact {
-  justify-self: start;
-  min-height: 42px;
-  padding: .55rem 1.25rem;
-  font-size: .9rem;
+  flex-shrink: 0;
+  min-height: 38px;
+  padding: .45rem .85rem;
+  font-size: .8125rem;
+}
+
+@media (min-width: 600px) {
+  .site-header__contact {
+    min-height: 42px;
+    padding: .55rem 1.25rem;
+    font-size: .9rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -624,13 +553,7 @@ p {
     --header-h: 76px;
   }
 
-  .nav-toggle {
-    display: none;
-  }
-
-  .site-nav,
-  .js .site-nav:not(.is-open) {
-    position: static;
+  .site-nav {
     display: flex;
     gap: var(--space-7);
     align-items: center;
@@ -675,6 +598,7 @@ p {
 
   position: relative;
   padding-block: calc(var(--header-h) + var(--space-5)) calc(var(--space-8) + var(--chamfer));
+  margin-top: calc(var(--header-h) * -1);
   overflow: hidden;
   color: var(--white);
   /* O gradiente da paleta entra escurecido, com um brilho concentrado atrás
@@ -1213,9 +1137,9 @@ p {
 }
 
 .why__product {
-  order: -1;
   justify-self: center;
   width: min(100%, 320px);
+  margin-top: var(--space-5);
 }
 
 .why__product img {
@@ -1226,6 +1150,12 @@ p {
 @media (min-width: 600px) {
   .why__badges {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .why__product {
+    margin-top: 0;
   }
 }
 
@@ -1348,9 +1278,11 @@ p {
   padding-inline: var(--slide-gap);
 }
 
+/* Mobile: foto em cima, texto embaixo (como no Figma). A partir de 600px
+   a foto vai para o lado. */
 .testimonial {
   display: grid;
-  grid-template-columns: 110px 1fr;
+  grid-template-rows: auto 1fr;
   height: 100%;
   overflow: hidden;
   background: var(--white);
@@ -1359,7 +1291,7 @@ p {
 }
 
 .testimonial > picture {
-  height: 100%;
+  height: 220px;
 }
 
 .testimonial__photo {
@@ -1503,7 +1435,12 @@ p {
 
 @media (min-width: 600px) {
   .testimonial {
+    grid-template-rows: none;
     grid-template-columns: 170px 1fr;
+  }
+
+  .testimonial > picture {
+    height: 100%;
   }
 
 }
@@ -1612,16 +1549,64 @@ p {
   background: var(--wine-800);
 }
 
+/* Mobile: card em duas colunas (imagem à esquerda, compra à direita),
+   como no Figma. A partir de 600px volta a ser uma coluna centralizada. */
 .price-card__body {
   display: grid;
-  gap: var(--space-4);
+  grid-template-areas:
+    "title price"
+    "supply price"
+    "media features"
+    "media button"
+    "media payment"
+    "media total";
+  grid-template-columns: 1fr 1.25fr;
+  gap: var(--space-2) var(--space-3);
+  align-items: center;
   justify-items: center;
-  padding: var(--space-6) var(--space-5) var(--space-7);
+  padding: var(--space-5) var(--space-4) var(--space-6);
   text-align: center;
 }
 
+/* sem min-width os itens do grid empurram o card além da tela */
+.price-card__body > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.price-card__title { grid-area: title; align-self: end; }
+.price-card__supply { grid-area: supply; align-self: start; }
+.price-card__body > picture,
+.price-card__pair { grid-area: media; width: 100%; }
+.price-card__price { grid-area: price; }
+.price-card__features { grid-area: features; }
+.buy-btn { grid-area: button; }
+.payment-cards { grid-area: payment; }
+.price-card__total { grid-area: total; }
+
+@media (min-width: 600px) {
+  .price-card__body {
+    grid-template-areas: none;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding: var(--space-6) var(--space-5) var(--space-7);
+  }
+
+  .price-card__title,
+  .price-card__supply,
+  .price-card__body > picture,
+  .price-card__pair,
+  .price-card__price,
+  .price-card__features,
+  .buy-btn,
+  .payment-cards,
+  .price-card__total {
+    grid-area: auto;
+  }
+}
+
 .price-card__title {
-  font-size: 1.75rem;
+  font-size: clamp(1.3rem, .95rem + 1.6vw, 1.75rem);
   font-weight: 800;
   color: var(--wine-600);
   letter-spacing: .01em;
@@ -1672,7 +1657,7 @@ p {
 
 .price-card__amount {
   font-family: var(--font-heading);
-  font-size: 3.25rem;
+  font-size: clamp(2.25rem, 1.4rem + 3.6vw, 3.25rem);
   font-weight: 800;
   line-height: 1;
   color: var(--red-primary);
@@ -1690,7 +1675,7 @@ p {
 
 .price-card__features {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
   margin-block: var(--space-2);
   font-family: var(--font-heading);
   font-size: .9375rem;
@@ -1703,6 +1688,7 @@ p {
   display: flex;
   gap: var(--space-2);
   align-items: center;
+  font-size: clamp(.75rem, .6rem + .6vw, .9375rem);
 }
 
 .price-card__features .icon {
@@ -1779,9 +1765,13 @@ p {
   color: var(--red-primary);
 }
 
-/* Card em destaque: aparece primeiro no mobile */
+/* Ordem do Figma no mobile: MOST POPULAR → BUNDLE → BASIC */
 .price-card--featured {
   order: -1;
+}
+
+.pricing__grid > .price-card:first-child {
+  order: 1;
 }
 
 .price-card--featured article {
@@ -1814,6 +1804,10 @@ p {
     z-index: 1;
     order: 0;
     transform: scale(1.06);
+  }
+
+  .pricing__grid > .price-card:first-child {
+    order: 0;
   }
 }
 
@@ -2115,7 +2109,7 @@ p {
 /* 18. Footer
    ========================================================================== */
 .site-footer {
-  padding-block: var(--space-7) var(--space-6);
+  padding-top: var(--space-7);
   font-size: var(--fs-small);
   color: rgb(255 255 255 / .7);
   text-align: center;
@@ -2159,8 +2153,14 @@ p {
   font-size: .8125rem;
 }
 
+/* Faixa mais escura com o copyright, como no Figma */
+.site-footer__bar {
+  padding-block: var(--space-5);
+  margin-top: var(--space-6);
+  background: #120004;
+}
+
 .site-footer__copy {
-  margin-top: var(--space-5);
   color: rgb(255 255 255 / .85);
 }
 
@@ -2170,10 +2170,6 @@ p {
 
 /* 19. Páginas internas (placeholders legais, contato e checkout)
    ========================================================================== */
-.page {
-  margin-top: var(--header-h);
-}
-
 .page__inner {
   display: grid;
   gap: var(--space-4);

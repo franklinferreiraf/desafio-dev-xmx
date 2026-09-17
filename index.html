@@ -14,9 +14,9 @@
 
 
   <link rel="preload" as="image" href="assets/img/hero-bottle.webp" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
   <script>document.documentElement.classList.replace("no-js", "js");</script>
-  <script src="script.js?v=6" defer></script>
+  <script src="script.js?v=7" defer></script>
 </head>
 <body>
   <!-- Sprite de ícones: cada <symbol> é reutilizado com <use href="#icon-..."> -->
@@ -41,23 +41,19 @@
         <span class="logo__text">TENURIMA</span>
       </a>
 
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
-        <span class="nav-toggle__bar" aria-hidden="true"></span>
-        <span class="visually-hidden">Open menu</span>
-      </button>
-
-      <nav class="site-nav" id="site-nav" aria-label="Main navigation" data-nav>
+      <nav class="site-nav" id="site-nav" aria-label="Main navigation">
         <ul class="site-nav__list">
           <li><a class="site-nav__link" href="#pricing">Price</a></li>
           <li><a class="site-nav__link" href="#ingredients">Ingredients</a></li>
           <li><a class="site-nav__link" href="#testimonials">Testimonials</a></li>
           <li><a class="site-nav__link" href="#faq">FAQ</a></li>
         </ul>
-        <a class="btn btn--outline site-header__contact" href="contact.html">
-          <svg class="icon" aria-hidden="true"><use href="#icon-mail"/></svg>
-          Contact Us
-        </a>
       </nav>
+
+      <a class="btn btn--outline site-header__contact" href="contact.html">
+        <svg class="icon" aria-hidden="true"><use href="#icon-mail"/></svg>
+        Contact Us
+      </a>
     </div>
   </header>
 
@@ -494,12 +490,12 @@
                alt="Red seal reading 100% Satisfaction Guaranteed, 60 Days">
 
           <div class="guarantee__content">
-            <h2 class="section-title" id="guarantee-title">100% Satisfaction <span class="text-red">Guaranteed</span></h2>
+            <h2 class="section-title" id="guarantee-title">100% SATISFACTION GUARANTEED</h2>
             <p>
-              Your order is covered by our 60 day, 100% money-back guarantee. Try Tenurima™ for a full two
-              months — if you're not completely satisfied with your results, simply
-              <a class="link" href="contact.html">contact our customer support team</a> and return your
-              bottles (even empty ones) for a full refund, no questions asked.
+              Your purchase is protected by our 60-Day Satisfaction Promise from the original purchase
+              date. If you're not satisfied with your experience, simply contact us through
+              <a class="link" href="contact.html">this link to our Contact Page</a>, and our team will
+              make it right.
             </p>
             <a class="btn btn--green" href="#pricing">
               <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
@@ -709,23 +705,26 @@
 
       <div class="site-footer__legal">
         <p>
-          The statements on this website have not been evaluated by the Food and Drug Administration (FDA).
-          Tenurima™ is not intended to diagnose, treat, cure or prevent any disease. The information provided
-          on this site is for informational purposes only and is not a substitute for professional medical
-          advice. Always consult your physician or a qualified healthcare provider before starting any
-          dietary supplement, especially if you are pregnant, nursing, taking medication or have a medical
-          condition. Individual results may vary.
-        </p>
-        <p>
-          Testimonials reflect the individual experiences of real customers and may not be representative
-          of the results everyone will achieve.
+          These statements have not been evaluated by the Food and Drug Administration. This product is not
+          intended to diagnose, treat, cure, or prevent any disease. The information provided on this site is
+          for informational purposes only and is not intended as a substitute for advice from your physician
+          or other healthcare professional or any information contained on or in any product label or
+          packaging. You should not use the information on this site for diagnosis or treatment of any health
+          problem or for prescription of any medication or other treatment. You should consult with a
+          healthcare professional before starting any diet, exercise or supplementation program, before taking
+          any medication, or if you have or suspect you might have a health problem.
         </p>
       </div>
 
-      <p class="site-footer__copy">
-        Copyright 2026 © Tenurima. All Rights Reserved.<br>
-        <span>Fraganief Labs, LLC 401 Ryland St Ste 200 A, Reno, NV 89502</span>
-      </p>
+    </div>
+
+    <div class="site-footer__bar">
+      <div class="container">
+        <p class="site-footer__copy">
+          Copyright 2026 © Tenurima. All Rights Reserved.<br>
+          <span>Fraganief Labs, LLC 401 Ryland St Ste 200 A, Reno, NV 89502</span>
+        </p>
+      </div>
     </div>
   </footer>
 </body>

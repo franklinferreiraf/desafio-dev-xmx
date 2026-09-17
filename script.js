@@ -2,7 +2,7 @@
  * Tenurima – interações da landing page (JavaScript vanilla, sem dependências).
  *
  * Módulos:
- *  - initHeader     → sombra ao rolar + menu mobile (hambúrguer)
+ *  - initHeader     → fundo sólido do header depois de rolar
  *  - initMarquee    → faixa de selos em loop infinito, sem "salto"
  *  - initAccordion  → FAQ com apenas um item aberto por vez
  *  - initCarousel   → carrossel de depoimentos renderizado a partir de dados
@@ -93,38 +93,10 @@ function rafThrottle(fn) {
    -------------------------------------------------------------------------- */
 function initHeader() {
   const header = document.querySelector('[data-header]');
-  const toggle = document.querySelector('[data-nav-toggle]');
-  const nav = document.querySelector('[data-nav]');
-  if (!header || !toggle || !nav) return;
+  if (!header) return;
 
-  const label = toggle.querySelector('.visually-hidden');
-  const desktop = window.matchMedia('(min-width: 1024px)');
-
-  const setMenu = (open) => {
-    nav.classList.toggle('is-open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    if (label) label.textContent = open ? 'Close menu' : 'Open menu';
-  };
-
-  toggle.addEventListener('click', () => {
-    setMenu(toggle.getAttribute('aria-expanded') !== 'true');
-  });
-
-  // Fecha ao escolher um link (âncora na mesma página)
-  nav.addEventListener('click', (event) => {
-    if (event.target.closest('a')) setMenu(false);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && nav.classList.contains('is-open')) {
-      setMenu(false);
-      toggle.focus();
-    }
-  });
-
-  // Ao passar para o layout desktop, o estado do menu mobile é descartado
-  desktop.addEventListener('change', () => setMenu(false));
-
+  // Sombra + fundo sólido depois de sair do topo (no topo o header é
+  // transparente sobre o hero)
   const onScroll = rafThrottle(() => {
     header.classList.toggle('is-scrolled', window.scrollY > 8);
   });
