@@ -1,6 +1,6 @@
 /**
- * Gera os pequenos SVGs que NÃO vieram no pacote de assets do Figma:
- * ícone do logo e favicon (placeholders simples).
+ * Gera o SVG que NÃO veio no pacote de assets do Figma:
+ * favicon (o único que não veio do Figma).
  * Fotos, mockups, ícones de ingredientes, rótulo e selo são os arquivos
  * reais exportados do Figma (ver README).
  *
@@ -24,11 +24,6 @@ const save = (name, content) => {
   writeFileSync(join(out, name), content);
   console.log('✔', name);
 };
-
-/* ---------- Logo ---------- */
-save('logo-drop.svg', svg(32, 40,
-  `<path d="M16 2 C16 2 3 18 3 26 A13 13 0 0 0 29 26 C29 18 16 2 16 2 Z" fill="#c8323a"/>` +
-  `<path d="M10 24 A6 6 0 0 0 14 31" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".8"/>`));
 
 /* ---------- Open Graph / favicon ---------- */
 save('favicon.svg', svg(32, 32,

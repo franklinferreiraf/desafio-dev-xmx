@@ -71,12 +71,15 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | `Rectangle.png` | `about-blood-cell.png` | Glóbulo vermelho decorativo no About |
 | `30008 1.png` · `3146 1.png` · `2151847309 1.png` | `texture-heart-vessels.png` · `texture-vessels.png` · `texture-ecg-chest.png` | Texturas de fundo: hero · Why · banner de frete |
 | `svg1494.png` | `icon-heart-small.png` | **Não usado** — ver nota abaixo |
+| `Group 1.png` · `usa.png` | `logo-mark.png` · `badge-made-in-usa.png` | Logo (header e rodapé) · selo do card do hero |
+| `divisor.png` | — | Não usei o arquivo: o mesmo chanfro é feito com `clip-path`, que acompanha qualquer largura |
 
 - **WebP + fallback PNG:** cada imagem é servida com `<picture>`, tendo o `.webp` como fonte principal e o `.png` original como fallback. As imagens ficaram de **70% a 96% menores** (a foto do casal foi de 1 MB para 66 KB).
 - **`loading="lazy"` em todas as imagens, menos no hero**, que tem `fetchpriority="high"` e `preload` do WebP. Toda imagem tem `width`/`height` para evitar layout shift.
 - **`alt` descritivo e específico por imagem**, escrito olhando cada arquivo (ex.: "Bowl with green olives, olive leaves and a small bottle of olive oil"), e nunca repetido. As únicas exceções com `alt=""` são decorativas: o ícone do logo (o link já tem `aria-label`) e a **segunda cópia** do pote no card BASIC (a primeira descreve "Two bottles…").
 - **WebP só acima de 30 KB:** ícones e selos pequenos ficam como estão, porque a conversão não compensa e evita duplicar arquivo à toa.
-- **Não vieram no pacote e continuam gerados por script (SVG simples):** apenas o ícone de gota do logo e o favicon.
+- **Texturas em alta:** as três texturas do hero, o logo e o selo "Made in the USA" foram reimportados da pasta `home` (resoluções maiores que as do primeiro pacote).
+- **Não veio no pacote e continua gerado por script:** só o favicon.
 
 ### Três decisões sobre os assets que valem destaque
 - **Falta o ícone `b2`.** A seção Why tem 6 badges e vieram 5 ícones (`b1`, `b3`–`b6`). Identificando cada um: `b1` coração com pulso, `b3` cápsula, `b4` medidor de pressão, `b5` circulação, `b6` pulmões — todos casam direto com 5 das frases. Sobrou "Helps maintain energy and overall wellness", e para ela **reutilizei o `b1` (coração/pulso)**, que é o mais próximo de energia e bem-estar geral. É a única repetição de ícone na página.
@@ -90,8 +93,9 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 ### Valores visuais
 - **As cores são as do Inspect do Figma**, não mais estimativas: a paleta oficial está no topo do `styles.css` (`:root`), com os gradientes exatos (`58.16deg` no hero, `48.32deg` na seção Why) e os vermelhos `#C1121F`, `#FF2D2D`, `#FF4848`, `#FF5763`, `#FF3C3C`. Logo abaixo dela ficam apelidos semânticos (`--red-700`, `--wine-900`…) que o resto do CSS usa, então trocar um valor da paleta reflete na página inteira.
 - **Espaçamentos, tamanhos de fonte e raios continuam aproximados**, mas agora conferidos contra os **exports do Figma por seção** (Home, Sobre, Ingredientes, Benefícios, Depoimentos, Preço e FAQ), comparando screenshot a screenshot.
-- **O gradiente do hero e o da seção Why entram escurecidos** (uma camada `rgb(21 0 5 / .84)` por cima, mais um brilho radial atrás do produto). Aplicados puros, eles ficavam muito mais claros que o Figma, onde as duas seções são quase pretas com um halo vermelho no produto.
-- O hero usa um **container mais largo** que o resto da página (1440px + respiro lateral maior a partir de 1440px), como no layout.
+- **O fundo do hero foi remontado a partir das cores amostradas no export** (`Home.png`): base escura descendo de `#44000C` até `#150005` e um brilho `rgb(204 73 74 / .5)` saindo do canto superior direito. O gradiente da paleta aplicado puro ficava claro demais.
+- **O gradiente da seção Why entra escurecido** (uma camada `rgb(21 0 5 / .84)` por cima, mais um brilho radial atrás do produto). Aplicados puros, eles ficavam muito mais claros que o Figma, onde as duas seções são quase pretas com um halo vermelho no produto.
+- O hero usa **o mesmo container do resto da página** (1200px). Cheguei a alargar para 1440px, mas medindo o export de 1920px o conteúdo ocupa ~1200px — só a imagem do produto e o card avançam um pouco para fora.
 - Fontes: **Poppins** (600/700/800) nos títulos e **Inter** (400/500/600) no texto, via `<link>` do Google Fonts com `preconnect` e `display=swap`.
 - **Dois ajustes de contraste dentro da paleta:** `#FF2D2D` como **texto** sobre branco dá 3,7:1 (abaixo dos 4,5:1 exigidos), então textos em vermelho usam o `#C1121F` da própria paleta e o `#FF2D2D` fica nos ícones e elementos gráficos. O mesmo vale para os textos pequenos em verde, que usam o `--green-dark` (`#116800`).
 - Três tokens da paleta ficam no `:root` **só como referência**: `--gradient-seal`, `--gradient-save-badge` e `--gradient-yellow-btn`. Esses elementos (selo da garantia, badge "SAVE $X" e botão BUY NOW) já vêm prontos como imagem do Figma.
