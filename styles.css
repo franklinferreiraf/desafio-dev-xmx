@@ -1011,13 +1011,21 @@ p {
 }
 
 /* Ícone "vazando" para fora do topo do card */
-.ingredient-card__icon {
+/* O <picture> é quem se posiciona no entalhe; a imagem só preenche.
+   (Com a imagem em absolute, ela se posicionava pelo <picture> e caía
+   por cima do título.) */
+.ingredient-card > .ingredient-card__media {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 170px;
+  z-index: 2;
+  width: 210px;
   max-width: none;
   transform: translate(-50%, -50%);
+}
+
+.ingredient-card__icon {
+  width: 100%;
 }
 
 .ingredient-card__title {
