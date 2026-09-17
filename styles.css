@@ -476,17 +476,22 @@ p {
 
 /* 7. Header
    ========================================================================== */
+/* O header faz parte visualmente do hero: fica sobre o gradiente, sem cor
+   própria. Ao rolar (classe do JS) ele ganha fundo sólido para continuar
+   legível sobre as seções claras. */
 .site-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 50;
   color: var(--white);
-  background: var(--wine-900);
-  border-bottom: 1px solid rgb(255 255 255 / .08);
-  transition: box-shadow .25s;
+  background: transparent;
+  transition: background-color .25s, box-shadow .25s;
 }
 
 .site-header.is-scrolled {
+  background: var(--wine-900);
   box-shadow: 0 6px 20px rgb(0 0 0 / .35);
 }
 
@@ -669,7 +674,7 @@ p {
   --chamfer: 48px;
 
   position: relative;
-  padding-block: var(--space-7) calc(var(--space-8) + var(--chamfer));
+  padding-block: calc(var(--header-h) + var(--space-5)) calc(var(--space-8) + var(--chamfer));
   overflow: hidden;
   color: var(--white);
   background: var(--gradient-hero);
@@ -688,19 +693,62 @@ p {
   mask-image: linear-gradient(90deg, #000 0%, transparent 55%, #000 100%);
 }
 
-/* Textura de vasos/coração atrás do gradiente */
-.hero__texture {
+/* Três texturas empilhadas sobre o gradiente, todas bem discretas */
+.hero__layers {
   position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero__layer {
+  position: absolute;
+  object-fit: cover;
+}
+
+/* 1ª camada: foto do peito com ECG, ocupando toda a seção */
+.hero__layer--chest {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-position: center 35%;
+  opacity: .1;
+  mix-blend-mode: luminosity;
+}
+
+/* 2ª camada: coração/vasos mais aberto, concentrado atrás do produto */
+.hero__layer--heart {
   top: 0;
   right: 0;
-  bottom: 0;
   width: min(72%, 1000px);
   height: 100%;
-  object-fit: cover;
   object-position: right center;
-  opacity: .12;
+  opacity: .14;
   mix-blend-mode: screen;
   mask-image: radial-gradient(ellipse at 75% 45%, #000 15%, transparent 72%);
+}
+
+/* 3ª camada: vasos em zoom, deslocada para a direita e inclinada */
+.hero__layer--vessels {
+  top: -10%;
+  right: -12%;
+  width: min(68%, 900px);
+  height: 120%;
+  opacity: .16;
+  mix-blend-mode: screen;
+  transform: rotate(-8deg) translateX(6%);
+  mask-image: linear-gradient(100deg, transparent 8%, #000 45%, transparent 92%);
+}
+
+/* O hero usa um container mais largo que o resto da página */
+.hero .container {
+  max-width: calc(1440px + var(--gutter) * 2);
+}
+
+@media (min-width: 1440px) {
+  .hero .container {
+    --gutter: 3rem;
+  }
 }
 
 .hero__inner {
@@ -755,14 +803,17 @@ p {
   animation: float 6s ease-in-out infinite;
 }
 
+/* Perto da tampa do pote de trás */
 .hero__capsule--1 {
-  top: 2%;
-  right: 22%;
+  top: -2%;
+  right: 4%;
 }
 
+/* Encostada nos potes, mais acima e bem visível */
 .hero__capsule--2 {
-  bottom: 12%;
-  left: 0;
+  bottom: 34%;
+  left: 6%;
+  filter: brightness(1.1) drop-shadow(0 10px 16px rgb(0 0 0 / .5));
   animation-delay: -3s;
 }
 
@@ -895,7 +946,7 @@ p {
 
 @media (min-width: 1024px) {
   .hero {
-    padding-block: var(--space-8) calc(var(--space-8) + var(--chamfer));
+    padding-block: calc(var(--header-h) + var(--space-6)) calc(var(--space-8) + var(--chamfer));
   }
 
   .hero__inner {
@@ -2030,6 +2081,10 @@ p {
 
 /* 19. Páginas internas (placeholders legais, contato e checkout)
    ========================================================================== */
+.page {
+  margin-top: var(--header-h);
+}
+
 .page__inner {
   display: grid;
   gap: var(--space-4);
