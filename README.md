@@ -28,7 +28,7 @@ python -m http.server 8080      # ou: npx serve .
 | --- | --- |
 | `node tools/check-links.mjs` | Confere **todos** os `href`/`src` locais de todas as páginas **e** as imagens usadas pelo `script.js`: se o arquivo existe (pega erros de digitação como `contact.hmtl`), se a âncora `#id` existe, se há `href` vazio ou `#` solto e se toda `<img>` tem `alt`. Sai com código 1 se achar algum problema. Precisa de Node 18+. |
 | `python tools/optimize-images.py` | Gera as versões `.webp` dos `.png` em `assets/img/`. Precisa de Pillow. |
-| `node tools/generate-assets.mjs` | Gera os SVGs pequenos que não vieram do Figma: ícone do logo, favicon e bandeiras de pagamento. |
+| `node tools/generate-assets.mjs` | Gera os dois SVGs que não vieram do Figma: ícone do logo e favicon. |
 
 ## Estrutura
 
@@ -51,8 +51,8 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 
 | Arquivo original | Arquivo no repositório | Onde é usado |
 | --- | --- | --- |
-| `Mockup-Tenurima-1.png` | `hero-bottle` | Hero |
-| `Mockup-Tenurima-1 (1).png` | `bottle-basic` | Card BASIC (exibida 2x) |
+| `Mockup-Tenurima-1-1.png` (versão nítida) | `hero-bottle` | Hero |
+| `Mockup-Tenurima-1 (1).png` (pacote anterior) | `bottle-basic` | Card BASIC (exibida 2x) |
 | `produto.png` | `why-product-pedestal` | Centro da seção Why |
 | `pote.png` | `pack-6-bottles` | Card MOST POPULAR |
 | `pote (1).png` | `pack-3-bottles` | Card BUNDLE |
