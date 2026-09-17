@@ -13,6 +13,7 @@ from PIL import Image
 
 IMG_DIR = Path(__file__).resolve().parent.parent / "assets" / "img"
 QUALITY = 82
+MIN_BYTES = 30 * 1024  # ícones pequenos não compensam converter
 
 
 def has_transparency(image: Image.Image) -> bool:
@@ -23,6 +24,8 @@ def has_transparency(image: Image.Image) -> bool:
 
 def main() -> None:
     for png in sorted(IMG_DIR.glob("*.png")):
+        if png.stat().st_size < MIN_BYTES:
+            continue
         webp = png.with_suffix(".webp")
         image = Image.open(png)
         if not has_transparency(image):
