@@ -70,7 +70,7 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | `pill.png` · `pill-1.png` | `hero-capsule-1.png` · `hero-capsule-2.png` | Cápsulas soltas decorativas do hero |
 | `Rectangle.png` | `about-blood-cell.png` | Glóbulo vermelho decorativo no About |
 | `30008 1.png` · `3146 1.png` · `2151847309 1.png` | `texture-heart-vessels.png` · `texture-vessels.png` · `texture-ecg-chest.png` | Texturas de fundo: hero · Why · banner de frete |
-| `svg1494.png` | `icon-heart-small.png` | Hero, ao lado de "60 Day Money-Back Guarantee" |
+| `svg1494.png` | `icon-heart-small.png` | **Não usado** — ver nota abaixo |
 
 - **WebP + fallback PNG:** cada imagem é servida com `<picture>`, tendo o `.webp` como fonte principal e o `.png` original como fallback. As imagens ficaram de **70% a 96% menores** (a foto do casal foi de 1 MB para 66 KB).
 - **`loading="lazy"` em todas as imagens, menos no hero**, que tem `fetchpriority="high"` e `preload` do WebP. Toda imagem tem `width`/`height` para evitar layout shift.
@@ -81,7 +81,7 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 ### Três decisões sobre os assets que valem destaque
 - **Falta o ícone `b2`.** A seção Why tem 6 badges e vieram 5 ícones (`b1`, `b3`–`b6`). Identificando cada um: `b1` coração com pulso, `b3` cápsula, `b4` medidor de pressão, `b5` circulação, `b6` pulmões — todos casam direto com 5 das frases. Sobrou "Helps maintain energy and overall wellness", e para ela **reutilizei o `b1` (coração/pulso)**, que é o mais próximo de energia e bem-estar geral. É a única repetição de ícone na página.
 - **`Mockup-Tenurima-1.png` (628×628) veio desfocado.** O `Mockup-Tenurima-1-1.png` (650×650) é a versão nítida do mesmo pote. Usei **a nítida no hero** e mantive no card BASIC o mockup menor do primeiro pacote. Vale pedir ao design um novo export nítido.
-- **`svg1494.png` não é envelope nem carrinho:** é um **coração anatômico branco** de 24px. Como no header o ícone pedido era um envelope, deixei o envelope do sprite no "Contact Us" e usei o coração no hero, ao lado da garantia de 60 dias, onde ele faz sentido.
+- **`svg1494.png` não é envelope nem carrinho:** é um **coração anatômico branco** de 24px. Cheguei a usá-lo no hero, mas os exports do Figma mostram "60 Day Money-Back Guarantee" como texto puro e o "Contact Us" com envelope, então ele ficou **sem uso**. O arquivo segue no repositório, caso o design confirme onde ele entra.
 
 ---
 
@@ -89,7 +89,8 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 
 ### Valores visuais
 - **As cores são as do Inspect do Figma**, não mais estimativas: a paleta oficial está no topo do `styles.css` (`:root`), com os gradientes exatos (`58.16deg` no hero, `48.32deg` na seção Why) e os vermelhos `#C1121F`, `#FF2D2D`, `#FF4848`, `#FF5763`, `#FF3C3C`. Logo abaixo dela ficam apelidos semânticos (`--red-700`, `--wine-900`…) que o resto do CSS usa, então trocar um valor da paleta reflete na página inteira.
-- **Espaçamentos, tamanhos de fonte e raios continuam aproximados** a partir dos screenshots — só a paleta veio do Inspect.
+- **Espaçamentos, tamanhos de fonte e raios continuam aproximados**, mas agora conferidos contra os **exports do Figma por seção** (Home, Sobre, Ingredientes, Benefícios, Depoimentos, Preço e FAQ), comparando screenshot a screenshot.
+- **O gradiente do hero e o da seção Why entram escurecidos** (uma camada `rgb(21 0 5 / .84)` por cima, mais um brilho radial atrás do produto). Aplicados puros, eles ficavam muito mais claros que o Figma, onde as duas seções são quase pretas com um halo vermelho no produto.
 - O hero usa um **container mais largo** que o resto da página (1440px + respiro lateral maior a partir de 1440px), como no layout.
 - Fontes: **Poppins** (600/700/800) nos títulos e **Inter** (400/500/600) no texto, via `<link>` do Google Fonts com `preconnect` e `display=swap`.
 - **Dois ajustes de contraste dentro da paleta:** `#FF2D2D` como **texto** sobre branco dá 3,7:1 (abaixo dos 4,5:1 exigidos), então textos em vermelho usam o `#C1121F` da própria paleta e o `#FF2D2D` fica nos ícones e elementos gráficos. O mesmo vale para os textos pequenos em verde, que usam o `--green-dark` (`#116800`).
@@ -106,12 +107,16 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | **Hero** | O card de benefícios fica **à direita, escuro e translúcido** (`#00000033` + `backdrop-filter: blur(12px)`), com texto branco. | É o que o Figma mostra: vidro escuro sobre a foto, não um card branco sólido. |
 | **Hero** | No mobile o card flutuante fica **abaixo da imagem, sobreposto em parte**. A partir de 768px ele flutua sobre a imagem. | Em 360px, sobre a imagem, ele cobriria o produto. |
 | **About** | A **foto da senhora vai ao fundo, em tons de cinza** (`filter: grayscale(1)`, como descrito no layout), e a **composição pronta** (`Frame 1707480045.png`) fica sobreposta na base, com posições em %. | A arte escala proporcionalmente em qualquer largura. O cinza da foto destaca o vermelho do pote e do sistema circulatório. |
-| **Ingredients** | 1 coluna < 600px · 2 colunas ≥ 600px · 3 colunas ≥ 1024px. O ícone "vaza" pelo topo com `position: absolute` + `translate(-50%, -50%)`. | Os PNGs têm 231×120 com o círculo centralizado num canvas transparente; o `translate` centraliza independentemente disso. |
+| **Ingredients** | 1 coluna < 600px · 2 colunas ≥ 600px · 3 colunas ≥ 1024px. Card cinza com **entalhe semicircular no topo**, feito com `mask-image: radial-gradient(...)` **num pseudo-elemento** (`::before`), e o ícone por cima. | É o formato do Figma. A máscara precisa ficar no pseudo-elemento: aplicada no card, ela recortava também o ícone. |
+| **Ingredients** | O **ORDER NOW fica depois do grid**, e a seção Why não tem botão no topo. | É o que os exports mostram. O briefing pedia o botão no topo da Why; segui o design e o total de CTAs continua o mesmo. |
+| **Why** | Chanfro no **topo** da seção, espelhando o corte do hero, e eyebrow acima do título. | O export mostra os dois. No Figma o eyebrow diz "INGREDIENTS", o que parece erro de copiar/colar do design — usei **"BENEFITS"**, que é o conteúdo real da seção. |
 | **Why choose** | No mobile, produto no topo e as 6 badges empilhadas (2 colunas a partir de 600px). No desktop, 3 colunas: badges / produto / badges. Foto do casal com baixa opacidade e `mix-blend-mode: luminosity` sobre o gradiente vinho. | Layout lateral não cabe em telas estreitas. O blend mantém a foto "desbotada" no tom da seção. |
 | **Marquee** | **Velocidade constante de 50px/s** (a duração é calculada pela largura do conteúdo), easing `linear`, pausa no hover, parada com `prefers-reduced-motion`. | Com duração fixa, a velocidade mudaria conforme a tela. `linear` é o único easing que não "engasga" no reinício do loop. |
 | **Marquee** | **Componente reutilizável:** a mesma marcação com `data-marquee` é inicializada por `initMarquee()` para cada ocorrência. O JS clona o grupo até cobrir a largura + 1 grupo e anima exatamente a largura de **um** grupo, então o loop não tem salto. Os clones têm `aria-hidden`. O container tem `overflow: hidden` + `width: 100%`, e ainda há `overflow-x: clip` no `body`. | Evita o vazamento para fora da viewport em telas largas. O recálculo usa `ResizeObserver` e `document.fonts.ready`, então vale também para 1920px+ e depois da troca de fonte. |
 | **Testimonials** | **Exatamente 4 depoimentos** no array `TESTIMONIALS` (`script.js`), com as 4 fotos reais. **1 card por vez < 1024px e 2 por vez ≥ 1024px.** Avança **1 card por clique**, sem loop: a seta fica vermelha quando a ação está disponível e branca/desabilitada no fim. Também tem bolinhas de paginação, teclado (← →) e swipe. | O carrossel de fato passa pelos 4 (Michael+Susan → Susan+Walter → Walter+Diane). Sem loop, o usuário sabe quando viu todos. O número de cards por vez vem de `--per-view` no CSS, então o breakpoint fica num só lugar. |
 | **Testimonials** | **1 por vez até 1024px** (e não só no mobile). **Sem autoplay.** | Em 768px dois cards com foto ao lado ficariam espremidos. Autoplay atrapalha a leitura e exigiria botão de pausa (WCAG 2.2.2). |
+| **Testimonials** | A foto fica **colada na borda do card** (sem respiro) e, a partir de 1280px, as **setas saem para as laterais** — a da esquerda branca com seta vermelha, a da direita vermelha. Abaixo disso elas voltam para baixo do carrossel, junto com as bolinhas. | É o layout do Figma. Abaixo de 1280px não há espaço fora do container: em 1024px as setas passavam da viewport (peguei isso no teste de overflow). |
+| **Pricing** | Preço com os **centavos sobrescritos** (`$79` + `.98`), títulos em caixa alta e total no formato do Figma: `TOTAL: $358 $159.96` (valor cheio arredondado, sem casas). | Bate com o export; antes eu mostrava `$357.96`, que era o valor exato mas não o do layout. |
 | **Pricing** | **BASIC:** o asset tem 1 pote só, então **exibo a mesma imagem duas vezes, levemente sobrepostas via CSS**, para representar "2 bottles". A segunda cópia é `aria-hidden` com `alt=""`. | Comunica a quantidade certa sem editar a imagem. A limitação é que os dois potes são idênticos. |
 | **Pricing** | **MOST POPULAR e BUNDLE:** as imagens já trazem a faixa "FREE SHIPPING" e o selo "SAVE $…", então **não repeti esses elementos em HTML**. A informação continua acessível no `alt` e na lista de benefícios ("Fast & Free Shipping"). | Evita badge duplicado na tela. |
 | **Pricing** | No mobile o card **MOST POPULAR aparece primeiro** (`order: -1`). No desktop ele fica no meio, com `scale(1.06)`. | Em uma pilha vertical, a opção recomendada não deve ficar escondida no meio. |
@@ -127,9 +132,11 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | **Footer / páginas** | As páginas legais, de contato e de checkout ficam **na raiz** (`contact.html` etc.), com layout próprio simples. | O enunciado pede exatamente `href="contact.html"`. Os nomes são conferidos por `tools/check-links.mjs`. |
 
 ### Conteúdo inventado ou completado (suposições)
+- **Textos do hero, do About e dos cards de preço** são agora os **do Figma** (chegaram com os exports das seções e substituíram o que eu havia escrito).
 - **Ingredientes:** as 6 descrições são agora **o texto real do layout** (as de hibisco, B6 e B12 chegaram depois, completas, e substituíram o texto que eu havia escrito enquanto estavam cortadas no print).
 - **Depoimentos 3 e 4 são placeholder:** *Walter J., 71 – Georgia* e *Diane K., 58 – Arizona*, nome e fala, escolhidos para combinar com as fotos `dep-tenurima-3` e `dep-tenurima-4`. Michael R. e Susan L. usam os nomes e falas do briefing.
-- **Textos do hero, do About, da garantia, das respostas do FAQ** (menos a primeira, que veio no enunciado) **e das páginas legais** foram escritos com base no rótulo do produto (ex.: "one capsule twice daily"). As páginas legais têm um aviso de placeholder visível.
+- **Textos da garantia, das respostas do FAQ** (menos a primeira, que veio no enunciado) **e das páginas legais** foram escritos com base no rótulo do produto (ex.: "one capsule twice daily"). No Figma as respostas do FAQ estão como placeholder (`[produto] is a dietary supplement in [entregável] form…`), então escrevi respostas reais. As páginas legais têm um aviso de placeholder visível.
+- **O FAQ tem 8 perguntas** (o Figma mostra 5). O briefing pedia "5+", e as três extras — dosagem, efeitos colaterais e local de fabricação — saem do rótulo.
 - **Contato:** o e-mail `support@tenurima.com` é o que aparece no rótulo; o horário de atendimento é fictício.
 
 ---
