@@ -391,7 +391,7 @@ function initCarousel(carousel, data) {
    Não gera saída no console quando está tudo certo.
    -------------------------------------------------------------------------- */
 function auditCtas() {
-  const broken = Array.from(document.querySelectorAll('a.btn')).filter((link) => {
+  const broken = Array.from(document.querySelectorAll('a.btn, a.buy-btn')).filter((link) => {
     const href = link.getAttribute('href');
     return !href || href === '#';
   });

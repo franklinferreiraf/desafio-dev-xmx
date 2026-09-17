@@ -29,14 +29,6 @@
     <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M7.4 8.6 12 13.2l4.6-4.6L18 10l-6 6-6-6z"/></symbol>
     <symbol id="icon-arrow-left" viewBox="0 0 24 24"><path d="M20 11H7.8l5.6-5.6L12 4l-8 8 8 8 1.4-1.4L7.8 13H20z"/></symbol>
     <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M4 11h12.2l-5.6-5.6L12 4l8 8-8 8-1.4-1.4 5.6-5.6H4z"/></symbol>
-    <symbol id="icon-truck" viewBox="0 0 24 24"><path d="M20 8h-3V4H3a2 2 0 0 0-2 2v11h2a3 3 0 0 0 6 0h6a3 3 0 0 0 6 0h2v-5zM6 18.5A1.5 1.5 0 1 1 6 15.5a1.5 1.5 0 0 1 0 3zm13.5-9 2 2.5H17V9.5zM18 18.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></symbol>
-    <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M12 21.4 10.6 20C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1A6 6 0 0 1 16.5 3C19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.6 11.5z"/></symbol>
-    <symbol id="icon-bolt" viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.9 0-.3-.8-.3-.8C8.5 11 10.4 7.7 13 3h1l-1 7h3.5c.4 0 .7.2.4.8C12.9 17.5 11 21 11 21z"/></symbol>
-    <symbol id="icon-capsule" viewBox="0 0 24 24"><path d="M4.2 19.8a6 6 0 0 1 0-8.5l7.1-7.1a6 6 0 0 1 8.5 8.5l-7.1 7.1a6 6 0 0 1-8.5 0zm1.4-7.1a4 4 0 0 0 5.7 5.7l3.5-3.6-5.6-5.6z"/></symbol>
-    <symbol id="icon-gauge" viewBox="0 0 24 24"><path d="M12 4a10 10 0 0 0-8.7 15h17.4A10 10 0 0 0 12 4zm1.4 10.4a2 2 0 1 1-2.8-2.8L17 8z"/></symbol>
-    <symbol id="icon-drop" viewBox="0 0 24 24"><path d="M12 2s-7 7.8-7 13a7 7 0 0 0 14 0c0-5.2-7-13-7-13z"/></symbol>
-    <symbol id="icon-lungs" viewBox="0 0 24 24"><path d="M11 3h2v7.3l2.1 1.2c-.1-2.6.4-6.5 3.4-6.5C21 5 22 14 22 18a3 3 0 0 1-3 3c-3 0-4-2.5-4-6v-1.2l-3-1.7-3 1.7V15c0 3.5-1 6-4 6a3 3 0 0 1-3-3c0-4 1-13 3.5-13 3 0 3.5 3.9 3.4 6.5l2.1-1.2z"/></symbol>
-    <symbol id="icon-flag" viewBox="0 0 24 24"><path d="M3 5h18v14H3z" fill="#fff"/><path d="M3 5h18v2H3zm0 4h18v2H3zm0 4h18v2H3zm0 4h18v2H3z" fill="#b33a3a"/><path d="M3 5h9v8H3z" fill="#1e3a8a"/></symbol>
   </svg>
 
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -72,6 +64,11 @@
   <main id="main">
     <!-- 2. HERO -->
     <section class="hero" id="top" aria-labelledby="hero-title">
+      <picture>
+        <source srcset="assets/img/texture-heart-vessels.webp" type="image/webp">
+        <img class="hero__texture" src="assets/img/texture-heart-vessels.png" width="1086" height="783" alt="">
+      </picture>
+
       <div class="container hero__inner">
         <div class="hero__content">
           <p class="rating rating--light">
@@ -100,7 +97,10 @@
               <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
               ORDER NOW
             </a>
-            <p class="hero__guarantee">60 Day Money-Back Guarantee</p>
+            <p class="hero__guarantee">
+              <img src="assets/img/icon-heart-small.png" width="24" height="24" alt="">
+              60 Day Money-Back Guarantee
+            </p>
           </div>
         </div>
 
@@ -111,14 +111,17 @@
                  alt="Tilted bottle of Tenurima Blood Pressure Support dietary supplement with 60 capsules and a burgundy label">
           </picture>
 
+          <img class="hero__capsule hero__capsule--1" src="assets/img/hero-capsule-1.png" width="91" height="86" alt="">
+          <img class="hero__capsule hero__capsule--2" src="assets/img/hero-capsule-2.png" width="89" height="92" alt="">
+
           <div class="hero-card">
             <ul class="check-list">
-              <li><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>Supports healthy blood pressure</li>
-              <li><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>Promotes healthy blood flow</li>
-              <li><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>Helps maintain optimal oxygen levels</li>
+              <li><img class="check-icon" src="assets/img/icon-check-circle.svg" width="20" height="20" alt="">Supports healthy blood pressure</li>
+              <li><img class="check-icon" src="assets/img/icon-check-circle.svg" width="20" height="20" alt="">Promotes healthy blood flow</li>
+              <li><img class="check-icon" src="assets/img/icon-check-circle.svg" width="20" height="20" alt="">Helps maintain optimal oxygen levels</li>
             </ul>
             <p class="hero-card__badge">
-              <svg class="icon" aria-hidden="true"><use href="#icon-flag"/></svg>
+              <img src="assets/img/badge-made-in-usa.png" width="50" height="47" alt="">
               Made in the USA
             </p>
           </div>
@@ -126,7 +129,7 @@
       </div>
 
       <a class="scroll-down" href="#about" aria-label="Scroll down to learn about Tenurima">
-        <svg class="icon" aria-hidden="true"><use href="#icon-chevron"/></svg>
+        <img src="assets/img/icon-scroll.svg" width="21" height="40" alt="">
       </a>
     </section>
 
@@ -134,6 +137,7 @@
     <section class="section section--gray about" id="about" aria-labelledby="about-title">
       <div class="container about__inner">
         <div class="about__media">
+          <img class="about__cell" src="assets/img/about-blood-cell.png" width="129" height="107" loading="lazy" alt="">
           <picture>
             <source srcset="assets/img/about-woman-capsule.webp" type="image/webp">
             <img class="about__photo" src="assets/img/about-woman-capsule.png" width="955" height="591" loading="lazy"
@@ -237,6 +241,10 @@
         <img class="why__bg" src="assets/img/why-couple-running.png" width="989" height="757" loading="lazy"
              alt="Smiling senior couple jogging together outdoors on a sunny day">
       </picture>
+      <picture>
+        <source srcset="assets/img/texture-vessels.webp" type="image/webp">
+        <img class="why__texture" src="assets/img/texture-vessels.png" width="979" height="815" loading="lazy" alt="">
+      </picture>
       <div class="container why__inner">
         <a class="btn btn--green" href="#pricing">
           <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
@@ -246,9 +254,9 @@
 
         <div class="why__stage">
           <ul class="why__badges why__badges--left">
-            <li class="pill-badge"><span class="pill-badge__icon"><svg class="icon" aria-hidden="true"><use href="#icon-heart"/></svg></span>Supports heart and cardiovascular health</li>
-            <li class="pill-badge"><span class="pill-badge__icon"><svg class="icon" aria-hidden="true"><use href="#icon-bolt"/></svg></span>Helps maintain energy and overall wellness</li>
-            <li class="pill-badge"><span class="pill-badge__icon"><svg class="icon" aria-hidden="true"><use href="#icon-capsule"/></svg></span>Easy daily routine — just 1 capsule twice daily</li>
+            <li class="pill-badge"><img class="pill-badge__icon" src="assets/img/badge-heart.png" width="40" height="40" loading="lazy" alt="">Supports heart and cardiovascular health</li>
+            <li class="pill-badge"><img class="pill-badge__icon" src="assets/img/badge-heart.png" width="40" height="40" loading="lazy" alt="">Helps maintain energy and overall wellness</li>
+            <li class="pill-badge"><img class="pill-badge__icon" src="assets/img/badge-capsule.svg" width="40" height="40" loading="lazy" alt="">Easy daily routine — just 1 capsule twice daily</li>
           </ul>
 
           <picture class="why__product">
@@ -258,9 +266,9 @@
           </picture>
 
           <ul class="why__badges why__badges--right">
-            <li class="pill-badge"><span class="pill-badge__icon"><svg class="icon" aria-hidden="true"><use href="#icon-gauge"/></svg></span>Supports healthy blood pressure levels</li>
-            <li class="pill-badge"><span class="pill-badge__icon"><svg class="icon" aria-hidden="true"><use href="#icon-drop"/></svg></span>Promotes proper blood circulation</li>
-            <li class="pill-badge"><span class="pill-badge__icon"><svg class="icon" aria-hidden="true"><use href="#icon-lungs"/></svg></span>Helps support oxygen flow in the body</li>
+            <li class="pill-badge"><img class="pill-badge__icon" src="assets/img/badge-gauge.svg" width="40" height="40" loading="lazy" alt="">Supports healthy blood pressure levels</li>
+            <li class="pill-badge"><img class="pill-badge__icon" src="assets/img/badge-circulation.svg" width="40" height="40" loading="lazy" alt="">Promotes proper blood circulation</li>
+            <li class="pill-badge"><img class="pill-badge__icon" src="assets/img/badge-lungs.svg" width="40" height="40" loading="lazy" alt="">Helps support oxygen flow in the body</li>
           </ul>
         </div>
       </div>
@@ -335,11 +343,13 @@
 
     <!-- 8. FREE SHIPPING BANNER -->
     <section class="shipping-banner" aria-labelledby="shipping-title">
+      <picture>
+        <source srcset="assets/img/texture-ecg-chest.webp" type="image/webp">
+        <img class="shipping-banner__texture" src="assets/img/texture-ecg-chest.png" width="867" height="494" loading="lazy" alt="">
+      </picture>
       <div class="container shipping-banner__inner">
-        <div class="shipping-seal" aria-hidden="true">
-          <svg class="icon" aria-hidden="true"><use href="#icon-truck"/></svg>
-          <span>FREE<br>SHIPPING</span>
-        </div>
+        <img class="shipping-seal" src="assets/img/seal-free-shipping.png" width="156" height="156" loading="lazy"
+             alt="Round seal with a delivery truck reading Free Shipping">
         <div>
           <h2 class="shipping-banner__title" id="shipping-title">
             Every <span class="text-red">6 Bottle</span> Order Gets <span class="text-red">FREE</span> Shipping <span class="text-red">Too!</span>
@@ -382,16 +392,14 @@
                   <li class="is-no"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg>No Fast Shipping</li>
                   <li class="is-no"><svg class="icon" aria-hidden="true"><use href="#icon-x"/></svg>No Free Shipping</li>
                 </ul>
-                <a class="btn btn--yellow btn--block" href="checkout.html?package=2-bottles">
-                  BUY NOW <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
-                  <span class="visually-hidden">– 2 bottles for $159.96</span>
+                <a class="buy-btn" href="checkout.html?package=2-bottles">
+                  <picture>
+                    <source srcset="assets/img/btn-buy-now.webp" type="image/webp">
+                    <img src="assets/img/btn-buy-now.png" width="314" height="103" loading="lazy" alt="Buy now – 2 bottles of Tenurima for $159.96">
+                  </picture>
                 </a>
-                <ul class="payment-icons" aria-label="Accepted payment methods">
-                  <li><img src="assets/img/pay-visa.svg" width="48" height="30" loading="lazy" alt="Visa"></li>
-                  <li><img src="assets/img/pay-mastercard.svg" width="48" height="30" loading="lazy" alt="Mastercard"></li>
-                  <li><img src="assets/img/pay-amex.svg" width="48" height="30" loading="lazy" alt="American Express"></li>
-                  <li><img src="assets/img/pay-discover.svg" width="48" height="30" loading="lazy" alt="Discover"></li>
-                </ul>
+                <img class="payment-cards" src="assets/img/payment-cards.png" width="314" height="29" loading="lazy"
+                     alt="Accepted payments: Visa, Mastercard, American Express, Discover, Norton Secured and McAfee Secure">
                 <p class="price-card__total">Total: <s>$357.96</s> <strong>$159.96</strong> <span>+ Shipping</span></p>
               </div>
             </article>
@@ -415,16 +423,14 @@
                   <li class="is-yes"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>Fast &amp; Free Shipping</li>
                   <li class="is-yes"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>60 Days Guarantee</li>
                 </ul>
-                <a class="btn btn--yellow btn--block btn--lg" href="checkout.html?package=6-bottles">
-                  BUY NOW <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
-                  <span class="visually-hidden">– 6 bottles for $299.88</span>
+                <a class="buy-btn" href="checkout.html?package=6-bottles">
+                  <picture>
+                    <source srcset="assets/img/btn-buy-now.webp" type="image/webp">
+                    <img src="assets/img/btn-buy-now.png" width="314" height="103" loading="lazy" alt="Buy now – 6 bottles of Tenurima for $299.88">
+                  </picture>
                 </a>
-                <ul class="payment-icons" aria-label="Accepted payment methods">
-                  <li><img src="assets/img/pay-visa.svg" width="48" height="30" loading="lazy" alt="Visa"></li>
-                  <li><img src="assets/img/pay-mastercard.svg" width="48" height="30" loading="lazy" alt="Mastercard"></li>
-                  <li><img src="assets/img/pay-amex.svg" width="48" height="30" loading="lazy" alt="American Express"></li>
-                  <li><img src="assets/img/pay-discover.svg" width="48" height="30" loading="lazy" alt="Discover"></li>
-                </ul>
+                <img class="payment-cards" src="assets/img/payment-cards.png" width="314" height="29" loading="lazy"
+                     alt="Accepted payments: Visa, Mastercard, American Express, Discover, Norton Secured and McAfee Secure">
                 <p class="price-card__total">Total: <s>$1,073.88</s> <strong>$299.88</strong> <span>Free Shipping</span></p>
               </div>
             </article>
@@ -448,16 +454,14 @@
                   <li class="is-gold"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>Fast &amp; Free Shipping</li>
                   <li class="is-gold"><svg class="icon" aria-hidden="true"><use href="#icon-check"/></svg>60 Days Guarantee</li>
                 </ul>
-                <a class="btn btn--yellow btn--block" href="checkout.html?package=3-bottles">
-                  BUY NOW <svg class="icon" aria-hidden="true"><use href="#icon-cart"/></svg>
-                  <span class="visually-hidden">– 3 bottles for $209.94</span>
+                <a class="buy-btn" href="checkout.html?package=3-bottles">
+                  <picture>
+                    <source srcset="assets/img/btn-buy-now.webp" type="image/webp">
+                    <img src="assets/img/btn-buy-now.png" width="314" height="103" loading="lazy" alt="Buy now – 3 bottles of Tenurima for $209.94">
+                  </picture>
                 </a>
-                <ul class="payment-icons" aria-label="Accepted payment methods">
-                  <li><img src="assets/img/pay-visa.svg" width="48" height="30" loading="lazy" alt="Visa"></li>
-                  <li><img src="assets/img/pay-mastercard.svg" width="48" height="30" loading="lazy" alt="Mastercard"></li>
-                  <li><img src="assets/img/pay-amex.svg" width="48" height="30" loading="lazy" alt="American Express"></li>
-                  <li><img src="assets/img/pay-discover.svg" width="48" height="30" loading="lazy" alt="Discover"></li>
-                </ul>
+                <img class="payment-cards" src="assets/img/payment-cards.png" width="314" height="29" loading="lazy"
+                     alt="Accepted payments: Visa, Mastercard, American Express, Discover, Norton Secured and McAfee Secure">
                 <p class="price-card__total">Total: <s>$536.94</s> <strong>$209.94</strong> <span>Free Shipping</span></p>
               </div>
             </article>
