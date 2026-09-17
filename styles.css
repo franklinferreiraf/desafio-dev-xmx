@@ -797,11 +797,12 @@ p {
 /* Segundo pote, atrás e à direita, sugerindo profundidade */
 .hero__bottle-back {
   position: absolute;
-  top: 8%;
-  left: -6%;
+  top: 4%;
+  right: -10%;
   width: 82%;
   filter: blur(2px) brightness(.55) saturate(.9);
   opacity: .7;
+  transform: rotate(10deg);
 }
 
 .hero-card {
