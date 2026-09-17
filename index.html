@@ -14,9 +14,9 @@
 
 
   <link rel="preload" as="image" href="assets/img/hero-bottle.webp" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=9">
+  <link rel="stylesheet" href="styles.css?v=10">
   <script>document.documentElement.classList.replace("no-js", "js");</script>
-  <script src="script.js?v=9" defer></script>
+  <script src="script.js?v=10" defer></script>
 </head>
 <body>
   <!-- Sprite de ícones: cada <symbol> é reutilizado com <use href="#icon-..."> -->
@@ -144,20 +144,6 @@
     <!-- 3. ABOUT PRODUCT -->
     <section class="section section--gray about" id="about" aria-labelledby="about-title">
       <div class="container about__inner">
-        <div class="about__media">
-          <img class="about__cell" src="assets/img/about-blood-cell.png" width="129" height="107" loading="lazy" alt="">
-          <picture>
-            <source srcset="assets/img/about-woman-capsule.webp" type="image/webp">
-            <img class="about__photo" src="assets/img/about-woman-capsule.png" width="955" height="591" loading="lazy"
-                 alt="Smiling senior woman holding a glass of water and a red capsule">
-          </picture>
-          <picture>
-            <source srcset="assets/img/about-composition.webp" type="image/webp">
-            <img class="about__composition" src="assets/img/about-composition.png" width="570" height="431" loading="lazy"
-                 alt="Tenurima bottle next to a human body illustration of the circulatory system and four close-ups of arteries, from clear to narrowed by plaque">
-          </picture>
-        </div>
-
         <div class="about__content">
           <p class="eyebrow">About Product</p>
           <h2 class="section-title" id="about-title">What Is <span class="text-red">Tenurima™</span>?</h2>
@@ -176,6 +162,20 @@
             ORDER NOW
           </a>
         </div>
+        <div class="about__media">
+          <img class="about__cell" src="assets/img/about-blood-cell.png" width="129" height="107" loading="lazy" alt="">
+          <picture>
+            <source srcset="assets/img/about-woman-capsule.webp" type="image/webp">
+            <img class="about__photo" src="assets/img/about-woman-capsule.png" width="955" height="591" loading="lazy"
+                 alt="Smiling senior woman holding a glass of water and a red capsule">
+          </picture>
+          <picture>
+            <source srcset="assets/img/about-composition.webp" type="image/webp">
+            <img class="about__composition" src="assets/img/about-composition.png" width="570" height="431" loading="lazy"
+                 alt="Tenurima bottle next to a human body illustration of the circulatory system and four close-ups of arteries, from clear to narrowed by plaque">
+          </picture>
+        </div>
+
       </div>
     </section>
 
@@ -342,16 +342,6 @@
       </div>
     </section>
 
-    <div class="marquee" data-marquee>
-      <div class="marquee__track">
-        <ul class="marquee__group">
-          <li>60 Day Guarantee</li>
-          <li>Natural Formula</li>
-          <li>Gluten-Free</li>
-          <li>Non-GMO</li>
-        </ul>
-      </div>
-    </div>
 
     <!-- 8. FREE SHIPPING BANNER -->
     <section class="shipping-banner" aria-labelledby="shipping-title">
@@ -364,12 +354,23 @@
              alt="Round seal with a delivery truck reading Free Shipping">
         <div>
           <h2 class="shipping-banner__title" id="shipping-title">
-            Every <span class="text-red">6 Bottle</span> Order Gets <span class="text-red">FREE</span> Shipping <span class="text-red">Too!</span>
+            <span class="text-red">Every</span> 6 Bottle <span class="text-red">Order Gets</span> FREE Shipping <span class="text-red">Too!</span>
           </h2>
           <p class="shipping-banner__text">*97% Of Customers Order 6 Bottles (Our Recommended Option)</p>
         </div>
       </div>
     </section>
+
+    <div class="marquee" data-marquee>
+      <div class="marquee__track">
+        <ul class="marquee__group">
+          <li>60 Day Guarantee</li>
+          <li>Natural Formula</li>
+          <li>Gluten-Free</li>
+          <li>Non-GMO</li>
+        </ul>
+      </div>
+    </div>
 
     <!-- 9. PRICING -->
     <section class="section pricing" id="pricing" aria-labelledby="pricing-title">

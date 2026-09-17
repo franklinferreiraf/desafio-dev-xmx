@@ -91,7 +91,8 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 ## Decisões tomadas (onde a descrição era omissa ou ambígua)
 
 ### Valores visuais
-- **As cores são as do Inspect do Figma**, não mais estimativas: a paleta oficial está no topo do `styles.css` (`:root`), com os gradientes exatos (`58.16deg` no hero, `48.32deg` na seção Why) e os vermelhos `#C1121F`, `#FF2D2D`, `#FF4848`, `#FF5763`, `#FF3C3C`. Logo abaixo dela ficam apelidos semânticos (`--red-700`, `--wine-900`…) que o resto do CSS usa, então trocar um valor da paleta reflete na página inteira.
+- **A paleta oficial do projeto está no topo do `styles.css`** (`:root`), com os nomes definidos no guia de identidade: `--color-wine-950`, `--color-red-900`, `--color-green-500`, `--color-yellow-600`, `--color-gray-*`, os off-whites e os gradientes da referência. Logo abaixo dela ficam apelidos semânticos (`--red-700`, `--wine-900`…) que o resto do CSS usa, então trocar um valor da paleta reflete na página inteira.
+- **Layout medido contra os exports.** Tipografia, espaçamentos, larguras de container, tamanho dos botões e altura das seções foram ajustados comparando screenshot a screenshot com `Desktop.png` (1920px) e `Mobile.png` (360px). Depois do ajuste, a altura total ficou em 8.250px no desktop (referência: 8.108px) e 9.663px no mobile (referência: 8.426px — a diferença vem das 3 perguntas extras do FAQ, da transcrição do rótulo e do corpo de texto um pouco maior, itens listados abaixo).
 - **Espaçamentos, tamanhos de fonte e raios continuam aproximados**, mas agora conferidos contra os **exports do Figma por seção** (Home, Sobre, Ingredientes, Benefícios, Depoimentos, Preço e FAQ), comparando screenshot a screenshot.
 - **O fundo do hero foi remontado a partir das cores amostradas no export** (`Home.png`): base escura descendo de `#44000C` até `#150005` e um brilho `rgb(204 73 74 / .5)` saindo do canto superior direito. O gradiente da paleta aplicado puro ficava claro demais.
 - **O gradiente da seção Why entra escurecido** (uma camada `rgb(21 0 5 / .84)` por cima, mais um brilho radial atrás do produto). Aplicados puros, eles ficavam muito mais claros que o Figma, onde as duas seções são quase pretas com um halo vermelho no produto.
@@ -173,13 +174,28 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
   - marquee: 3 grupos em 360px e 5 em 1920px, com a animação andando;
   - menu mobile abre e fecha, inclusive ao clicar num link;
   - transcrição do rótulo (`<details>`) abre e mostra a tabela.
-- **axe-core 4.10** em 360 e 1440px: **0 violações** (inclusive depois de trocar o botão BUY NOW por imagem e de aplicar a paleta oficial — foi o axe que pegou o `#FF2D2D` sem contraste como texto).
+- **axe-core 4.10** em 360 e 1440px: **1 violação conhecida e documentada** (o contraste da faixa vermelha no mobile, explicado na tabela acima). Antes dessa mudança de cor eram 0 violações (inclusive depois de trocar o botão BUY NOW por imagem e de aplicar a paleta oficial — foi o axe que pegou o `#FF2D2D` sem contraste como texto).
 - **`tools/check-links.mjs`:** 9 páginas e 258 referências (HTML + `script.js`) sem problemas.
 - Conferência visual por screenshots de página inteira e por seção em cada largura.
 
+## Onde eu me afastei da referência (e por quê)
+
+Cada item abaixo é uma decisão consciente, não um descuido:
+
+| Ponto | Referência | O que fiz | Por quê |
+| --- | --- | --- | --- |
+| **Texto do botão verde** | Branco no `Desktop.png` | Mantive **branco** | O guia de cores pedia texto preto, mas a referência visual mostra branco, e a regra combinada é que a referência manda. |
+| **Faixa vermelha (marquee)** | `#FF2D2D` com texto branco pequeno | Mantive a cor e o texto exatos | No mobile isso dá 3,7:1 de contraste (o mínimo é 4,5:1) e o axe acusa. Preferi a fidelidade numa faixa decorativa a inventar outra cor; levaria ao design a sugestão de escurecer para `#D20606`, que passa. É a **única** violação de contraste da página. |
+| **Corpo de texto no mobile** | ~12,5px | **14px** | 12,5px num container de 360px fica no limite da legibilidade; 14px mantém a proporção do layout e a leitura. |
+| **FAQ** | 5 perguntas | **8 perguntas** | O briefing pedia "5+"; as três extras (dosagem, efeitos colaterais, fabricação) saem do rótulo. |
+| **Menu no mobile** | Só logo + "Contact Us" | Igual à referência | O texto do pedido falava em hambúrguer, mas o `Mobile.png` não tem um; segui a referência. |
+| **Avaliação** | "4.9/5 Customer Rating" | Igual à referência | O texto do pedido citava 4.85 e 4.92; mantive o que está no layout. |
+| **Card do hero** | 3 benefícios + "Made in the USA" | Igual à referência | O texto do pedido listava 4 benefícios. |
+| **Rosa do card "MOST POPULAR"** | `#F9DFE1` (amostrado do export) | Usei o valor amostrado | Esse tom não está na lista da paleta, mas está na referência. |
+
 ## Limitações conhecidas
 
-- **Contraste do botão verde:** o gradiente oficial `#35F60F → #1FA604` com texto branco fica bem abaixo do AA (4,5:1) para texto de 16px, mesmo com `text-shadow`. Mantive por fidelidade à paleta, mas levaria ao design a sugestão de usar texto escuro no botão ou escurecer o gradiente.
+- **Contraste do botão verde:** o gradiente oficial `#35F60F → #1FA604` com texto branco fica abaixo do AA (4,5:1), mesmo com `text-shadow`. É como está na referência; o axe não acusa porque o texto é grande e em negrito, mas eu levaria ao design a sugestão de usar texto escuro.
 - **BASIC com a mesma imagem duplicada:** os dois potes são idênticos; o ideal seria o Figma exportar uma imagem de 2 potes, como já existe para 3 e 6.
 - **Os depoimentos são renderizados por JS**, então sem JavaScript o carrossel fica vazio (o resto da página funciona). Foi uma troca consciente para ter os dados num array só.
 - A marcação do marquee se repete duas vezes no HTML, porque HTML estático não tem includes. O comportamento é um componente único no JS/CSS.

@@ -1,80 +1,103 @@
 /* ==========================================================================
    Tenurima – Landing page
    CSS puro, mobile-first. Breakpoints: 600px, 768px, 1024px, 1280px.
-   Cores: paleta oficial do Inspect do Figma (ver README). Espaçamentos e
-   tamanhos de fonte continuam sendo aproximações a partir dos screenshots.
+   Cores: paleta oficial do projeto (ver README). Espaçamentos e tamanhos de
+   fonte são medidos a partir dos exports Desktop.png e Mobile.png.
    ========================================================================== */
 
 /* 1. Tokens
    ========================================================================== */
 :root {
   /* ---------------------------------------------------------------
-     Paleta oficial, extraída do Inspect do Figma.
+     PALETA OFICIAL (nomes conforme o guia de identidade do projeto).
      Abaixo dela ficam os apelidos semânticos usados no resto do CSS.
      --------------------------------------------------------------- */
+  --color-white: #fff;
 
-  /* Fundos de seção */
-  --bg-white: #fff;
-  --bg-light: #f4f4f4;
-  --bg-light-alt: #fcf9f8;
-  --bg-dark: #150005;
+  --color-wine-950: #150005;
+  --color-wine-900: #44000c;
+  --color-wine-800: #6c2d39;
 
-  /* Gradiente principal do Hero e do banner "Why Thousands Choose" */
+  --color-red-900: #c1121f;
+  --color-red-800: #a93f48;
+  --color-red-700: #cc494a;
+  --color-red-600: #ff2d2d;
+  --color-red-500: #ff4848;
+  --color-red-400: #ff5763;
+  --color-red-300: #ff929a;
+  --color-red-accent: #ff3c3c;
+  --color-red-deep: #d20606;
+
+  --color-green-900: #116800;
+  --color-green-700: #04ac48;
+  --color-green-500: #29ea02;
+
+  --color-yellow-600: #ffd901;
+  --color-yellow-500: #ffdc13;
+  --color-yellow-400: #ffe26e;
+
+  --color-gray-900: #000;
+  --color-gray-700: #665f5e;
+  --color-gray-600: #736467;
+  --color-gray-500: #878787;
+  --color-gray-400: #9a9a9a;
+  --color-gray-300: #cecece;
+  --color-gray-100: #f4f4f4;
+
+  --color-off-white-1: #fcf9f8;
+  --color-off-white-2: #fcf7f6;
+  --color-off-white-3: #fcf8f8;
+  --color-off-white-4: #f9fbfb;
+  --color-off-white-5: #f9fafb;
+
+  /* Transparências */
+  --overlay-white-20: #ffffff33;
+  --overlay-white-40: #ffffff66;
+  --overlay-white-60: #ffffff99;
+  --overlay-dark-20: #00000033;
+  --overlay-wine-20: #6c2d3933;
+
+  /* Gradientes da referência */
   --gradient-hero: linear-gradient(58.16deg, #44000c 30.85%, #cc494a 56.87%, #a93f48 65.4%);
   --gradient-why-choose: linear-gradient(48.32deg, #44000c 20.94%, #cc494a 47.36%, #a93f48 62.26%);
-
-  /* Vermelhos de destaque (headings, ícones, badges) */
-  --red-primary: #c1121f;
-  --red-bright: #ff2d2d;
-  --red-accent: #ff4848;
-  --red-accent-2: #ff5763;
-  --red-strong: #ff3c3c;
-
-  /* Selo de garantia e badge "SAVE $X TODAY" (já embutidos nas imagens do
-     Figma; mantidos aqui como referência da paleta) */
   --gradient-seal: linear-gradient(313.26deg, #c1121f 51.48%, #ff5763 71.46%);
   --gradient-save-badge: linear-gradient(126.19deg, #ff929a 14.89%, #c1121f 54.23%, #ff929a 88.28%);
-
-  /* Botão verde "ORDER NOW" */
   --gradient-green-btn: linear-gradient(180deg, #35f60f 0%, #1fa604 100%);
-  --green-shadow: #04ac48;
-  --green-dark: #116800;
-
-  /* Botão amarelo "BUY NOW" (hoje é a imagem do Figma; token mantido para
-     qualquer botão amarelo em HTML) */
   --gradient-yellow-btn: linear-gradient(270deg, #ffdc17 0%, #ffd900 100%);
-  --yellow-alt: #ffe26e;
-
-  /* Texto e bordas neutras */
-  --text-gray: #736467;
-  --border-gray: #cecece;
-  --border-gray-2: #9a9a9a;
-
-  /* Overlays semitransparentes (cards sobre imagem) */
-  --overlay-dark-20: #00000033;
-  --overlay-white-10: #ffffff1a;
 
   /* --------------------------------------------------------------- */
   /* Apelidos semânticos                                             */
   /* --------------------------------------------------------------- */
-  --wine-900: var(--bg-dark);
-  --wine-800: #44000c;
-  --wine-600: #a93f48;
-  --red-700: var(--red-primary);
-  --red-600: var(--red-bright);
-  --coral: var(--red-accent-2);
+  --wine-900: var(--color-wine-950);
+  --wine-800: var(--color-wine-900);
+  --wine-600: var(--color-red-800);
+  --bg-dark: var(--color-wine-950);
+  --bg-light: var(--color-gray-100);
+  --bg-light-alt: var(--color-off-white-1);
+  --red-primary: var(--color-red-900);
+  --red-bright: var(--color-red-600);
+  --red-accent: var(--color-red-500);
+  --red-accent-2: var(--color-red-400);
+  --red-strong: var(--color-red-accent);
+  --red-700: var(--color-red-900);
+  --red-600: var(--color-red-600);
+  --coral: var(--color-red-400);
   --green-600: #1fa604;
-  --green-700: var(--green-dark);
-  --yellow-400: #ffdc17;
-  --yellow-500: #ffd900;
+  --green-700: var(--color-green-900);
+  --green-dark: var(--color-green-900);
+  --green-shadow: var(--color-green-700);
+  --yellow-400: var(--color-yellow-500);
+  --yellow-500: var(--color-yellow-600);
   --gold: #e0a800;
-  --gray-50: var(--bg-light);
-  --gray-200: var(--border-gray);
-  --gray-500: var(--text-gray);
-  --gray-700: #4a3e40;
-  --white: var(--bg-white);
-  --text: #1e1e1e;
-  --pink-50: var(--bg-light-alt);
+  --gray-50: var(--color-gray-100);
+  --gray-200: var(--color-gray-300);
+  --gray-500: var(--color-gray-600);
+  --gray-700: var(--color-gray-700);
+  --white: var(--color-white);
+  --text: var(--color-wine-950);
+  --pink-50: var(--color-off-white-1);
+  --text-gray: var(--color-gray-600);
+  --border-gray: var(--color-gray-300);
 
   --gradient-wine: var(--gradient-why-choose);
   --gradient-green: var(--gradient-green-btn);
@@ -83,11 +106,11 @@
   /* Tipografia */
   --font-heading: "Poppins", "Segoe UI", Arial, sans-serif;
   --font-body: "Inter", "Segoe UI", Arial, sans-serif;
-  --fs-h1: clamp(2rem, 1.35rem + 3vw, 3.5rem);
-  --fs-h2: clamp(1.75rem, 1.35rem + 1.8vw, 2.75rem);
-  --fs-h3: 1.25rem;
-  --fs-body: 1rem;
-  --fs-small: .875rem;
+  --fs-h1: clamp(1.6rem, .95rem + 2.9vw, 2.875rem);
+  --fs-h2: clamp(1.25rem, .9rem + 1.7vw, 2.25rem);
+  --fs-h3: clamp(.95rem, .82rem + .6vw, 1.25rem);
+  --fs-body: clamp(.875rem, .82rem + .25vw, .9375rem);
+  --fs-small: clamp(.8125rem, .78rem + .2vw, .875rem);
 
   /* Espaçamentos */
   --space-1: .25rem;
@@ -98,7 +121,7 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4rem;
-  --section-y: clamp(4rem, 2.5rem + 5vw, 7rem);
+  --section-y: clamp(2.25rem, .9rem + 5.6vw, 7rem);
   --gutter: 1rem;
   --container: 1200px;
 
@@ -138,7 +161,7 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   font-size: var(--fs-body);
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--text);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
@@ -317,13 +340,21 @@ p {
 
 .section--dark {
   color: var(--white);
-  background: var(--gradient-wine);
+  background:
+    radial-gradient(60% 55% at 50% 0%, rgb(204 73 74 / .3) 0%, transparent 70%),
+    linear-gradient(180deg, #2a0509 0%, var(--bg-dark) 60%, #1d0207 100%);
 }
 
 .section-header {
   max-width: 720px;
-  margin: 0 auto var(--space-7);
+  margin: 0 auto var(--space-6);
   text-align: center;
+}
+
+@media (min-width: 768px) {
+  .section-header {
+    margin-bottom: var(--space-7);
+  }
 }
 
 .section-header__text {
@@ -361,10 +392,10 @@ p {
   gap: var(--space-2);
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: .8rem 2rem;
+  min-height: 44px;
+  padding: .7rem 1.6rem;
   font-family: var(--font-heading);
-  font-size: 1rem;
+  font-size: clamp(.9375rem, .85rem + .3vw, 1rem);
   font-weight: 700;
   line-height: 1.2;
   text-align: center;
@@ -396,8 +427,8 @@ p {
 }
 
 .btn--yellow {
-  color: #111;
-  background: var(--gradient-yellow);
+  color: var(--color-gray-900);
+  background: var(--color-yellow-600);
   box-shadow: 0 6px 16px rgb(255 193 7 / .35), inset 0 -3px 0 rgb(0 0 0 / .1);
 }
 
@@ -417,9 +448,26 @@ p {
 }
 
 .btn--lg {
-  min-height: 56px;
-  padding: 1rem 2.5rem;
-  font-size: 1.125rem;
+  min-height: 48px;
+  padding: .85rem 2rem;
+  font-size: clamp(1rem, .9rem + .4vw, 1.125rem);
+}
+
+@media (min-width: 768px) {
+  .btn {
+    min-height: 48px;
+    padding: .8rem 2rem;
+  }
+
+  .btn--lg {
+    min-height: 56px;
+    padding: 1rem 2.5rem;
+  }
+
+  /* No Figma os CTAs verdes são bem largos (~400px) */
+  .btn--green {
+    min-width: min(400px, 100%);
+  }
 }
 
 .btn--block {
@@ -692,13 +740,13 @@ p {
 .hero__inner {
   position: relative;
   display: grid;
-  gap: var(--space-7);
+  gap: var(--space-5);
   align-items: center;
 }
 
 .hero__content {
   display: grid;
-  gap: var(--space-5);
+  gap: var(--space-4);
   justify-items: start;
 }
 
@@ -709,8 +757,8 @@ p {
 }
 
 .hero__text {
-  max-width: 520px;
-  font-size: 1.0625rem;
+  max-width: 500px;
+  font-size: var(--fs-body);
   color: #cbbcbe;
 }
 
@@ -771,8 +819,15 @@ p {
 
 .hero__media {
   position: relative;
-  max-width: 560px;
+  width: min(100%, 320px);
   margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .hero__media {
+    width: auto;
+    max-width: 560px;
+  }
 }
 
 .hero__image {
@@ -796,11 +851,11 @@ p {
   position: relative;
   z-index: 2;
   display: grid;
-  gap: var(--space-3);
-  max-width: 340px;
-  padding: var(--space-4) var(--space-5);
-  margin: calc(var(--space-6) * -1) auto 0;
-  font-size: .9375rem;
+  gap: var(--space-2);
+  max-width: 265px;
+  padding: var(--space-3) var(--space-4);
+  margin: calc(var(--space-8) * -1) auto 0;
+  font-size: var(--fs-small);
   font-weight: 500;
   color: var(--white);
   background: rgb(255 255 255 / .14);
@@ -821,14 +876,26 @@ p {
   gap: var(--space-3);
   align-items: center;
   padding-top: var(--space-3);
-  font-size: .9375rem;
+  font-size: var(--fs-small);
   font-weight: 500;
   color: var(--white);
   border-top: 1px solid rgb(255 255 255 / .16);
 }
 
 .hero-card__badge img {
-  width: 2.5rem;
+  width: 2rem;
+}
+
+@media (min-width: 768px) {
+  .hero-card {
+    max-width: 340px;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .hero-card__badge img {
+    width: 2.5rem;
+  }
 }
 
 .scroll-down {
@@ -895,8 +962,14 @@ p {
    ========================================================================== */
 .about__inner {
   display: grid;
-  gap: var(--space-7);
+  gap: var(--space-5);
   align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .about__inner {
+    gap: var(--space-7);
+  }
 }
 
 /* Foto (em tons de cinza, ao fundo) + composição pronta sobreposta na base */
@@ -904,35 +977,36 @@ p {
   position: relative;
   width: 100%;
   max-width: 580px;
-  padding-bottom: 42%;
   margin-inline: auto;
 }
 
 /* Glóbulo vermelho decorativo */
 .about__cell {
   position: absolute;
-  top: 8%;
-  right: 6%;
+  top: 12%;
+  right: 2%;
   z-index: 1;
-  width: 18%;
+  width: 16%;
   filter: blur(1px);
 }
 
 .about__photo {
-  width: 88%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
   aspect-ratio: 955 / 591;
   object-fit: cover;
   object-position: 30% 20%;
   filter: grayscale(1);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  opacity: .22;
 }
 
 .about__media > picture:last-child {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 92%;
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin-inline: auto;
 }
 
 .about__composition {
@@ -958,10 +1032,20 @@ p {
   margin-top: var(--space-2);
 }
 
+@media (min-width: 768px) {
+  .about__photo {
+    width: 78%;
+  }
+}
+
 @media (min-width: 1024px) {
   .about__inner {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-8);
+  }
+
+  .about__media {
+    order: -1;
   }
 }
 
@@ -969,21 +1053,41 @@ p {
    ========================================================================== */
 .ingredients__grid {
   display: grid;
-  gap: 5rem var(--space-6);
-  padding-top: var(--space-7);
-  margin-bottom: var(--space-7);
+  gap: 3.75rem var(--space-6);
+  justify-items: center;
+  padding-top: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+/* No mobile o Figma mostra os cards mais estreitos e centralizados */
+.ingredient-card {
+  width: clamp(230px, 68vw, 300px);
+}
+
+@media (min-width: 600px) {
+  .ingredient-card {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .ingredients__grid {
+    gap: 5rem var(--space-6);
+    padding-top: var(--space-7);
+    margin-bottom: var(--space-7);
+  }
 }
 
 /* Card cinza com um entalhe semicircular no topo, onde o ícone encaixa */
 .ingredient-card {
-  --notch: 52px;
+  --notch: clamp(40px, 12vw, 52px);
 
   position: relative;
   display: grid;
   gap: var(--space-3);
   align-content: start;
   height: 100%;
-  padding: 5rem var(--space-6) var(--space-7);
+  padding: 4rem var(--space-5) var(--space-6);
   text-align: center;
   transition: transform .25s var(--ease-out);
 }
@@ -1019,7 +1123,7 @@ p {
   top: 0;
   left: 50%;
   z-index: 2;
-  width: 210px;
+  width: clamp(160px, 46vw, 210px);
   max-width: none;
   transform: translate(-50%, -50%);
 }
@@ -1035,9 +1139,20 @@ p {
 }
 
 .ingredient-card p {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: var(--fs-small);
+  line-height: 1.65;
   color: var(--gray-700);
+}
+
+@media (min-width: 768px) {
+  .ingredient-card {
+    padding: 5rem var(--space-6) var(--space-7);
+  }
+
+  .ingredient-card p {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
 }
 
 @media (min-width: 600px) {
@@ -1126,14 +1241,24 @@ p {
 
 .why__badges {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
+  justify-items: center;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .why__badges {
+    gap: var(--space-4);
+  }
 }
 
 .pill-badge {
   display: flex;
   gap: var(--space-3);
   align-items: center;
-  padding: var(--space-2) var(--space-5) var(--space-2) var(--space-2);
+  width: min(100%, 300px);
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-2);
+  font-size: var(--fs-small);
   font-weight: 500;
   line-height: 1.35;
   text-align: left;
@@ -1144,17 +1269,21 @@ p {
 
 .pill-badge__icon {
   flex-shrink: 0;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   box-shadow: 0 0 0 4px rgb(179 58 58 / .25);
 }
 
 .why__product {
+  order: 3;
   justify-self: center;
-  width: min(100%, 320px);
+  width: min(100%, 300px);
   margin-top: var(--space-5);
 }
+
+.why__badges--left { order: 1; }
+.why__badges--right { order: 2; }
 
 .why__product img {
   width: 100%;
@@ -1165,12 +1294,31 @@ p {
   .why__badges {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .pill-badge {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pill-badge {
+    font-size: var(--fs-body);
+  }
+
+  .pill-badge__icon {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 @media (min-width: 1024px) {
   .why__product {
+    order: 0;
     margin-top: 0;
   }
+
+  .why__badges--left { order: 0; }
+  .why__badges--right { order: 0; }
 }
 
 @media (min-width: 1024px) {
@@ -1208,13 +1356,14 @@ p {
   padding-block: .8rem;
   overflow: hidden;
   font-family: var(--font-heading);
-  font-size: .9375rem;
+  font-size: clamp(.875rem, .55rem + .9vw, 1.25rem);
   font-weight: 700;
   color: var(--white);
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: .06em;
   white-space: nowrap;
-  background: var(--red-700);
+  /* cor exata da faixa na referência (#FF2D2D) */
+  background: var(--color-red-600);
 }
 
 .marquee__track {
@@ -1261,7 +1410,6 @@ p {
 @media (min-width: 1024px) {
   .marquee {
     padding-block: 1rem;
-    font-size: 1.0625rem;
   }
 }
 
@@ -1305,7 +1453,7 @@ p {
 }
 
 .testimonial > picture {
-  height: 220px;
+  height: 190px;
 }
 
 .testimonial__photo {
@@ -1318,7 +1466,13 @@ p {
   display: grid;
   gap: var(--space-2);
   align-content: center;
-  padding: var(--space-5) var(--space-5) var(--space-5) var(--space-4);
+  padding: var(--space-4);
+}
+
+@media (min-width: 600px) {
+  .testimonial__body {
+    padding: var(--space-5) var(--space-5) var(--space-5) var(--space-4);
+  }
 }
 
 .testimonial__quote {
@@ -1333,17 +1487,21 @@ p {
   color: var(--red-primary);
 }
 
+/* No Figma é só o check verde + texto cinza, sem pílula */
 .verified {
   display: inline-flex;
-  gap: var(--space-1);
+  gap: var(--space-2);
   align-items: center;
   justify-self: start;
-  padding: .15rem .6rem;
-  font-size: .75rem;
-  font-weight: 600;
-  color: var(--green-700);
-  background: #e8f5e9;
-  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  color: var(--gray-700);
+}
+
+.verified .icon {
+  padding: 2px;
+  color: var(--white);
+  background: var(--green-600);
+  border-radius: 50%;
 }
 
 .verified .icon {
@@ -1538,9 +1696,16 @@ p {
    ========================================================================== */
 .pricing__grid {
   display: grid;
-  gap: var(--space-7);
-  max-width: 420px;
+  gap: var(--space-5);
+  max-width: 300px;
   margin-inline: auto;
+}
+
+@media (min-width: 600px) {
+  .pricing__grid {
+    gap: var(--space-7);
+    max-width: 420px;
+  }
 }
 
 .price-card article {
@@ -1553,9 +1718,9 @@ p {
 }
 
 .price-card__ribbon {
-  padding: .7rem var(--space-4);
+  padding: .5rem var(--space-4);
   font-family: var(--font-heading);
-  font-size: 1.0625rem;
+  font-size: clamp(.8125rem, .65rem + .7vw, 1.0625rem);
   font-weight: 800;
   color: var(--white);
   text-align: center;
@@ -1574,11 +1739,11 @@ p {
     "media button"
     "media payment"
     "media total";
-  grid-template-columns: 1fr 1.25fr;
-  gap: var(--space-2) var(--space-3);
+  grid-template-columns: 1fr 1.3fr;
+  gap: var(--space-1) var(--space-2);
   align-items: center;
   justify-items: center;
-  padding: var(--space-5) var(--space-4) var(--space-6);
+  padding: var(--space-3) var(--space-3) var(--space-4);
   text-align: center;
 }
 
@@ -1627,8 +1792,7 @@ p {
 }
 
 .price-card__supply {
-  margin-top: calc(var(--space-3) * -1);
-  font-size: var(--fs-small);
+  font-size: clamp(.6875rem, .58rem + .45vw, .875rem);
   font-weight: 600;
   color: var(--gray-500);
   text-transform: uppercase;
@@ -1671,7 +1835,7 @@ p {
 
 .price-card__amount {
   font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 1.4rem + 3.6vw, 3.25rem);
+  font-size: clamp(1.75rem, 1.05rem + 3.1vw, 3.25rem);
   font-weight: 800;
   line-height: 1;
   color: var(--red-primary);
@@ -1700,14 +1864,14 @@ p {
 
 .price-card__features li {
   display: flex;
-  gap: var(--space-2);
+  gap: var(--space-1);
   align-items: center;
-  font-size: clamp(.75rem, .6rem + .6vw, .9375rem);
+  font-size: clamp(.6875rem, .55rem + .6vw, .9375rem);
 }
 
 .price-card__features .icon {
-  width: 1.4rem;
-  height: 1.4rem;
+  width: 1.1rem;
+  height: 1.1rem;
   padding: 3px;
   color: var(--white);
   border-radius: 50%;
@@ -1733,7 +1897,7 @@ p {
 .buy-btn {
   display: block;
   width: 100%;
-  max-width: 280px;
+  max-width: 170px;
   border-radius: var(--radius-pill);
   transition: transform .2s var(--ease-out), filter .2s;
 }
@@ -1761,12 +1925,22 @@ p {
 
 .payment-cards {
   width: 100%;
-  max-width: 280px;
+  max-width: 150px;
+}
+
+@media (min-width: 600px) {
+  .buy-btn {
+    max-width: 280px;
+  }
+
+  .payment-cards {
+    max-width: 280px;
+  }
 }
 
 .price-card__total {
   font-family: var(--font-heading);
-  font-size: 1.125rem;
+  font-size: clamp(.8125rem, .6rem + .9vw, 1.125rem);
   font-weight: 600;
   color: var(--text);
 }
@@ -1798,7 +1972,7 @@ p {
 .price-card--featured .price-card__supply,
 .price-card--featured .price-card__unit,
 .price-card--featured .price-card__total s {
-  color: #5e4f51;
+  color: var(--color-gray-700);
 }
 
 .price-card--featured .price-card__ribbon {
@@ -1810,7 +1984,7 @@ p {
     grid-template-columns: repeat(3, 1fr);
     gap: var(--space-5);
     align-items: center;
-    max-width: 1080px;
+    max-width: 1200px;
   }
 
   .price-card--featured {
@@ -1835,7 +2009,7 @@ p {
   display: grid;
   gap: var(--space-6);
   justify-items: center;
-  max-width: 1000px;
+  max-width: 1200px;
   padding: var(--space-6) var(--space-5);
   margin-inline: auto;
   text-align: center;
@@ -1878,7 +2052,7 @@ p {
 /* 17. FAQ / accordion
    ========================================================================== */
 .faq__inner {
-  max-width: calc(900px + var(--gutter) * 2);
+  max-width: calc(1060px + var(--gutter) * 2);
 }
 
 .faq .section-title {
@@ -1888,7 +2062,13 @@ p {
 
 .accordion {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
+}
+
+@media (min-width: 768px) {
+  .accordion {
+    gap: var(--space-3);
+  }
 }
 
 .accordion__item {
@@ -1909,10 +2089,10 @@ p {
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  min-height: 56px;
-  padding: var(--space-4) var(--space-5);
+  min-height: 48px;
+  padding: var(--space-3) var(--space-4);
   font-family: var(--font-heading);
-  font-size: 1.0625rem;
+  font-size: clamp(.875rem, .78rem + .45vw, 1.0625rem);
   font-weight: 600;
   line-height: 1.35;
   text-align: left;
@@ -1948,8 +2128,20 @@ p {
 }
 
 .accordion__content p {
-  padding: var(--space-4) var(--space-5) var(--space-5);
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  font-size: var(--fs-small);
   color: var(--gray-700);
+}
+
+@media (min-width: 768px) {
+  .accordion__trigger {
+    min-height: 56px;
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .accordion__content p {
+    padding: var(--space-4) var(--space-5) var(--space-5);
+  }
 }
 
 .accordion__content .link--light {
@@ -2123,15 +2315,15 @@ p {
 /* 18. Footer
    ========================================================================== */
 .site-footer {
-  padding-top: var(--space-7);
+  padding-top: var(--space-6);
   font-size: var(--fs-small);
-  color: rgb(255 255 255 / .7);
+  color: rgb(255 255 255 / .75);
   text-align: center;
-  background: var(--wine-900);
+  background: var(--color-wine-900);
 }
 
 .logo--footer {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-4);
 }
 
 .footer-links {
@@ -2154,7 +2346,7 @@ p {
 }
 
 .site-footer__divider {
-  margin-block: var(--space-5);
+  margin-block: var(--space-4);
   border: 0;
   border-top: 1px solid rgb(255 255 255 / .12);
 }
@@ -2164,14 +2356,21 @@ p {
   gap: var(--space-3);
   max-width: 900px;
   margin-inline: auto;
-  font-size: .8125rem;
+  font-size: .75rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .site-footer__legal {
+    font-size: .8125rem;
+  }
 }
 
 /* Faixa mais escura com o copyright, como no Figma */
 .site-footer__bar {
-  padding-block: var(--space-5);
-  margin-top: var(--space-6);
-  background: #120004;
+  padding-block: var(--space-4);
+  margin-top: var(--space-5);
+  background: var(--color-wine-950);
 }
 
 .site-footer__copy {
