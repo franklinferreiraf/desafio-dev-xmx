@@ -88,16 +88,21 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 ## Decisões tomadas (onde a descrição era omissa ou ambígua)
 
 ### Valores visuais
-- **Cores e fontes são aproximações visuais** feitas a partir de screenshots, **não valores exatos do Inspect do Figma**. Ficam centralizadas em custom properties no topo do `styles.css` (`:root`), então dá para trocar pelos valores reais em um só lugar.
+- **As cores são as do Inspect do Figma**, não mais estimativas: a paleta oficial está no topo do `styles.css` (`:root`), com os gradientes exatos (`58.16deg` no hero, `48.32deg` na seção Why) e os vermelhos `#C1121F`, `#FF2D2D`, `#FF4848`, `#FF5763`, `#FF3C3C`. Logo abaixo dela ficam apelidos semânticos (`--red-700`, `--wine-900`…) que o resto do CSS usa, então trocar um valor da paleta reflete na página inteira.
+- **Espaçamentos, tamanhos de fonte e raios continuam aproximados** a partir dos screenshots — só a paleta veio do Inspect.
 - Fontes: **Poppins** (600/700/800) nos títulos e **Inter** (400/500/600) no texto, via `<link>` do Google Fonts com `preconnect` e `display=swap`.
-- **Verde de textos pequenos** ("Verified Purchase" e "Free Shipping" dos totais): escureci para `#2e7d32`, porque `#4CAF50` em texto pequeno não passa no contraste AA.
+- **Dois ajustes de contraste dentro da paleta:** `#FF2D2D` como **texto** sobre branco dá 3,7:1 (abaixo dos 4,5:1 exigidos), então textos em vermelho usam o `#C1121F` da própria paleta e o `#FF2D2D` fica nos ícones e elementos gráficos. O mesmo vale para os textos pequenos em verde, que usam o `--green-dark` (`#116800`).
+- Três tokens da paleta ficam no `:root` **só como referência**: `--gradient-seal`, `--gradient-save-badge` e `--gradient-yellow-btn`. Esses elementos (selo da garantia, badge "SAVE $X" e botão BUY NOW) já vêm prontos como imagem do Figma.
 
 ### Seção por seção
 | Seção | Decisão | Por quê |
 | --- | --- | --- |
 | **Header** | **Fixo** (`position: sticky`), com fundo sólido e sombra depois de rolar. Abaixo de 1024px vira **menu hambúrguer**. | Página longa: o acesso a Preço/FAQ fica sempre a um clique. Em 768px os 4 links + botão não cabiam com folga. |
 | **Hero** | O corte em trapézio é um **`clip-path` no próprio hero**, com altura do chanfro em variável (`--chamfer`). | Resolve em uma linha de CSS, sem SVG extra, e escala com a largura. |
-| **Hero** | O asset do hero é **um pote só, sem cápsulas soltas**. Usei como veio, sem desenhar cápsulas por cima. | Regra do briefing: não recriar à mão o que já existe como imagem. |
+| **Hero** | **Dois potes:** o da frente nítido e um segundo atrás/à direita com `blur(2px) brightness(.55)` e 70% de opacidade, usando o mesmo arquivo. | O export tem um pote só; a profundidade do layout vem do tratamento em CSS, sem editar imagem. |
+| **Hero** | **Três cápsulas:** duas brancas (`pill.png`, `pill-1.png`) e uma **vermelha atrás do card**, que é a mesma cápsula branca tingida por CSS (`sepia + saturate + hue-rotate`). | Só vieram cápsulas brancas no export. O filtro evita pedir um asset novo e some junto com a imagem se ela for trocada. |
+| **Hero** | A textura de vasos é um **watermark**: `opacity: .12`, largura de 72% à direita e `mask-image` radial, concentrada atrás do produto. | No Figma ela é quase imperceptível; forte demais competia com o título. |
+| **Hero** | O card de benefícios fica **à direita, escuro e translúcido** (`#00000033` + `backdrop-filter: blur(12px)`), com texto branco. | É o que o Figma mostra: vidro escuro sobre a foto, não um card branco sólido. |
 | **Hero** | No mobile o card flutuante fica **abaixo da imagem, sobreposto em parte**. A partir de 768px ele flutua sobre a imagem. | Em 360px, sobre a imagem, ele cobriria o produto. |
 | **About** | A **foto da senhora vai ao fundo, em tons de cinza** (`filter: grayscale(1)`, como descrito no layout), e a **composição pronta** (`Frame 1707480045.png`) fica sobreposta na base, com posições em %. | A arte escala proporcionalmente em qualquer largura. O cinza da foto destaca o vermelho do pote e do sistema circulatório. |
 | **Ingredients** | 1 coluna < 600px · 2 colunas ≥ 600px · 3 colunas ≥ 1024px. O ícone "vaza" pelo topo com `position: absolute` + `translate(-50%, -50%)`. | Os PNGs têm 231×120 com o círculo centralizado num canvas transparente; o `translate` centraliza independentemente disso. |
@@ -121,10 +126,7 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | **Footer / páginas** | As páginas legais, de contato e de checkout ficam **na raiz** (`contact.html` etc.), com layout próprio simples. | O enunciado pede exatamente `href="contact.html"`. Os nomes são conferidos por `tools/check-links.mjs`. |
 
 ### Conteúdo inventado ou completado (suposições)
-- **Ingredientes 4, 5 e 6:** as descrições estavam cortadas no print. **Os trechos abaixo em negrito foram escritos por mim** e são plausíveis, mas não vêm do layout:
-  - *Hibiscus:* "…support healthy blood flow and **blood pressure levels already within the normal range. Its naturally occurring antioxidants help protect blood vessels from everyday oxidative stress.**"
-  - *Vitamin B6:* "Vitamin B6 plays a key role in red **blood cell formation and in the normal metabolism of homocysteine. Its active P-5-P form is readily used by the body to support energy and cardiovascular function.**"
-  - *Vitamin B12:* "Supports red blood cell production **and helps maintain healthy oxygen transport throughout the body. It also contributes to normal energy metabolism and nervous system function.**"
+- **Ingredientes:** as 6 descrições são agora **o texto real do layout** (as de hibisco, B6 e B12 chegaram depois, completas, e substituíram o texto que eu havia escrito enquanto estavam cortadas no print).
 - **Depoimentos 3 e 4 são placeholder:** *Walter J., 71 – Georgia* e *Diane K., 58 – Arizona*, nome e fala, escolhidos para combinar com as fotos `dep-tenurima-3` e `dep-tenurima-4`. Michael R. e Susan L. usam os nomes e falas do briefing.
 - **Textos do hero, do About, da garantia, das respostas do FAQ** (menos a primeira, que veio no enunciado) **e das páginas legais** foram escritos com base no rótulo do produto (ex.: "one capsule twice daily"). As páginas legais têm um aviso de placeholder visível.
 - **Contato:** o e-mail `support@tenurima.com` é o que aparece no rótulo; o horário de atendimento é fictício.
@@ -155,13 +157,13 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
   - marquee: 3 grupos em 360px e 5 em 1920px, com a animação andando;
   - menu mobile abre e fecha, inclusive ao clicar num link;
   - transcrição do rótulo (`<details>`) abre e mostra a tabela.
-- **axe-core 4.10** em 360 e 1440px: **0 violações** (inclusive depois de trocar o botão BUY NOW por imagem).
+- **axe-core 4.10** em 360 e 1440px: **0 violações** (inclusive depois de trocar o botão BUY NOW por imagem e de aplicar a paleta oficial — foi o axe que pegou o `#FF2D2D` sem contraste como texto).
 - **`tools/check-links.mjs`:** 9 páginas e 258 referências (HTML + `script.js`) sem problemas.
 - Conferência visual por screenshots de página inteira e por seção em cada largura.
 
 ## Limitações conhecidas
 
-- **Contraste do botão verde:** o gradiente `#8BC34A → #4CAF50` com texto branco, pedido no layout, fica abaixo do AA (4.5:1) para texto de 16px, mesmo com `text-shadow`. Mantive por fidelidade, mas recomendaria ao design escurecer o gradiente (ex.: `#7CB342 → #388E3C`) ou usar texto escuro.
+- **Contraste do botão verde:** o gradiente oficial `#35F60F → #1FA604` com texto branco fica bem abaixo do AA (4,5:1) para texto de 16px, mesmo com `text-shadow`. Mantive por fidelidade à paleta, mas levaria ao design a sugestão de usar texto escuro no botão ou escurecer o gradiente.
 - **BASIC com a mesma imagem duplicada:** os dois potes são idênticos; o ideal seria o Figma exportar uma imagem de 2 potes, como já existe para 3 e 6.
 - **Os depoimentos são renderizados por JS**, então sem JavaScript o carrossel fica vazio (o resto da página funciona). Foi uma troca consciente para ter os dados num array só.
 - A marcação do marquee se repete duas vezes no HTML, porque HTML estático não tem includes. O comportamento é um componente único no JS/CSS.

@@ -1,36 +1,84 @@
 /* ==========================================================================
    Tenurima – Landing page
    CSS puro, mobile-first. Breakpoints: 600px, 768px, 1024px, 1280px.
-   Cores e fontes são APROXIMAÇÕES visuais a partir de screenshots (ver README).
+   Cores: paleta oficial do Inspect do Figma (ver README). Espaçamentos e
+   tamanhos de fonte continuam sendo aproximações a partir dos screenshots.
    ========================================================================== */
 
 /* 1. Tokens
    ========================================================================== */
 :root {
-  /* Cores */
-  --wine-900: #1a0508;
-  --wine-800: #2a0a0f;
-  --wine-600: #5c1015;
-  --red-700: #a91e2c;
-  --red-600: #b33a3a;
-  --coral: #e86a64;
-  --green-400: #8bc34a;
-  --green-600: #4caf50;
-  --green-700: #2e7d32;
-  --yellow-400: #ffd400;
-  --yellow-500: #ffc107;
-  --gold: #e0a800;
-  --gray-50: #f6f6f4;
-  --gray-200: #e4e2df;
-  --gray-500: #6b6b6b;
-  --gray-700: #444;
-  --white: #fff;
-  --text: #1e1e1e;
-  --pink-50: #fff1f1;
+  /* ---------------------------------------------------------------
+     Paleta oficial, extraída do Inspect do Figma.
+     Abaixo dela ficam os apelidos semânticos usados no resto do CSS.
+     --------------------------------------------------------------- */
 
-  --gradient-wine: linear-gradient(135deg, var(--wine-800) 0%, var(--wine-600) 50%, var(--wine-800) 100%);
-  --gradient-green: linear-gradient(180deg, var(--green-400) 0%, var(--green-600) 100%);
-  --gradient-yellow: linear-gradient(180deg, var(--yellow-400) 0%, var(--yellow-500) 100%);
+  /* Fundos de seção */
+  --bg-white: #fff;
+  --bg-light: #f4f4f4;
+  --bg-light-alt: #fcf9f8;
+  --bg-dark: #150005;
+
+  /* Gradiente principal do Hero e do banner "Why Thousands Choose" */
+  --gradient-hero: linear-gradient(58.16deg, #44000c 30.85%, #cc494a 56.87%, #a93f48 65.4%);
+  --gradient-why-choose: linear-gradient(48.32deg, #44000c 20.94%, #cc494a 47.36%, #a93f48 62.26%);
+
+  /* Vermelhos de destaque (headings, ícones, badges) */
+  --red-primary: #c1121f;
+  --red-bright: #ff2d2d;
+  --red-accent: #ff4848;
+  --red-accent-2: #ff5763;
+  --red-strong: #ff3c3c;
+
+  /* Selo de garantia e badge "SAVE $X TODAY" (já embutidos nas imagens do
+     Figma; mantidos aqui como referência da paleta) */
+  --gradient-seal: linear-gradient(313.26deg, #c1121f 51.48%, #ff5763 71.46%);
+  --gradient-save-badge: linear-gradient(126.19deg, #ff929a 14.89%, #c1121f 54.23%, #ff929a 88.28%);
+
+  /* Botão verde "ORDER NOW" */
+  --gradient-green-btn: linear-gradient(180deg, #35f60f 0%, #1fa604 100%);
+  --green-shadow: #04ac48;
+  --green-dark: #116800;
+
+  /* Botão amarelo "BUY NOW" (hoje é a imagem do Figma; token mantido para
+     qualquer botão amarelo em HTML) */
+  --gradient-yellow-btn: linear-gradient(270deg, #ffdc17 0%, #ffd900 100%);
+  --yellow-alt: #ffe26e;
+
+  /* Texto e bordas neutras */
+  --text-gray: #736467;
+  --border-gray: #cecece;
+  --border-gray-2: #9a9a9a;
+
+  /* Overlays semitransparentes (cards sobre imagem) */
+  --overlay-dark-20: #00000033;
+  --overlay-white-10: #ffffff1a;
+
+  /* --------------------------------------------------------------- */
+  /* Apelidos semânticos                                             */
+  /* --------------------------------------------------------------- */
+  --wine-900: var(--bg-dark);
+  --wine-800: #44000c;
+  --wine-600: #a93f48;
+  --red-700: var(--red-primary);
+  --red-600: var(--red-bright);
+  --coral: var(--red-accent-2);
+  --green-600: #1fa604;
+  --green-700: var(--green-dark);
+  --yellow-400: #ffdc17;
+  --yellow-500: #ffd900;
+  --gold: #e0a800;
+  --gray-50: var(--bg-light);
+  --gray-200: var(--border-gray);
+  --gray-500: var(--text-gray);
+  --gray-700: #4a3e40;
+  --white: var(--bg-white);
+  --text: #1e1e1e;
+  --pink-50: var(--bg-light-alt);
+
+  --gradient-wine: var(--gradient-why-choose);
+  --gradient-green: var(--gradient-green-btn);
+  --gradient-yellow: var(--gradient-yellow-btn);
 
   /* Tipografia */
   --font-heading: "Poppins", "Segoe UI", Arial, sans-serif;
@@ -210,8 +258,10 @@ p {
   text-align: center;
 }
 
+/* Texto vermelho sobre fundo claro usa o tom escuro da paleta (contraste AA);
+   o #FF2D2D fica para ícones e elementos gráficos. */
 .text-red {
-  color: var(--red-600);
+  color: var(--red-primary);
 }
 
 .text-coral {
@@ -336,13 +386,13 @@ p {
 .btn--green {
   color: var(--white);
   background: var(--gradient-green);
-  box-shadow: 0 6px 18px rgb(76 175 80 / .35), inset 0 -3px 0 rgb(0 0 0 / .12);
+  box-shadow: 0 6px 18px rgb(4 172 72 / .4), inset 0 -3px 0 var(--green-dark);
   text-shadow: 0 1px 1px rgb(0 0 0 / .2);
 }
 
 .btn--green:hover {
   filter: brightness(1.06);
-  box-shadow: 0 10px 24px rgb(76 175 80 / .45), inset 0 -3px 0 rgb(0 0 0 / .12);
+  box-shadow: 0 10px 24px rgb(4 172 72 / .5), inset 0 -3px 0 var(--green-dark);
 }
 
 .btn--yellow {
@@ -622,7 +672,7 @@ p {
   padding-block: var(--space-7) calc(var(--space-8) + var(--chamfer));
   overflow: hidden;
   color: var(--white);
-  background: radial-gradient(ellipse at 70% 40%, #6e1419 0%, transparent 60%), var(--gradient-wine);
+  background: var(--gradient-hero);
   /* Corte em trapézio na base da seção */
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--chamfer)), 82% 100%, 18% 100%, 0 calc(100% - var(--chamfer)));
 }
@@ -641,13 +691,16 @@ p {
 /* Textura de vasos/coração atrás do gradiente */
 .hero__texture {
   position: absolute;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(72%, 1000px);
   height: 100%;
   object-fit: cover;
   object-position: right center;
-  opacity: .22;
+  opacity: .12;
   mix-blend-mode: screen;
+  mask-image: radial-gradient(ellipse at 75% 45%, #000 15%, transparent 72%);
 }
 
 .hero__inner {
@@ -703,14 +756,25 @@ p {
 }
 
 .hero__capsule--1 {
-  top: 8%;
-  left: 2%;
+  top: 2%;
+  right: 22%;
 }
 
 .hero__capsule--2 {
-  right: 4%;
-  bottom: 26%;
+  bottom: 12%;
+  left: 0;
   animation-delay: -3s;
+}
+
+/* Cápsula vermelha: o export só tem cápsulas brancas, então o tom vem de
+   um filtro CSS (sepia + saturate + hue-rotate) aplicado sobre a branca */
+.hero__capsule--3 {
+  right: 2%;
+  bottom: -2%;
+  z-index: 1;
+  width: clamp(52px, 10vw, 88px);
+  filter: sepia(1) saturate(12) hue-rotate(-60deg) brightness(.8) contrast(1.5) drop-shadow(0 8px 12px rgb(0 0 0 / .5));
+  animation-delay: -1.5s;
 }
 
 @keyframes float {
@@ -725,12 +789,24 @@ p {
 }
 
 .hero__image {
+  position: relative;
   width: 100%;
   filter: drop-shadow(0 30px 40px rgb(0 0 0 / .4));
 }
 
+/* Segundo pote, atrás e à direita, sugerindo profundidade */
+.hero__bottle-back {
+  position: absolute;
+  top: 6%;
+  right: -6%;
+  width: 82%;
+  filter: blur(2px) brightness(.55) saturate(.9);
+  opacity: .7;
+}
+
 .hero-card {
   position: relative;
+  z-index: 2;
   display: grid;
   gap: var(--space-3);
   max-width: 340px;
@@ -738,17 +814,17 @@ p {
   margin: calc(var(--space-6) * -1) auto 0;
   font-size: .9375rem;
   font-weight: 500;
-  color: var(--text);
-  background: rgb(255 255 255 / .88);
-  border: 1px solid rgb(255 255 255 / .6);
+  color: var(--white);
+  background: rgb(21 0 5 / .55);
+  border: 1px solid var(--overlay-white-10);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
 }
 
 @supports (backdrop-filter: blur(8px)) {
   .hero-card {
-    background: rgb(255 255 255 / .78);
-    backdrop-filter: blur(8px);
+    background: var(--overlay-dark-20);
+    backdrop-filter: blur(12px);
   }
 }
 
@@ -760,10 +836,10 @@ p {
   font-family: var(--font-heading);
   font-size: .8125rem;
   font-weight: 700;
-  color: var(--red-700);
+  color: var(--white);
   text-transform: uppercase;
   letter-spacing: .08em;
-  border-top: 1px solid var(--gray-200);
+  border-top: 1px solid var(--overlay-white-10);
 }
 
 .hero-card__badge img {
@@ -809,8 +885,9 @@ p {
 
   .hero-card {
     position: absolute;
+    right: -4%;
     bottom: 0;
-    left: -4%;
+    left: auto;
     margin: 0;
   }
 }
@@ -825,7 +902,7 @@ p {
   }
 
   .hero-card {
-    left: -14%;
+    right: -10%;
   }
 }
 
@@ -945,7 +1022,7 @@ p {
 .ingredient-card__title {
   font-size: var(--fs-h3);
   font-weight: 700;
-  color: var(--red-600);
+  color: var(--red-primary);
 }
 
 .ingredient-card p {
@@ -972,6 +1049,7 @@ p {
 .why {
   overflow: hidden;
   isolation: isolate;
+  background: var(--gradient-why-choose);
 }
 
 .why__bg {
@@ -1212,7 +1290,7 @@ p {
 .testimonial__author {
   font-family: var(--font-heading);
   font-weight: 700;
-  color: var(--red-600);
+  color: var(--red-primary);
 }
 
 .verified {
@@ -1462,7 +1540,7 @@ p {
   font-size: 2.75rem;
   font-weight: 800;
   line-height: 1;
-  color: var(--red-600);
+  color: var(--red-primary);
 }
 
 .price-card__unit {

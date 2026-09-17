@@ -14,9 +14,9 @@
 
 
   <link rel="preload" as="image" href="assets/img/hero-bottle.webp" type="image/webp">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <link rel="stylesheet" href="styles.css?v=3">
   <script>document.documentElement.classList.replace("no-js", "js");</script>
-  <script src="script.js?v=2" defer></script>
+  <script src="script.js?v=3" defer></script>
 </head>
 <body>
   <!-- Sprite de ícones: cada <symbol> é reutilizado com <use href="#icon-..."> -->
@@ -107,12 +107,18 @@
         <div class="hero__media">
           <picture>
             <source srcset="assets/img/hero-bottle.webp" type="image/webp">
+            <img class="hero__bottle-back" src="assets/img/hero-bottle.png" width="650" height="650" alt="">
+          </picture>
+
+          <picture>
+            <source srcset="assets/img/hero-bottle.webp" type="image/webp">
             <img class="hero__image" src="assets/img/hero-bottle.png" width="650" height="650" fetchpriority="high"
                  alt="Tilted bottle of Tenurima Blood Pressure Support dietary supplement with 60 capsules and a burgundy label">
           </picture>
 
           <img class="hero__capsule hero__capsule--1" src="assets/img/hero-capsule-1.png" width="91" height="86" alt="">
           <img class="hero__capsule hero__capsule--2" src="assets/img/hero-capsule-2.png" width="89" height="92" alt="">
+          <img class="hero__capsule hero__capsule--3" src="assets/img/hero-capsule-1.png" width="91" height="86" alt="">
 
           <div class="hero-card">
             <ul class="check-list">
@@ -212,7 +218,7 @@
               <img class="ingredient-card__icon" src="assets/img/ing-hibiscus.png" width="231" height="120" loading="lazy" alt="Bowl of dried hibiscus flower petals">
             </picture>
             <h3 class="ingredient-card__title">Hibiscus Flower</h3>
-            <p>Hibiscus has been traditionally used to support healthy blood flow and blood pressure levels already within the normal range. Its naturally occurring antioxidants help protect blood vessels from everyday oxidative stress.</p>
+            <p>Hibiscus has been traditionally used to support healthy blood flow and vascular function. It helps promote relaxation of blood vessels, supporting balanced blood pressure and circulation.</p>
           </li>
           <li class="ingredient-card">
             <picture>
@@ -220,7 +226,7 @@
               <img class="ingredient-card__icon" src="assets/img/ing-vitamin-b6.png" width="231" height="120" loading="lazy" alt="Bowl of yellow vitamin B6 tablets">
             </picture>
             <h3 class="ingredient-card__title">Vitamin B6 (Pyridoxal-5-Phosphate)</h3>
-            <p>Vitamin B6 plays a key role in red blood cell formation and in the normal metabolism of homocysteine. Its active P-5-P form is readily used by the body to support energy and cardiovascular function.</p>
+            <p>Vitamin B6 plays a key role in red blood cell formation and oxygen transport. It helps support energy levels and proper circulation throughout the body.</p>
           </li>
           <li class="ingredient-card">
             <picture>
@@ -228,7 +234,7 @@
               <img class="ingredient-card__icon" src="assets/img/ing-vitamin-b12.png" width="231" height="120" loading="lazy" alt="Bowl with red vitamin B12 capsules and small white granules">
             </picture>
             <h3 class="ingredient-card__title">Vitamin B12 (Cyanocobalamin)</h3>
-            <p>Supports red blood cell production and helps maintain healthy oxygen transport throughout the body. It also contributes to normal energy metabolism and nervous system function.</p>
+            <p>Supports red blood cell production and helps maintain healthy nerve function. Adequate B12 levels are essential for proper oxygen delivery and overall cardiovascular wellness.</p>
           </li>
         </ul>
       </div>
