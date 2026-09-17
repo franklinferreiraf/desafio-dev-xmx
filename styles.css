@@ -50,7 +50,7 @@
   --space-6: 2rem;
   --space-7: 3rem;
   --space-8: 4rem;
-  --section-y: clamp(3.5rem, 2.5rem + 4vw, 6rem);
+  --section-y: clamp(4rem, 2.5rem + 5vw, 7rem);
   --gutter: 1rem;
   --container: 1200px;
 
@@ -907,13 +907,17 @@ p {
    ========================================================================== */
 .ingredients__grid {
   display: grid;
-  gap: var(--space-8) var(--space-5);
-  padding-top: var(--space-6);
+  gap: 4.5rem var(--space-6);
+  padding-top: var(--space-7);
 }
 
 .ingredient-card {
   position: relative;
-  padding: 4.25rem var(--space-5) var(--space-6);
+  display: grid;
+  gap: var(--space-3);
+  align-content: start;
+  height: 100%;
+  padding: 5.5rem var(--space-6) var(--space-7);
   text-align: center;
   background: var(--white);
   border: 1px solid var(--gray-200);
@@ -939,14 +943,14 @@ p {
 }
 
 .ingredient-card__title {
-  margin-bottom: var(--space-3);
   font-size: var(--fs-h3);
   font-weight: 700;
   color: var(--red-600);
 }
 
 .ingredient-card p {
-  font-size: .9375rem;
+  font-size: 1rem;
+  line-height: 1.7;
   color: var(--gray-700);
 }
 
@@ -959,7 +963,7 @@ p {
 @media (min-width: 1024px) {
   .ingredients__grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-8) var(--space-6);
+    gap: 5rem var(--space-7);
   }
 }
 
@@ -1294,9 +1298,9 @@ p {
 
 @media (min-width: 600px) {
   .testimonial {
-    grid-template-columns: 140px 1fr;
+    grid-template-columns: 150px 1fr;
     gap: var(--space-5);
-    padding: var(--space-5);
+    padding: var(--space-6);
   }
 
 }
@@ -1373,7 +1377,7 @@ p {
    ========================================================================== */
 .pricing__grid {
   display: grid;
-  gap: var(--space-6);
+  gap: var(--space-7);
   max-width: 420px;
   margin-inline: auto;
 }
@@ -1400,9 +1404,9 @@ p {
 
 .price-card__body {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-4);
   justify-items: center;
-  padding: var(--space-5) var(--space-5) var(--space-6);
+  padding: var(--space-6) var(--space-5) var(--space-7);
   text-align: center;
 }
 
@@ -1468,9 +1472,12 @@ p {
 
 .price-card__features {
   display: grid;
-  gap: var(--space-2);
+  gap: var(--space-3);
   margin-block: var(--space-2);
-  font-weight: 500;
+  font-family: var(--font-heading);
+  font-size: .9375rem;
+  font-weight: 600;
+  letter-spacing: .02em;
   text-align: left;
 }
 
