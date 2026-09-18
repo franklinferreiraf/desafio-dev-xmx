@@ -82,7 +82,9 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 - **Não veio no pacote e continua gerado por script:** só o favicon.
 
 ### Camadas de fundo com as medidas da referência
-As três texturas do hero e as duas da seção de benefícios são posicionadas com as coordenadas do layout (ex.: `30008 1.png` em 1500×841, `top: -32`, `left: 947`), escaladas por um fator `--k = 100vw / 1920` para acompanhar a largura da tela. **A opacidade, porém, é menor que a do arquivo de especificação** (0,12–0,16 em vez de 0,6–1,0): aplicada literalmente, cada textura virava um retângulo visível com bordas duras, enquanto na referência elas são quase imperceptíveis. Também acrescentei uma `mask-image` radial para dissolver as bordas.
+As três texturas do hero e as duas da seção de benefícios usam **exatamente** as coordenadas, tamanhos, opacidades e `mix-blend-mode` do layout (ex.: `30008 1.png` em 1500×841, `top: -32`, `left: 947`, `opacity: .6`, `luminosity`), escalados por um fator `--k = 100vw / 1920` para acompanhar a largura da tela.
+
+O detalhe que faz isso funcionar: **as texturas ficam atrás do gradiente**, não sobre ele. No Figma o gradiente vinho é uma camada acima das fotos; quando eu as colocava por cima, cada uma virava um retângulo visível com bordas duras. Hoje a seção tem fundo sólido escuro, as imagens vêm na camada 0 e o gradiente entra como overlay semitransparente (`::after`) acima delas — com as opacidades originais o resultado fica igual à referência.
 
 ### Três decisões sobre os assets que valem destaque
 - **Falta o ícone `b2`.** A seção Why tem 6 badges e vieram 5 ícones (`b1`, `b3`–`b6`). Identificando cada um: `b1` coração com pulso, `b3` cápsula, `b4` medidor de pressão, `b5` circulação, `b6` pulmões — todos casam direto com 5 das frases. Sobrou "Helps maintain energy and overall wellness", e para ela **reutilizei o `b1` (coração/pulso)**, que é o mais próximo de energia e bem-estar geral. É a única repetição de ícone na página.
@@ -195,7 +197,6 @@ Cada item abaixo é uma decisão consciente, não um descuido:
 | **Avaliação** | "4.9/5 Customer Rating" | Igual à referência | O texto do pedido citava 4.85 e 4.92; mantive o que está no layout. |
 | **Card do hero** | 3 benefícios + "Made in the USA" | Igual à referência | O texto do pedido listava 4 benefícios. |
 | **Rosa do card "MOST POPULAR"** | `#F9E4E4` | Valor da especificação | — |
-| **Opacidade das texturas** | 0,6 a 1,0 no arquivo de medidas | 0,12 a 0,16 | Com os valores originais as imagens viravam retângulos opacos sobre o hero; a referência mostra apenas um sutil brilho. Mantive posição e tamanho exatos. |
 | **Divisor da seção de benefícios** | Retângulo branco 2761×92 | Chanfro em `clip-path` + faixa branca atrás | O recorte em ângulo é o que aparece no `Desktop.png`; a faixa branca atrás garante que o vão fique branco, como pede a especificação. |
 
 ## Limitações conhecidas

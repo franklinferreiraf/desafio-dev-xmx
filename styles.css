@@ -480,11 +480,11 @@ p {
     padding: 1rem 2.5rem;
   }
 
-  /* Medida da referência: 396 x 65 */
+  /* Medida da referência: 396 x 65, padding 18px 104px, gap 16px */
   .btn--green {
-    min-width: min(396px, 100%);
+    gap: 16px;
     min-height: 65px;
-    padding: 18px 2rem;
+    padding: 18px 104px;
     font-size: 1.125rem;
   }
 }
@@ -683,17 +683,28 @@ p {
   color: var(--white);
   /* O gradiente da paleta entra escurecido, com um brilho concentrado atrás
      do produto — é assim que ele aparece no Figma. */
-  background:
-    radial-gradient(80% 110% at 92% 0%, rgb(204 73 74 / .5) 0%, transparent 62%),
-    linear-gradient(180deg, #44000c 0%, #2a0509 45%, var(--bg-dark) 100%);
+  background: var(--bg-dark);
   /* Corte em trapézio na base da seção */
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--chamfer)), 82% 100%, 18% 100%, 0 calc(100% - var(--chamfer)));
+}
+
+/* Gradiente do hero por cima das texturas */
+.hero::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(80% 110% at 92% 0%, rgb(204 73 74 / .42) 0%, transparent 62%),
+    linear-gradient(180deg, rgb(68 0 12 / .88) 0%, rgb(42 5 9 / .9) 45%, rgb(21 0 5 / .94) 100%);
 }
 
 /* Padrão de pontos sutil */
 .hero::before {
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
   content: "";
   background-image: radial-gradient(rgb(255 255 255 / .09) 1.2px, transparent 1.4px);
@@ -708,6 +719,7 @@ p {
 
   position: absolute;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
@@ -729,9 +741,8 @@ p {
   left: calc(473px * var(--k));
   width: calc(867px * var(--k));
   height: calc(494px * var(--k));
-  opacity: .12;
+  opacity: 1;
   mix-blend-mode: luminosity;
-  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 78%);
 }
 
 /* 30008 1.png — 1500 x 841, top -32, left 947, opacity .6 */
@@ -740,9 +751,8 @@ p {
   left: calc(947px * var(--k));
   width: calc(1500px * var(--k));
   height: calc(841px * var(--k));
-  opacity: .16;
+  opacity: .6;
   mix-blend-mode: luminosity;
-  mask-image: radial-gradient(ellipse at 40% 50%, #000 15%, transparent 72%);
 }
 
 /* 3146 1.png — 709 x 567, top 169.86, left 780.86 */
@@ -751,13 +761,13 @@ p {
   left: calc(780.86px * var(--k));
   width: calc(709.29px * var(--k));
   height: calc(567.43px * var(--k));
-  opacity: .14;
+  opacity: 1;
   mix-blend-mode: luminosity;
-  mask-image: radial-gradient(ellipse at center, #000 18%, transparent 75%);
 }
 
 .hero__inner {
   position: relative;
+  z-index: 3;
   display: grid;
   gap: var(--space-5);
   align-items: center;
@@ -922,6 +932,7 @@ p {
 
 .scroll-down {
   position: absolute;
+  z-index: 3;
   bottom: calc(var(--chamfer) - 18px);
   left: 50%;
   display: grid;
@@ -1224,22 +1235,21 @@ p {
   overflow: hidden;
   isolation: isolate;
   padding-top: calc(var(--section-y) + var(--chamfer));
-  background:
-    radial-gradient(42% 52% at 50% 55%, rgb(204 73 74 / .32) 0%, transparent 70%),
-    linear-gradient(0deg, rgb(21 0 5 / .86) 0%, rgb(21 0 5 / .86) 100%),
-    var(--gradient-why-choose);
+  background: var(--bg-dark);
   /* Chanfro no topo, espelhando o corte do hero */
   clip-path: polygon(0 var(--chamfer), 18% 0, 82% 0, 100% var(--chamfer), 100% 100%, 0 100%);
 }
 
-/* Elemento branco que forma o divisor (a seção anterior é branca) */
+/* Divisor branco — 2761 x 92, top -31, left -419, radius 20 (medidas da
+   referência, escaladas por --k). O chanfro em clip-path recorta a seção
+   sobre ele, reproduzindo o corte em ângulo do layout. */
 .why::before {
   position: absolute;
-  top: calc(var(--chamfer) * -1);
-  right: 0;
-  left: 0;
+  top: calc(-31px * var(--k));
+  left: calc(-419px * var(--k));
   z-index: -1;
-  height: calc(var(--chamfer) + 2px);
+  width: calc(2761px * var(--k));
+  height: calc(91.98px * var(--k));
   content: "";
   background: var(--color-white);
   border-radius: 20px;
@@ -1266,7 +1276,7 @@ p {
   position: absolute;
   top: calc(-13px * var(--k));
   left: calc(-127px * var(--k));
-  z-index: -1;
+  z-index: 0;
   width: calc(1155px * var(--k));
   height: calc(770px * var(--k));
   object-fit: cover;
@@ -1274,28 +1284,35 @@ p {
   mix-blend-mode: luminosity;
 }
 
+/* Gradiente por cima das texturas, como no Figma */
 .why::after {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 1;
+  pointer-events: none;
   content: "";
-  background: radial-gradient(ellipse at center, transparent 0%, rgb(26 5 8 / .7) 100%);
+  background:
+    radial-gradient(42% 52% at 50% 55%, rgb(204 73 74 / .2) 0%, transparent 70%),
+    linear-gradient(48.32deg, rgb(21 0 5 / .93) 0%, rgb(68 0 12 / .88) 45%, rgb(21 0 5 / .95) 100%);
 }
 
-/* 30008 1.png — 1386 x 777, left 556.95, opacity .4 */
+/* 30008 1.png — 1386 x 777, left 556.95, opacity .4, blur no backdrop */
 .why__texture {
   position: absolute;
   top: 0;
   left: calc(556.95px * var(--k));
-  z-index: -1;
+  z-index: 0;
   width: calc(1386.05px * var(--k));
   height: calc(777.11px * var(--k));
   object-fit: cover;
   opacity: .4;
   mix-blend-mode: luminosity;
+  backdrop-filter: blur(5.54px);
 }
 
 .why__inner {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: var(--space-5);
   justify-items: center;
@@ -1771,6 +1788,10 @@ p {
 
 /* 15. Pricing
    ========================================================================== */
+.pricing .text-red {
+  color: var(--color-red-800);
+}
+
 .pricing__grid {
   display: grid;
   gap: var(--space-5);
@@ -1930,8 +1951,12 @@ p {
 
 .price-card__features {
   display: grid;
-  gap: var(--space-2);
+  gap: 12px;
+  width: 100%;
+  max-width: 314px;
+  padding-block: 3px;
   margin-block: var(--space-2);
+  border-radius: 6px;
   font-family: var(--font-heading);
   font-size: .9375rem;
   font-weight: 600;
@@ -2106,7 +2131,8 @@ p {
 .guarantee__content p {
   max-width: 589px;
   font-size: clamp(.9375rem, .8rem + .6vw, 1.25rem);
-  line-height: 1.35;
+  font-weight: 400;
+  line-height: 1.2;
   color: var(--color-gray-600);
 }
 
