@@ -1717,34 +1717,61 @@ p {
 /* 11. Why choose
    ========================================================================== */
 .why {
-  --chamfer: 48px;
-
   overflow: hidden;
   isolation: isolate;
-  padding-top: calc(var(--section-y) + var(--chamfer));
   background: var(--bg-dark);
-  /* Chanfro no topo, espelhando o corte do hero */
-  clip-path: polygon(0 var(--chamfer), 18% 0, 82% 0, 100% var(--chamfer), 100% 100%, 0 100%);
 }
 
-/* Divisor branco — 2761 x 92, top -31, left -419, radius 20 (medidas da
-   referência, escaladas por --k). O chanfro em clip-path recorta a seção
-   sobre ele, reproduzindo o corte em ângulo do layout. */
-.why::before {
+/* Divisor do topo: duas formas brancas (#FFFFFF) de 1048.22 x 91.98, raio
+   20px, em top -31 do frame (left -419 e, girada 180°, left 1293.78). A
+   ponta interna de cada uma é cortada em diagonal (1.1px por px, medido no
+   Beneficios.png), o que forma a aba escura central. Na página, os 15px de
+   cima do frame ficam sob a seção de Ingredientes, então as formas começam
+   46px acima do topo visível da seção. Ancoradas no centro: a aba fica
+   centralizada em qualquer largura (no mobile ela ocupa a tela inteira e o
+   topo fica reto, como no Mobile.png). */
+.why__divider {
   position: absolute;
-  top: max(-31px, -1.6146vw);
-  left: max(-419px, -21.8229vw);
-  z-index: -1;
-  width: min(2761px, 143.8021vw);
-  height: min(91.9827px, 4.7908vw);
+  top: -46px;
+  right: 0;
+  left: 0;
+  z-index: 3;
+  height: 91.98px;
+  pointer-events: none;
+}
+
+/* Largura sem a inclinação: 1048.22 - 91.98 x 1.1 = 947.04 */
+.why__divider::before,
+.why__divider::after {
+  position: absolute;
+  top: 0;
+  width: 947.04px;
+  height: 100%;
   content: "";
-  background: var(--color-white);
+  background: #fff;
   border-radius: 20px;
 }
 
+/* Ponta superior direita em x 629.22 (330.78 antes do centro). O canto
+   interno de baixo tem ~132°: os 20px do Figma nesse ângulo equivalem a 4px
+   aplicados antes da inclinação (medido contra o export). */
+.why__divider::before {
+  right: calc(50% + 381.37px);
+  border-bottom-right-radius: 4px;
+  transform: skewX(-47.73deg);
+}
+
+/* Espelhada: ponta superior esquerda em x 1293.78 (333.78 depois do centro) */
+.why__divider::after {
+  left: calc(50% + 384.37px);
+  border-bottom-left-radius: 4px;
+  transform: skewX(47.73deg);
+}
+
 @media (min-width: 768px) {
+  /* A faixa escura inteira começa 46px abaixo do topo da aba */
   .why {
-    --chamfer: 72px;
+    padding-top: calc(var(--section-y) + 46px);
   }
 }
 
