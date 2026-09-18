@@ -1786,19 +1786,31 @@ p {
   color: rgb(255 255 255 / .6);
 }
 
-/* 2148729868 1.png — 1155 x 770, top -13, left -127, opacity .4 */
+/* 2148729868 1.png, valores do Figma: 1155 x 770 em top -13 / left -127,
+   rotação 0, opacity .4, luminosity, dentro de um frame de 702 x 675 em
+   top 141 / left 51 com opacity .3.
+   O PNG exportado já é essa imagem recortada no frame da seção: casa com o
+   Beneficios.png em 988.5 x 757 na origem (correlação .93) e traz os .4 no
+   próprio alfa, por isso a opacidade aplicada aqui é só a do frame (.3).
+   O frame vira máscara com as bordas dissolvidas em 40px (o export não
+   mostra o contorno). Fica acima do escurecimento da seção (::after), como
+   no export. Os 15px de cima do frame ficam sob a seção de Ingredientes.
+   Medidas escaladas com a largura abaixo de 1920px (1920px = 19.2vw por
+   100px). */
 .why__bg {
   position: absolute;
-  top: max(-13px, -0.6771vw);
-  left: max(-127px, -6.6146vw);
-  z-index: 0;
-  width: min(1154.9999px, 60.1562vw);
-  height: min(770px, 40.1042vw);
-  object-fit: cover;
-  opacity: .4;
+  top: max(-15px, -0.7813vw);
+  left: 0;
+  z-index: 2;
+  width: min(988.5px, 51.4844vw);
+  height: min(757px, 39.4271vw);
+  opacity: .3;
   mix-blend-mode: luminosity;
-  /* A parte acima do topo da seção (13px) não aparece, como antes */
-  clip-path: inset(min(13px, .6771vw) 0 0 0);
+  /* Frame: x 51-753 e y 141-816 (passa da base da imagem) */
+  mask-image:
+    linear-gradient(90deg, transparent 5.16%, #000 9.21%, #000 72.13%, transparent 76.18%),
+    linear-gradient(180deg, transparent 18.63%, #000 23.91%);
+  mask-composite: intersect;
 }
 
 /* Gradiente por cima das texturas, como no Figma */
