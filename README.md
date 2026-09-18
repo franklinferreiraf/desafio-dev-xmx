@@ -67,13 +67,14 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | `shipping.png` · `made.png` | `seal-free-shipping.png` · `badge-made-in-usa.png` | Banner de frete · card do hero |
 | `image 1.png` · `pck-cards 1.png` | `btn-buy-now.png` · `payment-cards.png` | Botão BUY NOW · bandeiras de pagamento (3 cards) |
 | `b1.png`, `b3.svg`–`b6.svg` | `badge-heart.png`, `badge-capsule.svg`, `badge-gauge.svg`, `badge-circulation.svg`, `badge-lungs.svg` | Ícones das badges da seção Why |
-| `pill.png` · `pill-1.png` | `hero-capsule-1.png` · `hero-capsule-2.png` | Cápsulas soltas decorativas do hero |
+| `pill.png` · `pill-1.png` | `hero-capsule-1.png` · `hero-capsule-2.png` | Cápsulas do hero (a nítida à esquerda do pote, a desfocada à direita) |
+| `hero/Mockup-Tenurima-1.png` | `hero-bottle-back.png` | Pote de trás do hero (já vem desfocado e inclinado do Figma) |
 | `Rectangle.png` | `about-blood-cell.png` | Glóbulo vermelho decorativo no About |
 | `home/30008 1.png` · `3146 1.png` · `2151847309 1.png` | `texture-hero-vessels.png` · `texture-vessels.png` · `texture-ecg-chest.png` | Texturas de fundo do hero (as duas últimas também em Why e no banner de frete) |
 | `beneficios/30008 1.png` | `texture-heart-vessels.png` | Não usado no hero: é outro arquivo com o mesmo nome, exportado na pasta de benefícios |
 | `svg1494.png` | `icon-heart-small.png` | **Não usado** — ver nota abaixo |
 | `Group 1.png` · `usa.png` | `logo-mark.png` · `badge-made-in-usa.png` | Logo (header e rodapé) · selo do card do hero |
-| `divisor.png` | — | Não usei o arquivo: o mesmo chanfro é feito com `clip-path`, que acompanha qualquer largura |
+| `divisor.png` | — | Não usei o arquivo: a mesma aba (870 → 744px de largura, 55px de altura no desktop) é feita com `clip-path` no hero, que acompanha qualquer largura |
 
 - **WebP + fallback PNG:** cada imagem é servida com `<picture>`, tendo o `.webp` como fonte principal e o `.png` original como fallback. As imagens ficaram de **70% a 96% menores** (a foto do casal foi de 1 MB para 66 KB).
 - **`loading="lazy"` em todas as imagens, menos no hero**, que tem `fetchpriority="high"` e `preload` do WebP. Toda imagem tem `width`/`height` para evitar layout shift.
@@ -91,7 +92,7 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
 
 ### Três decisões sobre os assets que valem destaque
 - **Falta o ícone `b2`.** A seção Why tem 6 badges e vieram 5 ícones (`b1`, `b3`–`b6`). Identificando cada um: `b1` coração com pulso, `b3` cápsula, `b4` medidor de pressão, `b5` circulação, `b6` pulmões — todos casam direto com 5 das frases. Sobrou "Helps maintain energy and overall wellness", e para ela **reutilizei o `b1` (coração/pulso)**, que é o mais próximo de energia e bem-estar geral. É a única repetição de ícone na página.
-- **`Mockup-Tenurima-1.png` (628×628) veio desfocado.** O `Mockup-Tenurima-1-1.png` (650×650) é a versão nítida do mesmo pote. Usei **a nítida no hero** e mantive no card BASIC o mockup menor do primeiro pacote. Vale pedir ao design um novo export nítido.
+- **`Mockup-Tenurima-1.png` (628×628) é o pote de trás do hero**, e por isso já vem desfocado: no export os dois potes são arquivos diferentes, com inclinações próprias. O `Mockup-Tenurima-1-1.png` (650×650) é o pote da frente, já inclinado — nenhum dos dois recebe rotação ou filtro por CSS.
 - **`svg1494.png` não é envelope nem carrinho:** é um **coração anatômico branco** de 24px. Cheguei a usá-lo no hero, mas os exports do Figma mostram "60 Day Money-Back Guarantee" como texto puro e o "Contact Us" com envelope, então ele ficou **sem uso**. O arquivo segue no repositório, caso o design confirme onde ele entra.
 
 ---
@@ -102,7 +103,7 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
 - **A paleta oficial do projeto está no topo do `styles.css`** (`:root`), com os nomes definidos no guia de identidade: `--color-wine-950`, `--color-red-900`, `--color-green-500`, `--color-yellow-600`, `--color-gray-*`, os off-whites e os gradientes da referência. Logo abaixo dela ficam apelidos semânticos (`--red-700`, `--wine-900`…) que o resto do CSS usa, então trocar um valor da paleta reflete na página inteira.
 - **Layout medido contra os exports.** Tipografia, espaçamentos, larguras de container, tamanho dos botões e altura das seções foram ajustados comparando screenshot a screenshot com `Desktop.png` (1920px) e `Mobile.png` (360px). Depois do ajuste, a altura total ficou em 8.250px no desktop (referência: 8.108px) e 9.663px no mobile (referência: 8.426px — a diferença vem das 3 perguntas extras do FAQ, da transcrição do rótulo e do corpo de texto um pouco maior, itens listados abaixo).
 - **Espaçamentos, tamanhos de fonte e raios continuam aproximados**, mas agora conferidos contra os **exports do Figma por seção** (Home, Sobre, Ingredientes, Benefícios, Depoimentos, Preço e FAQ), comparando screenshot a screenshot.
-- **O fundo do hero foi remontado a partir das cores amostradas no export** (`Home.png`): base escura descendo de `#44000C` até `#150005` e um brilho `rgb(204 73 74 / .5)` saindo do canto superior direito. O gradiente da paleta aplicado puro ficava claro demais.
+- **Fundo do hero:** `#150005` (valor do Figma) com o gradiente do `figma-spec-start.md` (`#80161A` → `#150005`). O spec indica 135deg, mas nos pixels do export o tom claro está no canto **superior direito**; com `45deg, #150005 → #80161A` o topo do export bate com diferença de poucos pontos por canal, então usei 45deg.
 - **O gradiente da seção Why entra escurecido** (uma camada `rgb(21 0 5 / .84)` por cima, mais um brilho radial atrás do produto). Aplicados puros, eles ficavam muito mais claros que o Figma, onde as duas seções são quase pretas com um halo vermelho no produto.
 - O hero usa **o mesmo container do resto da página** (1200px). Cheguei a alargar para 1440px, mas medindo o export de 1920px o conteúdo ocupa ~1200px — só a imagem do produto e o card avançam um pouco para fora.
 - Fonte: **Montserrat** (400/500/600/700/800) em toda a página, via `<link>` do Google Fonts com `preconnect` e `display=swap`. Títulos de seção em 600 e 36px no desktop, como na especificação.
@@ -115,9 +116,10 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
 | **Header** | **Fixo no topo na landing** (`.site-header--fixed`): transparente sobre o hero e com fundo `#150005` a 97% (mais sombra) depois de 8px de rolagem. As páginas internas mantêm o header no fluxo. | O pedido exige header fixo. O export só mostra o estado inicial, sobre o hero; sem fundo, o texto branco sumiria sobre as seções claras. `scroll-padding-top` igual à altura do header faz as âncoras pararem logo abaixo dele. |
 | **Header** | **Menu hambúrguer abaixo de 1024px**, à direita do "Contact Us": abre um painel com os 4 links; fecha ao escolher um link, com Esc (o foco volta ao botão) ou clicando fora. Ao abrir, o foco vai para o primeiro link. Sem JS o botão não aparece. | O pedido exige hambúrguer; o `Mobile.png` não tem um (mostra só logo + "Contact Us"), então o botão e o painel são desenho meu, no estilo do header. |
 | **Header** | Nav com **"Ingredientes"** (marcado com `lang="pt"`), entre "Price", "Testimonials" e "FAQ". | É o texto do export e do pedido. |
-| **Hero** | O corte em trapézio é um **`clip-path` no próprio hero**, com altura do chanfro em variável (`--chamfer`). | Resolve em uma linha de CSS, sem SVG extra, e escala com a largura. |
-| **Hero** | **Dois potes:** o da frente nítido e um segundo atrás/à direita com `blur(2px) brightness(.55)` e 70% de opacidade, usando o mesmo arquivo. | O export tem um pote só; a profundidade do layout vem do tratamento em CSS, sem editar imagem. |
-| **Hero** | **Três cápsulas:** duas brancas (`pill.png`, `pill-1.png`) e uma **vermelha atrás do card**, que é a mesma cápsula branca tingida por CSS (`sepia + saturate + hue-rotate`). | Só vieram cápsulas brancas no export. O filtro evita pedir um asset novo e some junto com a imagem se ela for trocada. |
+| **Hero** | A base do hero é uma **aba central** (laterais retas, formato do `divisor.png`) feita com `clip-path`; as medidas ficam em `--hero-cut-*` no `:root`. A seção seguinte sobe por baixo da aba, então os recortes mostram o `#F4F4F4` dela. | Resolve sem SVG extra e escala entre as medidas do mobile (31px de altura) e do desktop (55px). |
+| **Hero** | **Composição com as coordenadas do export** (pote da frente 650px em x 791 / y 89; pote de trás, cápsulas, glóbulo e card posicionados em relação a ele) e uma única escala `--mu` para potes, card e texturas: 1 a partir de 1280px, .74 em 1024px, .7 e .6 nas faixas de tablet e .43 no mobile. | Mantém a composição inteira proporcional em qualquer largura, sem o card cobrir o pote nem sair da tela. |
+| **Hero** | A mancha vermelha atrás do card é o **`Rectangle.png`** (glóbulo vermelho, o mesmo arquivo do About), que está na pasta do hero do Figma. | Antes era uma cápsula branca tingida por filtro CSS; o asset certo existia. |
+| **Hero** | Checks do card **vazados**, em `#29EA02` (cor amostrada), desenhados como ícone SVG. | O `check.svg` exportado é um círculo preenchido, mas o `Desktop.png` mostra o contorno. |
 | **Hero** | **Três camadas de textura** empilhadas sobre o gradiente, todas discretas: a foto com ECG cobrindo a seção (`.1`, `luminosity`), o coração/vasos concentrado atrás do produto (`.14`, com `mask` radial) e os vasos em zoom (`.16`) deslocados para a direita e girados `-8deg`. | No Figma as texturas são quase imperceptíveis e se acumulam no lado do produto; fortes demais competiam com o título. |
 | **Hero** | O card de benefícios fica **à direita, escuro e translúcido** (`#00000033` + `backdrop-filter: blur(12px)`), com texto branco. | É o que o Figma mostra: vidro escuro sobre a foto, não um card branco sólido. |
 | **Hero** | No mobile o card flutuante fica **abaixo da imagem, sobreposto em parte**. A partir de 768px ele flutua sobre a imagem. | Em 360px, sobre a imagem, ele cobriria o produto. |
@@ -216,7 +218,7 @@ Cada item abaixo é uma decisão consciente, não um descuido:
 ## O que eu faria com mais tempo
 
 1. **Usar os valores reais do Figma** (Inspect/Dev Mode) para cores, tamanhos e espaçamentos, e exportar as imagens em **2x** para montar `srcset` com densidades (e AVIF).
-2. Pedir ao design: uma **imagem de 2 potes** para o card BASIC, o **ícone `b2`** que falta, um **export nítido** do `Mockup-Tenurima-1.png` e o **ícone do logo**.
+2. Pedir ao design: uma **imagem de 2 potes** para o card BASIC, o **ícone `b2`** que falta e o **ícone do logo**.
 3. **SCSS ou PostCSS** com parciais por seção, e **minificação** de CSS/JS num build simples (ex.: Vite).
 4. **Includes** (ou um gerador estático) para header, footer e marquee, sem duplicar marcação entre as páginas.
 5. **Testes automatizados** com Playwright: os mesmos testes de overflow, console e interações que rodei, mais axe e regressão visual por screenshot, rodando no **CI** (GitHub Actions) com o `check-links`.
