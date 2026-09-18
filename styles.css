@@ -1078,12 +1078,18 @@ p {
   backdrop-filter: blur(calc(6 * var(--mu)));
 }
 
-/* 3146 1.png — 709 x 567, top 169.86, left 780.86 */
+/* 3146 1.png — 709 x 567, top 169.86, left 780.86. Na referência os
+   glóbulos são quase imperceptíveis: opacity .12 com soft-light (ajustado
+   contra o hero-section-flat.png; com opacidade 1 as células apareciam em
+   volta dos potes e escureciam a área ao lado do pote da frente) */
 .hero__layer--vessels {
   --x: 780.86;
   --y: 169.86;
   --w: 709.2867;
   --h: 567.4293;
+
+  opacity: .12;
+  mix-blend-mode: soft-light;
 }
 
 .hero__inner {
