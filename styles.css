@@ -1456,7 +1456,22 @@ p {
   width: 116%;
   max-width: none;
   opacity: .4;
-  filter: grayscale(.4);
+}
+
+/* Mask group do Figma: máscara de 698.59 x 454 em top 52 / left -161 do
+   frame do About, opacity .4. O PNG exportado (955 x 591) já é o resultado
+   desse grupo, com máscara e opacidade aplicadas: casa com o Sobre.png em
+   tamanho natural, na origem do frame (correlação .94), e com opacidade 1
+   (erro de brilho 2.9, contra 7.8 reaplicando .4). O frame começa na base
+   da aba do hero; o bloco de mídia começa na borda do conteúdo (x 360) e
+   no fim do respiro da seção. */
+@media (min-width: 1024px) {
+  .about__mask {
+    top: calc(var(--section-y) * -1);
+    left: -360px;
+    width: 955px;
+    opacity: 1;
+  }
 }
 
 /* Glóbulo vermelho decorativo */
