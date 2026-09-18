@@ -112,8 +112,9 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
 ### Seção por seção
 | Seção | Decisão | Por quê |
 | --- | --- | --- |
-| **Header** | **Não é fixo nem sticky:** `position: relative` (fica no fluxo, sobre o gradiente do hero, e sai da tela ao rolar). | Requisito do projeto e é o que a referência mostra. O `z-index` e a margem negativa do hero mantêm o header por cima do gradiente sem tirá-lo do fluxo. |
-| **Header** | **No mobile aparecem só o logo e o "Contact Us"** — os links âncora entram a partir de 1024px, e não há menu hambúrguer. | É exatamente o header do `Mobile.png`. A navegação por âncora vira rolagem simples, e os CTAs "ORDER NOW" ao longo da página levam ao bloco de preços. |
+| **Header** | **Fixo no topo na landing** (`.site-header--fixed`): transparente sobre o hero e com fundo `#150005` a 97% (mais sombra) depois de 8px de rolagem. As páginas internas mantêm o header no fluxo. | O pedido exige header fixo. O export só mostra o estado inicial, sobre o hero; sem fundo, o texto branco sumiria sobre as seções claras. `scroll-padding-top` igual à altura do header faz as âncoras pararem logo abaixo dele. |
+| **Header** | **Menu hambúrguer abaixo de 1024px**, à direita do "Contact Us": abre um painel com os 4 links; fecha ao escolher um link, com Esc (o foco volta ao botão) ou clicando fora. Ao abrir, o foco vai para o primeiro link. Sem JS o botão não aparece. | O pedido exige hambúrguer; o `Mobile.png` não tem um (mostra só logo + "Contact Us"), então o botão e o painel são desenho meu, no estilo do header. |
+| **Header** | Nav com **"Ingredientes"** (marcado com `lang="pt"`), entre "Price", "Testimonials" e "FAQ". | É o texto do export e do pedido. |
 | **Hero** | O corte em trapézio é um **`clip-path` no próprio hero**, com altura do chanfro em variável (`--chamfer`). | Resolve em uma linha de CSS, sem SVG extra, e escala com a largura. |
 | **Hero** | **Dois potes:** o da frente nítido e um segundo atrás/à direita com `blur(2px) brightness(.55)` e 70% de opacidade, usando o mesmo arquivo. | O export tem um pote só; a profundidade do layout vem do tratamento em CSS, sem editar imagem. |
 | **Hero** | **Três cápsulas:** duas brancas (`pill.png`, `pill-1.png`) e uma **vermelha atrás do card**, que é a mesma cápsula branca tingida por CSS (`sepia + saturate + hue-rotate`). | Só vieram cápsulas brancas no export. O filtro evita pedir um asset novo e some junto com a imagem se ela for trocada. |
@@ -196,7 +197,8 @@ Cada item abaixo é uma decisão consciente, não um descuido:
 | **Faixa vermelha (marquee)** | `#FF2D2D` com texto branco pequeno | Mantive a cor e o texto exatos | No mobile isso dá 3,7:1 de contraste (o mínimo é 4,5:1) e o axe acusa. Preferi a fidelidade numa faixa decorativa a inventar outra cor; levaria ao design a sugestão de escurecer para `#D20606`, que passa. É a **única** violação de contraste da página. |
 | **Corpo de texto no mobile** | ~12,5px | **14px** | 12,5px num container de 360px fica no limite da legibilidade; 14px mantém a proporção do layout e a leitura. |
 | **FAQ** | 5 perguntas | **8 perguntas** | O briefing pedia "5+"; as três extras (dosagem, efeitos colaterais, fabricação) saem do rótulo. |
-| **Menu no mobile** | Só logo + "Contact Us" | Igual à referência | O texto do pedido falava em hambúrguer, mas o `Mobile.png` não tem um; segui a referência. |
+| **Menu no mobile** | Só logo + "Contact Us" | Logo + "Contact Us" + **hambúrguer** | O pedido exige menu hambúrguer funcional; o botão é o único elemento do header que não está no export. |
+| **Header fixo** | Estado inicial, sobre o hero | Fixo, com fundo ao rolar | Exigência do pedido; o estado rolado não existe no export. |
 | **Avaliação** | "4.9/5 Customer Rating" | Igual à referência | O texto do pedido citava 4.85 e 4.92; mantive o que está no layout. |
 | **Card do hero** | 3 benefícios + "Made in the USA" | Igual à referência | O texto do pedido listava 4 benefícios. |
 | **Rosa do card "MOST POPULAR"** | `#F9E4E4` | Valor da especificação | — |
