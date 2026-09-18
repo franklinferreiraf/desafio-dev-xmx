@@ -1721,6 +1721,9 @@ p {
    (escalas de tela de 125% / 150%), o overflow cortava as formas brancas na
    mesma fileira do fundo escuro, e o escuro vazava como uma linha cinza. */
 .why {
+  /* Corta só na horizontal (as formas vão além da tela) sem criar área de
+     rolagem; na vertical o clip-path deixa os 2px acima do topo */
+  overflow-x: clip;
   isolation: isolate;
   background: var(--bg-dark);
   clip-path: inset(-2px 0 0 0);
