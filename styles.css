@@ -1036,12 +1036,27 @@ p {
   mask-composite: intersect;
 }
 
-/* 2151847309 1.png — 867 x 494, top -1, left 473 */
+/* 2151847309 1.png, valores do Figma: imagem de 867 x 494.19 em top -1 /
+   left 473, rotação 0, opacity 1, luminosity, dentro de um frame de
+   570 x 596 em top 51 / left 670 com opacity .3. O frame vira uma máscara
+   na própria imagem e a opacidade dele é aplicada nela: um contêiner com
+   opacidade isolaria o luminosity do gradiente. Limites do frame, em
+   relação à imagem: 52 em cima, 100 à direita (1340 - 1240), 197 à
+   esquerda (670 - 473); embaixo o frame passa da imagem. */
 .hero__layer--chest {
   --x: 473;
   --y: -1;
   --w: 867;
   --h: 494.19;
+
+  opacity: .3;
+  /* Limites do frame: 22.7% a 88.5% na horizontal, a partir de 10.5% na
+     vertical. A Home.png não mostra o contorno do frame, então as bordas
+     são dissolvidas ao longo de ~70px em vez de cortadas. */
+  mask-image:
+    linear-gradient(90deg, transparent 22.7%, #000 30.8%, #000 80.4%, transparent 88.5%),
+    linear-gradient(180deg, transparent 10.5%, #000 24.7%);
+  mask-composite: intersect;
 }
 
 /* 30008 1.png, valores do Figma: 1500 x 841, top -32, left 947, rotação 0,

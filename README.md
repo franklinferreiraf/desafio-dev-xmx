@@ -86,6 +86,8 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 ### Camadas de fundo com as medidas da referência
 As três texturas do hero e as duas da seção de benefícios usam **exatamente** as coordenadas, tamanhos, opacidades e `mix-blend-mode` do layout (ex.: `30008 1.png` em 1500×841, `top: -32`, `left: 947`, `opacity: .6`, `luminosity`), com `object-fit: cover` (o "Fill" do Figma).
 
+Valores do Figma aplicados no hero: `2151847309 1.png` com 867×494,19 em top -1 / left 473, luminosity, dentro de um frame de 570×596 em top 51 / left 670 com opacidade 0,3 (o frame vira máscara na própria imagem, com as bordas dissolvidas porque a `Home.png` não mostra o contorno); `30008 1.png` com 1500×841 em top -32 / left 947, opacidade 0,6, luminosity e `backdrop-filter: blur(6px)`.
+
 No hero a ordem é a do Figma: **gradiente (`--gradient-hero`) → texturas em `luminosity` → escurecimento vertical → conteúdo**. O contêiner das texturas não tem `z-index`, senão isolaria o blend e o `luminosity` não enxergaria o gradiente. O escurecimento (`.hero::after`) existe nos exports: a base do hero é `#150005` uniforme em toda a largura, cobrindo as texturas; as paradas dele foram medidas pixel a pixel na `Home.png` e na referência mobile. As bordas das texturas são dissolvidas com `mask-image`, porque na referência nenhuma mostra o contorno retangular.
 
 As posições são calculadas a partir de um ponto de ancoragem da composição, não da borda esquerda da tela: no desktop, a borda direita do conteúdo (onde o pote se alinha), com escala acompanhando a coluna do pote; na coluna única (abaixo de 1024px), o centro do pote, que fica a uma distância fixa da base do hero.
