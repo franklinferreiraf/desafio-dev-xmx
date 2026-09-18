@@ -1813,19 +1813,11 @@ p {
   mask-size: 100% 100%;
 }
 
-/* Gradiente por cima das texturas, como no Figma */
-.why::after {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  content: "";
-  background:
-    radial-gradient(42% 52% at 50% 55%, rgb(204 73 74 / .2) 0%, transparent 70%),
-    linear-gradient(48.32deg, rgb(21 0 5 / .93) 0%, rgb(68 0 12 / .88) 45%, rgb(21 0 5 / .95) 100%);
-}
+/* Frame do Figma: 1922 x 824 em top 2656 / left -1, fundo #150005 (o
+   --bg-dark da seção). Não há camada de escurecimento sobre as imagens:
+   sem ela o fundo bate com o Beneficios.png fora da faixa clara do topo
+   (mediana de erro 1.0, contra 4.0 com a camada). */
 
-/* 30008 1.png — 1386 x 777, left 556.95, opacity .4, blur no backdrop */
 /* 30008 1.png (pasta de benefícios: coração + vasos), valores do Figma:
    1386.05 x 777.11 em left 556.95, rotação 0, opacity .4, luminosity,
    backdrop blur 5.544px, dentro de um grupo com opacity .3 mascarado por
