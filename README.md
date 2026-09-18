@@ -69,7 +69,8 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | `b1.png`, `b3.svg`–`b6.svg` | `badge-heart.png`, `badge-capsule.svg`, `badge-gauge.svg`, `badge-circulation.svg`, `badge-lungs.svg` | Ícones das badges da seção Why |
 | `pill.png` · `pill-1.png` | `hero-capsule-1.png` · `hero-capsule-2.png` | Cápsulas soltas decorativas do hero |
 | `Rectangle.png` | `about-blood-cell.png` | Glóbulo vermelho decorativo no About |
-| `30008 1.png` · `3146 1.png` · `2151847309 1.png` | `texture-heart-vessels.png` · `texture-vessels.png` · `texture-ecg-chest.png` | Texturas de fundo: hero · Why · banner de frete |
+| `home/30008 1.png` · `3146 1.png` · `2151847309 1.png` | `texture-hero-vessels.png` · `texture-vessels.png` · `texture-ecg-chest.png` | Texturas de fundo do hero (as duas últimas também em Why e no banner de frete) |
+| `beneficios/30008 1.png` | `texture-heart-vessels.png` | Não usado no hero: é outro arquivo com o mesmo nome, exportado na pasta de benefícios |
 | `svg1494.png` | `icon-heart-small.png` | **Não usado** — ver nota abaixo |
 | `Group 1.png` · `usa.png` | `logo-mark.png` · `badge-made-in-usa.png` | Logo (header e rodapé) · selo do card do hero |
 | `divisor.png` | — | Não usei o arquivo: o mesmo chanfro é feito com `clip-path`, que acompanha qualquer largura |
@@ -82,9 +83,11 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 - **Não veio no pacote e continua gerado por script:** só o favicon.
 
 ### Camadas de fundo com as medidas da referência
-As três texturas do hero e as duas da seção de benefícios usam **exatamente** as coordenadas, tamanhos, opacidades e `mix-blend-mode` do layout (ex.: `30008 1.png` em 1500×841, `top: -32`, `left: 947`, `opacity: .6`, `luminosity`), escalados por um fator `--k = 100vw / 1920` para acompanhar a largura da tela.
+As três texturas do hero e as duas da seção de benefícios usam **exatamente** as coordenadas, tamanhos, opacidades e `mix-blend-mode` do layout (ex.: `30008 1.png` em 1500×841, `top: -32`, `left: 947`, `opacity: .6`, `luminosity`), com `object-fit: cover` (o "Fill" do Figma).
 
-O detalhe que faz isso funcionar: **as texturas ficam atrás do gradiente**, não sobre ele. No Figma o gradiente vinho é uma camada acima das fotos; quando eu as colocava por cima, cada uma virava um retângulo visível com bordas duras. Hoje a seção tem fundo sólido escuro, as imagens vêm na camada 0 e o gradiente entra como overlay semitransparente (`::after`) acima delas — com as opacidades originais o resultado fica igual à referência.
+No hero a ordem é a do Figma: **gradiente (`--gradient-hero`) → texturas em `luminosity` → escurecimento vertical → conteúdo**. O contêiner das texturas não tem `z-index`, senão isolaria o blend e o `luminosity` não enxergaria o gradiente. O escurecimento (`.hero::after`) existe nos exports: a base do hero é `#150005` uniforme em toda a largura, cobrindo as texturas; as paradas dele foram medidas pixel a pixel na `Home.png` e na referência mobile. As bordas das texturas são dissolvidas com `mask-image`, porque na referência nenhuma mostra o contorno retangular.
+
+As posições são calculadas a partir de um ponto de ancoragem da composição, não da borda esquerda da tela: no desktop, a borda direita do conteúdo (onde o pote se alinha), com escala acompanhando a coluna do pote; na coluna única (abaixo de 1024px), o centro do pote, que fica a uma distância fixa da base do hero.
 
 ### Três decisões sobre os assets que valem destaque
 - **Falta o ícone `b2`.** A seção Why tem 6 badges e vieram 5 ícones (`b1`, `b3`–`b6`). Identificando cada um: `b1` coração com pulso, `b3` cápsula, `b4` medidor de pressão, `b5` circulação, `b6` pulmões — todos casam direto com 5 das frases. Sobrou "Helps maintain energy and overall wellness", e para ela **reutilizei o `b1` (coração/pulso)**, que é o mais próximo de energia e bem-estar geral. É a única repetição de ícone na página.

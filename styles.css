@@ -681,23 +681,54 @@ p {
   margin-top: calc(var(--header-h) * -1);
   overflow: hidden;
   color: var(--white);
-  /* O gradiente da paleta entra escurecido, com um brilho concentrado atrás
-     do produto — é assim que ele aparece no Figma. */
-  background: var(--bg-dark);
+  /* Ordem do Figma: gradiente embaixo, texturas em luminosity sobre ele,
+     conteúdo por cima */
+  background-color: var(--bg-dark);
+  background-image: var(--gradient-hero);
   /* Corte em trapézio na base da seção */
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--chamfer)), 82% 100%, 18% 100%, 0 calc(100% - var(--chamfer)));
 }
 
-/* Gradiente do hero por cima das texturas */
+/* Escurecimento vertical acima das texturas: nos exports a base do hero é
+   #150005 uniforme em toda a largura, cobrindo inclusive as texturas.
+   Paradas medidas pixel a pixel nos exports (mobile de 360px e desktop de
+   1920px). No mobile a faixa mais clara acompanha o topo do pote (--hero-dip),
+   que fica a uma distância fixa da base do hero. */
 .hero::after {
+  --hero-dip: calc(100% - 560px);
+
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   content: "";
-  background:
-    radial-gradient(80% 110% at 92% 0%, rgb(204 73 74 / .42) 0%, transparent 62%),
-    linear-gradient(180deg, rgb(68 0 12 / .88) 0%, rgb(42 5 9 / .9) 45%, rgb(21 0 5 / .94) 100%);
+  background: linear-gradient(180deg,
+    rgb(21 0 5 / .77) 0,
+    rgb(21 0 5 / .81) 180px,
+    rgb(21 0 5 / .93) 300px,
+    rgb(21 0 5 / .96) 380px,
+    rgb(21 0 5 / .84) var(--hero-dip),
+    rgb(21 0 5 / .94) calc(var(--hero-dip) + 120px),
+    rgb(21 0 5) calc(var(--hero-dip) + 240px));
+}
+
+@media (min-width: 768px) {
+  .hero::after {
+    --hero-dip: calc(100% - 730px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero::after {
+    background: linear-gradient(180deg,
+      rgb(21 0 5 / 0) 100px,
+      rgb(21 0 5 / .3) 200px,
+      rgb(21 0 5 / .64) 320px,
+      rgb(21 0 5 / .8) 400px,
+      rgb(21 0 5 / .9) 490px,
+      rgb(21 0 5 / .97) 580px,
+      rgb(21 0 5) 680px);
+  }
 }
 
 /* Padrão de pontos sutil */
@@ -712,56 +743,89 @@ p {
   mask-image: linear-gradient(90deg, #000 0%, transparent 55%, #000 100%);
 }
 
-/* Três camadas com as medidas da referência (canvas de 1920px).
-   --k é o fator de escala: em telas menores tudo encolhe junto. */
+/* Três texturas com as medidas da referência (canvas de 1920px).
+   Cada camada é posicionada a partir de um ponto de ancoragem da composição
+   (--ox/--oy no canvas, --ax/--ay na tela) e escalada por --u (1px = 1px do
+   canvas). Sem z-index aqui: o contêiner não pode isolar o mix-blend-mode,
+   senão o luminosity não enxerga o gradiente do .hero.
+
+   Mobile (coluna única): a âncora vertical é o centro do pote (y 357 no
+   canvas), que fica a uma distância fixa da base do hero. Na horizontal o
+   ponto x 1100 vai para o centro da tela: assim o coração da textura do peito
+   cai à esquerda do pote, onde aparece na referência mobile. */
 .hero__layers {
+  --u: .6044px; /* pote de 320px / 529.43px */
+  --ox: 1100;
+  --oy: 357;
+  --ax: 50%;
+  --ay: calc(100% - 406px);
 
   position: absolute;
   inset: 0;
-  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 768px) {
   .hero__layers {
-    --k: 1;
+    --u: 1px; /* pote de ~530px, o mesmo tamanho do desktop */
+    --ay: calc(100% - 465px);
+  }
+}
+
+/* Desktop: a âncora é a borda direita do conteúdo (x 1560 no canvas), onde
+   o pote está alinhado; a escala acompanha a largura da coluna do pote. */
+@media (min-width: 1024px) {
+  .hero__layers {
+    --u: min(1px, (100vw - 56px) / 1085.33);
+    --ox: 1560;
+    --oy: 0;
+    --ax: calc(50% + min(50%, 616px) - 16px);
+    --ay: 0px;
   }
 }
 
 .hero__layer {
   position: absolute;
-  object-fit: contain;
+  top: calc(var(--ay) + (var(--y) - var(--oy)) * var(--u));
+  left: calc(var(--ax) + (var(--x) - var(--ox)) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+  max-width: none;
+  object-fit: cover;
+  mix-blend-mode: luminosity;
+  /* Bordas dissolvidas: na referência nenhuma textura mostra o contorno
+     retangular da imagem */
+  mask-image:
+    linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent),
+    linear-gradient(180deg, transparent, #000 15%, #000 85%, transparent);
+  mask-composite: intersect;
 }
 
 /* 2151847309 1.png — 867 x 494, top -1, left 473 */
 .hero__layer--chest {
-  top: max(-1px, -0.0521vw);
-  left: min(473px, 24.6354vw);
-  width: min(867px, 45.1562vw);
-  height: min(494.19px, 25.7391vw);
-  opacity: 1;
-  mix-blend-mode: luminosity;
+  --x: 473;
+  --y: -1;
+  --w: 867;
+  --h: 494.19;
 }
 
-/* 30008 1.png — 1500 x 841, top -32, left 947, opacity .6 */
+/* 30008 1.png (pasta home) — 1500 x 841, top -32, left 947, opacity .6 */
 .hero__layer--heart {
-  top: max(-32px, -1.6667vw);
-  left: min(947px, 49.3229vw);
-  width: min(1500px, 78.125vw);
-  height: min(841px, 43.8021vw);
+  --x: 947;
+  --y: -32;
+  --w: 1500;
+  --h: 841;
+
   opacity: .6;
-  mix-blend-mode: luminosity;
 }
 
 /* 3146 1.png — 709 x 567, top 169.86, left 780.86 */
 .hero__layer--vessels {
-  top: min(169.86px, 8.8469vw);
-  left: min(780.86px, 40.6698vw);
-  width: min(709.2867px, 36.942vw);
-  height: min(567.4293px, 29.5536vw);
-  opacity: 1;
-  mix-blend-mode: luminosity;
+  --x: 780.86;
+  --y: 169.86;
+  --w: 709.2867;
+  --h: 567.4293;
 }
 
 .hero__inner {
@@ -989,12 +1053,22 @@ p {
     right: -10%;
   }
 
-  /* Composição do produto: 529.43 x 529.43 no canvas de 1920 */
+  /* Composição do produto: 529.43 x 529.43 no canvas de 1920. Abaixo de
+     ~1140px ocupa a coluna inteira, para o card não encobrir o pote. */
   .hero__media {
-    width: min(529.4313px, 27.5745vw);
+    width: min(529.4313px, 100%);
     max-width: none;
     margin-left: auto;
     transform: translate(max(-33px, -1.7188vw), max(-16px, -0.8333vw));
+  }
+}
+
+/* Nesta faixa o pote ocupa (quase) a coluna inteira e right: -10% jogaria o
+   card para fora da tela: ele avança só o quanto o pote foi deslocado para a
+   esquerda, terminando na borda do conteúdo como no Figma */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero-card {
+    right: -1.7188vw;
   }
 }
 
