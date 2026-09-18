@@ -1716,10 +1716,14 @@ p {
 
 /* 11. Why choose
    ========================================================================== */
+/* Recorte por clip-path, e não overflow: hidden: as formas do divisor
+   podem passar 2px acima do topo. Com o topo caindo no meio de um pixel
+   (escalas de tela de 125% / 150%), o overflow cortava as formas brancas na
+   mesma fileira do fundo escuro, e o escuro vazava como uma linha cinza. */
 .why {
-  overflow: hidden;
   isolation: isolate;
   background: var(--bg-dark);
+  clip-path: inset(-2px 0 0 0);
 }
 
 /* Divisor do topo: duas formas brancas (#FFFFFF) de 1048.22 x 91.98, raio
@@ -1790,6 +1794,8 @@ p {
   object-fit: cover;
   opacity: .4;
   mix-blend-mode: luminosity;
+  /* A parte acima do topo da seção (13px) não aparece, como antes */
+  clip-path: inset(min(13px, .6771vw) 0 0 0);
 }
 
 /* Gradiente por cima das texturas, como no Figma */
