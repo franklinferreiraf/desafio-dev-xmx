@@ -164,7 +164,6 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scroll-behavior: smooth;
-  scroll-padding-top: var(--header-h);
 }
 
 body {
@@ -582,9 +581,9 @@ p {
 /* 7. Header
    ========================================================================== */
 /* Medidas dos exports: Desktop.png (1920px) e Mobile.png (360px).
-   Nas páginas internas o header fica no fluxo; na landing ele é fixo
-   (.site-header--fixed), transparente sobre o hero e com fundo depois que a
-   página rola ou quando o menu mobile está aberto. */
+   Nas páginas internas o header fica no fluxo; na landing ele fica sobre o
+   hero (.site-header--overlay), transparente, e rola junto com a página
+   (não é fixo). Ganha fundo só quando o menu mobile está aberto. */
 .site-header {
   position: relative;
   z-index: 50;
@@ -592,14 +591,13 @@ p {
   background: transparent;
 }
 
-.site-header--fixed {
-  position: fixed;
+.site-header--overlay {
+  position: absolute;
   inset: 0 0 auto;
   transition: background-color .25s, box-shadow .25s;
 }
 
-.site-header--fixed.is-scrolled,
-.site-header--fixed.is-menu-open {
+.site-header--overlay.is-menu-open {
   background-color: rgb(21 0 5 / .97);
   box-shadow: 0 6px 20px rgb(0 0 0 / .25);
 }

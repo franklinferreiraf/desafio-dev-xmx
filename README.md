@@ -116,7 +116,7 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
 ### Seção por seção
 | Seção | Decisão | Por quê |
 | --- | --- | --- |
-| **Header** | **Fixo no topo na landing** (`.site-header--fixed`): transparente sobre o hero e com fundo `#150005` a 97% (mais sombra) depois de 8px de rolagem. As páginas internas mantêm o header no fluxo. | O pedido exige header fixo. O export só mostra o estado inicial, sobre o hero; sem fundo, o texto branco sumiria sobre as seções claras. `scroll-padding-top` igual à altura do header faz as âncoras pararem logo abaixo dele. |
+| **Header** | **Não é fixo:** na landing fica sobre o hero (`.site-header--overlay`, `position: absolute`), transparente, e rola junto com a página. Só ganha fundo com o menu mobile aberto. As páginas internas mantêm o header no fluxo. | Definido na revisão do layout: o header acompanha o hero, como no export. |
 | **Header** | **Menu hambúrguer abaixo de 1024px**, à direita do "Contact Us": abre um painel com os 4 links; fecha ao escolher um link, com Esc (o foco volta ao botão) ou clicando fora. Ao abrir, o foco vai para o primeiro link. Sem JS o botão não aparece. | O pedido exige hambúrguer; o `Mobile.png` não tem um (mostra só logo + "Contact Us"), então o botão e o painel são desenho meu, no estilo do header. |
 | **Header** | Nav com **"Ingredientes"** (marcado com `lang="pt"`), entre "Price", "Testimonials" e "FAQ". | É o texto do export e do pedido. |
 | **Hero** | A base do hero é uma **aba central** (laterais retas, formato do `divisor.png`) feita com `clip-path`; as medidas ficam em `--hero-cut-*` no `:root`. A seção seguinte sobe por baixo da aba, então os recortes mostram o `#F4F4F4` dela. | Resolve sem SVG extra e escala entre as medidas do mobile (31px de altura) e do desktop (55px). |
@@ -203,7 +203,6 @@ Cada item abaixo é uma decisão consciente, não um descuido:
 | **Corpo de texto no mobile** | ~12,5px | **14px** | 12,5px num container de 360px fica no limite da legibilidade; 14px mantém a proporção do layout e a leitura. |
 | **FAQ** | 5 perguntas | **8 perguntas** | O briefing pedia "5+"; as três extras (dosagem, efeitos colaterais, fabricação) saem do rótulo. |
 | **Menu no mobile** | Só logo + "Contact Us" | Logo + "Contact Us" + **hambúrguer** | O pedido exige menu hambúrguer funcional; o botão é o único elemento do header que não está no export. |
-| **Header fixo** | Estado inicial, sobre o hero | Fixo, com fundo ao rolar | Exigência do pedido; o estado rolado não existe no export. |
 | **Avaliação** | "4.9/5 Customer Rating" | Igual à referência | O texto do pedido citava 4.85 e 4.92; mantive o que está no layout. |
 | **Card do hero** | 3 benefícios + "Made in the USA" | Igual à referência | O texto do pedido listava 4 benefícios. |
 | **Rosa do card "MOST POPULAR"** | `#F9E4E4` | Valor da especificação | — |
