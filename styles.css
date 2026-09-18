@@ -1909,9 +1909,14 @@ p {
 .why__badges--left { order: 1; }
 .why__badges--right { order: 2; }
 
-.why__product img {
+.why__pedestal img {
   width: 100%;
   filter: drop-shadow(0 24px 30px rgb(0 0 0 / .35));
+}
+
+/* O pote maior só entra no desktop: no mobile fica o produto.png inteiro */
+.why__bottle {
+  display: none;
 }
 
 @media (min-width: 600px) {
@@ -1957,9 +1962,67 @@ p {
     gap: var(--space-6);
   }
 
+  /* O produto vira só o espaço da coluna central; as peças são posicionadas
+     com as coordenadas do frame do Figma (1922 x 824), relativas ao
+     .why__inner: x ancorado no centro, y a partir do topo do frame (15px
+     acima da seção, que começa 46px + o respiro antes do .why__inner).
+     --wk escala tudo abaixo de 1920px. */
+  .why {
+    --wk: min(1px, 100vw / 1920);
+
+    /* O marquee começa em y 762 do frame (747px abaixo do topo visível) e
+       cobre a base do pedestal, como no export */
+    min-height: calc(747 * var(--wk));
+  }
+
   .why__product {
     order: 0;
+    position: static;
     width: clamp(300px, 30vw, 420px);
+  }
+
+  .why__badges {
+    position: relative;
+    z-index: 3;
+  }
+
+  .why__pedestal,
+  .why__bottle {
+    position: absolute;
+    top: calc((var(--y) - 61) * var(--wk) - var(--section-y));
+    left: calc(50% + (var(--x) - 961) * var(--wk));
+    display: block;
+    width: calc(var(--w) * var(--wk));
+  }
+
+  /* produto.png é o grupo exportado do Figma: brilho vermelho, anéis de
+     fundo (as elipses de contorno branco), pedestal e um pote menor. Vai
+     inteiro em 600 x 678 / 659, 144 (medido no export, correlação .88) */
+  .why__pedestal {
+    --x: 659;
+    --y: 144;
+    --w: 600;
+
+    z-index: 1;
+  }
+
+  .why__pedestal img {
+    filter: none;
+  }
+
+  /* Pote do layout final: bottle-basic com 489.49px de largura em 716 / 241
+     (largura e left do Figma; topo medido no export), cobrindo o pote menor
+     que vem no produto.png */
+  .why__bottle {
+    --x: 716;
+    --y: 241;
+    --w: 489.49;
+
+    z-index: 2;
+  }
+
+  .why__bottle img {
+    width: 100%;
   }
 
   /* Leve curvatura das badges ao redor do produto */

@@ -53,7 +53,7 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | --- | --- | --- |
 | `Mockup-Tenurima-1-1.png` (versão nítida) | `hero-bottle` | Hero |
 | `Mockup-Tenurima-1 (1).png` (pacote anterior) | `bottle-basic` | Pote do About (caixa de 475,97px) e card BASIC (exibida 2x) |
-| `produto.png` | `why-product-pedestal` | Centro da seção Why |
+| `produto.png` | `why-product-pedestal` | Centro da seção Why: é o grupo exportado do Figma (brilho vermelho, anéis de fundo, pedestal e um pote menor), inteiro em 600×678 na posição medida no export; no desktop o `bottle-basic` (489,49px) vai por cima, como no layout final |
 | `pote.png` | `pack-6-bottles` | Card MOST POPULAR |
 | `pote (1).png` | `pack-3-bottles` | Card BUNDLE |
 | `Frame 1707480045.png` | `about-composition` | About (composição pronta) |
