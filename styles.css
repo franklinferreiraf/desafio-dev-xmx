@@ -1044,9 +1044,11 @@ p {
   --h: 494.19;
 }
 
-/* 30008 1.png (pasta home), valores do Figma: 1500 x 841, top -32,
-   left 947, rotação 0, opacity .6, luminosity, backdrop blur 6px. Sem a
-   máscara de bordas das outras camadas, que não faz parte da especificação.
+/* 30008 1.png, valores do Figma: 1500 x 841, top -32, left 947, rotação 0,
+   opacity .6, luminosity, backdrop blur 6px. O arquivo é o exportado na
+   pasta de benefícios (coração + vasos): é ele que aparece na Home.png.
+   Dentro da caixa a imagem ocupa a altura e fica perto da direita
+   (1166 x 841 em x ~1251), posição encontrada por correlação com o export.
    O blur acompanha a escala da composição (6px em 1920px). */
 .hero__layer--heart {
   --x: 947;
@@ -1055,7 +1057,11 @@ p {
   --h: 841;
 
   opacity: .6;
-  mask-image: none;
+  object-fit: contain;
+  object-position: 91% 50%;
+  /* A imagem começa em ~20% da caixa; a Home.png não mostra emenda ali,
+     então só essa borda é dissolvida */
+  mask-image: linear-gradient(90deg, transparent 20.3%, #000 26%);
   backdrop-filter: blur(calc(6 * var(--mu)));
 }
 

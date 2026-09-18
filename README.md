@@ -70,8 +70,8 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | `pill.png` · `pill-1.png` | `hero-capsule-1.png` · `hero-capsule-2.png` | Cápsulas do hero (a nítida à esquerda do pote, a desfocada à direita) |
 | `hero/Mockup-Tenurima-1.png` | `hero-bottle-back.png` | Pote de trás do hero (já vem desfocado e inclinado do Figma) |
 | `Rectangle.png` | `about-blood-cell.png` | Glóbulo vermelho decorativo no About |
-| `home/30008 1.png` · `3146 1.png` · `2151847309 1.png` | `texture-hero-vessels.png` · `texture-vessels.png` · `texture-ecg-chest.png` | Texturas de fundo do hero (as duas últimas também em Why e no banner de frete) |
-| `beneficios/30008 1.png` | `texture-heart-vessels.png` | Não usado no hero: é outro arquivo com o mesmo nome, exportado na pasta de benefícios |
+| `beneficios/30008 1.png` · `3146 1.png` · `2151847309 1.png` | `texture-heart-vessels.png` · `texture-vessels.png` · `texture-ecg-chest.png` | Texturas de fundo do hero (as duas últimas também em Why e no banner de frete) |
+| `home/30008 1.png` | `texture-hero-vessels.png` | **Não usado.** Tem o mesmo nome do `30008` de benefícios, mas a textura que aparece na `Home.png` é a de benefícios (confirmado por correlação de imagem com o export) |
 | `svg1494.png` | `icon-heart-small.png` | **Não usado** — ver nota abaixo |
 | `Group 1.png` · `usa.png` | `logo-mark.png` · `badge-made-in-usa.png` | Logo (header e rodapé) · selo do card do hero |
 | `divisor.png` | — | Não usei o arquivo: a mesma aba (870 → 744px de largura, 55px de altura no desktop) é feita com `clip-path` no hero, que acompanha qualquer largura |
