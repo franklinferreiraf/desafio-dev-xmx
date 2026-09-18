@@ -52,12 +52,13 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | Arquivo original | Arquivo no repositório | Onde é usado |
 | --- | --- | --- |
 | `Mockup-Tenurima-1-1.png` (versão nítida) | `hero-bottle` | Hero |
-| `Mockup-Tenurima-1 (1).png` (pacote anterior) | `bottle-basic` | Card BASIC (exibida 2x) |
+| `Mockup-Tenurima-1 (1).png` (pacote anterior) | `bottle-basic` | Pote do About (caixa de 475,97px) e card BASIC (exibida 2x) |
 | `produto.png` | `why-product-pedestal` | Centro da seção Why |
 | `pote.png` | `pack-6-bottles` | Card MOST POPULAR |
 | `pote (1).png` | `pack-3-bottles` | Card BUNDLE |
 | `Frame 1707480045.png` | `about-composition` | About (composição pronta) |
-| `2148492240 1.png` | `about-woman-capsule` | About (foto de apoio) |
+| `2148492240 1.png` | `about-woman-capsule` | About: foto de apoio (960×640, opacity .6, luminosity), recortada pela máscara `about-photo-mask.png` |
+| `Mask group.png` (about) | `about-mask.png` → `about-photo-mask.png` | O export do grupo já vem com máscara e opacidades aplicadas; a máscara usada no CSS é o alfa dele dividido pela opacidade da foto (.6), ou seja, o formato da máscara com os .4 do grupo |
 | `2148729868 1.png` | `why-couple-running` | Fundo da seção Why |
 | `ing-1.png` … `ing-6.png` | `ing-hawthorn`, `ing-garlic`, `ing-olive-leaf`, `ing-hibiscus`, `ing-vitamin-b6`, `ing-vitamin-b12` | Cards de ingredientes, na ordem pedida |
 | `dep-1-tenurima 1.png` … `dep-tenurima-4 1.png` | `testimonial-michael`, `-susan`, `-walter`, `-diane` | Carrossel de depoimentos |

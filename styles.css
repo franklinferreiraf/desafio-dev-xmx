@@ -1440,38 +1440,32 @@ p {
   margin-inline: auto;
 }
 
-/* Mask group.png — foto de apoio com opacidade .4, deslocada para a esquerda */
-/* A foto de apoio fica fora do fluxo do grid da composição */
-.about__mask-wrap {
+/* Foto de apoio (2148492240 1.png), valores do Figma: 960 x 640 em top -6 /
+   left -5 do frame, rotação 0, opacity .6, luminosity, dentro do "Mask
+   group" (opacity .4). A máscara vem do próprio export do grupo: o alfa do
+   Mask group.png dividido pela opacidade da foto, ou seja, o formato da
+   máscara já com os .4 do grupo (about-photo-mask.png). Sem z-index nos
+   ancestrais, para o luminosity enxergar o cinza da seção. */
+.about__photo {
   position: absolute;
-  inset: 0;
-  z-index: 0;
+  top: 1%;
+  left: -14.6%;
+  width: 116.6%;
+  aspect-ratio: 960 / 640;
   pointer-events: none;
+  opacity: .6;
+  mix-blend-mode: luminosity;
+  /* A máscara (955 x 591) cobre a foto a partir de (5, 6) */
+  mask-image: url("assets/img/about-photo-mask.png");
+  mask-position: 100% 12.24%;
+  mask-size: 99.48% 92.34%;
+  mask-repeat: no-repeat;
 }
 
-.about__mask {
-  position: absolute;
-  top: 2%;
-  left: -14%;
-  width: 116%;
-  max-width: none;
-  opacity: .4;
-}
-
-/* Mask group do Figma: máscara de 698.59 x 454 em top 52 / left -161 do
-   frame do About, opacity .4. O PNG exportado (955 x 591) já é o resultado
-   desse grupo, com máscara e opacidade aplicadas: casa com o Sobre.png em
-   tamanho natural, na origem do frame (correlação .94), e com opacidade 1
-   (erro de brilho 2.9, contra 7.8 reaplicando .4). O frame começa na base
-   da aba do hero; o bloco de mídia começa na borda do conteúdo (x 360) e
-   no fim do respiro da seção. */
-@media (min-width: 1024px) {
-  .about__mask {
-    top: calc(var(--section-y) * -1);
-    left: -360px;
-    width: 955px;
-    opacity: 1;
-  }
+.about__photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Glóbulo vermelho decorativo */
@@ -1503,9 +1497,9 @@ p {
   transform-origin: center left;
 }
 
+/* Mockup-Tenurima-1 (1).png: o pote do About no export (não é o do hero) */
 .about__bottle img {
   width: 100%;
-  filter: drop-shadow(0 18px 24px rgb(0 0 0 / .25));
 }
 
 .about__illustration {
@@ -1514,6 +1508,62 @@ p {
 
 .about__illustration img {
   width: 100%;
+}
+
+/* Desktop: coordenadas do frame do About (1920 x 591, começa na base da aba
+   do hero). O bloco de mídia começa na borda do conteúdo (x 360) e no fim
+   do respiro da seção, então cada peça fica em (x - 360, y - respiro).
+   Foto e pote: valores do Figma. Ilustração e glóbulo: medidos no
+   Sobre.png (ilustração por correlação, 261 x 383 em 710 / 94). */
+@media (min-width: 1024px) {
+  .about__media {
+    display: block;
+    height: calc(591px - 2 * var(--section-y));
+  }
+
+  .about__photo,
+  .about__bottle,
+  .about__illustration,
+  .about__cell {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    transform: none;
+  }
+
+  .about__photo {
+    top: calc(-6px - var(--section-y));
+    left: -365px;
+    width: 960px;
+    height: 640px;
+  }
+
+  /* Mockup: caixa de 475.97 x 475.97 em top 54 / left 352 do frame (top
+     -31.86 / left -55.94 dentro do grupo), imagem inteira pela largura */
+  .about__bottle {
+    top: calc(54px - var(--section-y));
+    left: -8px;
+    width: 475.97px;
+    height: 475.97px;
+  }
+
+  .about__bottle img {
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .about__illustration {
+    top: calc(94px - var(--section-y));
+    left: 350px;
+    width: 261px;
+  }
+
+  /* Estimado: mancha vermelha à esquerda do pote, centro em (446, 302) */
+  .about__cell {
+    top: calc(269px - var(--section-y));
+    left: 46px;
+    width: 80px;
+  }
 }
 
 .about__content {
