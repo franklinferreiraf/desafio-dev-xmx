@@ -1860,11 +1860,20 @@ p {
   text-align: center;
 }
 
+/* Em coluna única (até 1023px) as duas listas de badges ficam empilhadas:
+   o espaço entre elas é o mesmo dos badges (no Mobile.png os seis ficam
+   com espaçamento uniforme). O produto mantém o respiro próprio. */
 .why__stage {
   display: grid;
-  gap: var(--space-5);
+  gap: var(--space-3);
   width: 100%;
   margin-top: var(--space-5);
+}
+
+@media (min-width: 600px) {
+  .why__stage {
+    gap: var(--space-4);
+  }
 }
 
 .why__badges {
@@ -1881,6 +1890,9 @@ p {
 }
 
 .pill-badge {
+  /* Quebra equilibrada, como no export ("Supports healthy blood / pressure
+     levels"), em vez de deixar uma palavra sozinha na segunda linha */
+  text-wrap: balance;
   display: flex;
   gap: var(--space-3);
   align-items: center;
@@ -2139,14 +2151,20 @@ p {
   box-shadow: var(--shadow-sm);
 }
 
+/* Card vertical (até 599px): as fotos são retratos (~0.69), então a faixa
+   da foto usa a proporção do Mobile.png (237 x 207) e o recorte fica no
+   terço de cima, onde está o rosto. Com uma faixa baixa e larga o rosto era
+   cortado, e as setas (centralizadas no card) caíam sobre as estrelas. */
 .testimonial > picture {
-  height: 190px;
+  max-height: 340px;
+  aspect-ratio: 237 / 207;
 }
 
 .testimonial__photo {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 20%;
 }
 
 .testimonial__body {
@@ -2311,6 +2329,8 @@ p {
 
   .testimonial > picture {
     height: 100%;
+    max-height: none;
+    aspect-ratio: auto;
   }
 
 }
