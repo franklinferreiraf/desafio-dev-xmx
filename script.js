@@ -2,7 +2,6 @@
  * Tenurima – interações da landing page (JavaScript vanilla, sem dependências).
  *
  * Módulos:
- *  - initHeader     → fundo sólido do header depois de rolar
  *  - initMarquee    → faixa de selos em loop infinito, sem "salto"
  *  - initAccordion  → FAQ com apenas um item aberto por vez
  *  - initCarousel   → carrossel de depoimentos renderizado a partir de dados
@@ -91,19 +90,6 @@ function rafThrottle(fn) {
 /* --------------------------------------------------------------------------
    Header
    -------------------------------------------------------------------------- */
-function initHeader() {
-  const header = document.querySelector('[data-header]');
-  if (!header) return;
-
-  // Sombra + fundo sólido depois de sair do topo (no topo o header é
-  // transparente sobre o hero)
-  const onScroll = rafThrottle(() => {
-    header.classList.toggle('is-scrolled', window.scrollY > 8);
-  });
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-}
-
 /* --------------------------------------------------------------------------
    Marquee
    Clona o grupo de itens quantas vezes forem necessárias para cobrir a
@@ -351,10 +337,25 @@ function initCarousel(carousel, data) {
     goTo(index);
   };
 
-  window.addEventListener('resize', rafThrottle(syncLayout));
+  // Mantém as setas centradas nos cards, sem depender da altura dos textos
+  const syncArrows = () => {
+    const height = viewport.getBoundingClientRect().height;
+    const padding = parseFloat(getComputedStyle(viewport).paddingBottom) || 0;
+    if (height) carousel.style.setProperty('--arrow-center', `${(height - padding) / 2}px`);
+  };
+
+  if (typeof ResizeObserver === 'function') {
+    new ResizeObserver(rafThrottle(syncArrows)).observe(viewport);
+  }
+
+  window.addEventListener('resize', rafThrottle(() => {
+    syncLayout();
+    syncArrows();
+  }));
   perView = getPerView();
   renderDots();
   update();
+  syncArrows();
 }
 
 /* --------------------------------------------------------------------------
@@ -376,7 +377,6 @@ function auditCtas() {
    Boot – listeners anexados somente depois que o DOM estiver pronto
    -------------------------------------------------------------------------- */
 function init() {
-  initHeader();
   document.querySelectorAll('[data-marquee]').forEach(initMarquee);
   document.querySelectorAll('[data-accordion]').forEach(initAccordion);
   document.querySelectorAll('[data-carousel]').forEach((carousel) => initCarousel(carousel, TESTIMONIALS));

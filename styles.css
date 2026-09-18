@@ -104,10 +104,11 @@
   --gradient-yellow: var(--gradient-yellow-btn);
 
   /* Tipografia */
-  --font-heading: "Poppins", "Segoe UI", Arial, sans-serif;
-  --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+  --font-heading: "Montserrat", "Segoe UI", Arial, sans-serif;
+  --font-body: "Montserrat", "Segoe UI", Arial, sans-serif;
   --fs-h1: clamp(1.6rem, .95rem + 2.9vw, 2.875rem);
   --fs-h2: clamp(1.25rem, .9rem + 1.7vw, 2.25rem);
+  --fs-section-title: clamp(1.375rem, .95rem + 1.9vw, 2.25rem);
   --fs-h3: clamp(.95rem, .82rem + .6vw, 1.25rem);
   --fs-body: clamp(.875rem, .82rem + .25vw, .9375rem);
   --fs-small: clamp(.8125rem, .78rem + .2vw, .875rem);
@@ -335,7 +336,20 @@ p {
 }
 
 .section--gray {
+  position: relative;
   background: var(--gray-50);
+}
+
+/* O chanfro do hero mostra o que está atrás dele: a referência usa #F4F4F4 */
+.section--gray::before {
+  position: absolute;
+  top: calc(var(--chamfer, 72px) * -1);
+  right: 0;
+  left: 0;
+  z-index: -1;
+  height: var(--chamfer, 72px);
+  content: "";
+  background: var(--color-gray-100);
 }
 
 .section--dark {
@@ -373,8 +387,9 @@ p {
 }
 
 .section-title {
-  font-size: var(--fs-h2);
-  font-weight: 800;
+  font-size: var(--fs-section-title);
+  font-weight: 600;
+  line-height: 1.3;
 }
 
 .section-title__line {
@@ -414,16 +429,17 @@ p {
   transform: translateY(0);
 }
 
+/* Um único elemento: gradiente + borda inferior sólida, como na referência */
 .btn--green {
   color: var(--white);
-  background: var(--gradient-green);
-  box-shadow: 0 6px 18px rgb(4 172 72 / .4), inset 0 -3px 0 var(--green-dark);
+  background: var(--gradient-green-btn);
+  border-bottom: 6px solid var(--color-green-900);
+  border-radius: 50px;
   text-shadow: 0 1px 1px rgb(0 0 0 / .2);
 }
 
 .btn--green:hover {
   filter: brightness(1.06);
-  box-shadow: 0 10px 24px rgb(4 172 72 / .5), inset 0 -3px 0 var(--green-dark);
 }
 
 .btn--yellow {
@@ -464,9 +480,12 @@ p {
     padding: 1rem 2.5rem;
   }
 
-  /* No Figma os CTAs verdes são bem largos (~400px) */
+  /* Medida da referência: 396 x 65 */
   .btn--green {
-    min-width: min(400px, 100%);
+    min-width: min(396px, 100%);
+    min-height: 65px;
+    padding: 18px 2rem;
+    font-size: 1.125rem;
   }
 }
 
@@ -524,21 +543,13 @@ p {
 
 /* 7. Header
    ========================================================================== */
-/* O header faz parte visualmente do hero: fica sobre o gradiente, sem cor
-   própria. Ao rolar (classe do JS) ele ganha fundo sólido para continuar
-   legível sobre as seções claras. */
+/* O header faz parte do hero: fica sobre o gradiente, sem cor própria, e
+   rola junto com a página (não é fixed nem sticky). */
 .site-header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 50;
   color: var(--white);
   background: transparent;
-  transition: background-color .25s, box-shadow .25s;
-}
-
-.site-header.is-scrolled {
-  background: var(--wine-900);
-  box-shadow: 0 6px 20px rgb(0 0 0 / .35);
 }
 
 .site-header__inner {
@@ -690,51 +701,59 @@ p {
   mask-image: linear-gradient(90deg, #000 0%, transparent 55%, #000 100%);
 }
 
-/* Três texturas empilhadas sobre o gradiente, todas bem discretas */
+/* Três camadas com as medidas da referência (canvas de 1920px).
+   --k é o fator de escala: em telas menores tudo encolhe junto. */
 .hero__layers {
+  --k: calc(100vw / 1920);
+
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
 }
 
+@media (min-width: 1920px) {
+  .hero__layers {
+    --k: 1;
+  }
+}
+
 .hero__layer {
   position: absolute;
-  object-fit: cover;
+  object-fit: contain;
 }
 
-/* 1ª camada: foto do peito com ECG, ocupando toda a seção */
+/* 2151847309 1.png — 867 x 494, top -1, left 473 */
 .hero__layer--chest {
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-position: center 35%;
-  opacity: .07;
-  mix-blend-mode: luminosity;
-}
-
-/* 2ª camada: coração/vasos mais aberto, concentrado atrás do produto */
-.hero__layer--heart {
-  top: 0;
-  right: 0;
-  width: min(72%, 1000px);
-  height: 100%;
-  object-position: right center;
-  opacity: .1;
-  mix-blend-mode: screen;
-  mask-image: radial-gradient(ellipse at 75% 45%, #000 15%, transparent 72%);
-}
-
-/* 3ª camada: vasos em zoom, deslocada para a direita e inclinada */
-.hero__layer--vessels {
-  top: -10%;
-  right: -12%;
-  width: min(68%, 900px);
-  height: 120%;
+  top: calc(-1px * var(--k));
+  left: calc(473px * var(--k));
+  width: calc(867px * var(--k));
+  height: calc(494px * var(--k));
   opacity: .12;
-  mix-blend-mode: screen;
-  transform: rotate(-8deg) translateX(6%);
-  mask-image: linear-gradient(100deg, transparent 8%, #000 45%, transparent 92%);
+  mix-blend-mode: luminosity;
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 78%);
+}
+
+/* 30008 1.png — 1500 x 841, top -32, left 947, opacity .6 */
+.hero__layer--heart {
+  top: calc(-32px * var(--k));
+  left: calc(947px * var(--k));
+  width: calc(1500px * var(--k));
+  height: calc(841px * var(--k));
+  opacity: .16;
+  mix-blend-mode: luminosity;
+  mask-image: radial-gradient(ellipse at 40% 50%, #000 15%, transparent 72%);
+}
+
+/* 3146 1.png — 709 x 567, top 169.86, left 780.86 */
+.hero__layer--vessels {
+  top: calc(169.86px * var(--k));
+  left: calc(780.86px * var(--k));
+  width: calc(709.29px * var(--k));
+  height: calc(567.43px * var(--k));
+  opacity: .14;
+  mix-blend-mode: luminosity;
+  mask-image: radial-gradient(ellipse at center, #000 18%, transparent 75%);
 }
 
 .hero__inner {
@@ -752,8 +771,8 @@ p {
 
 .hero__title {
   font-size: var(--fs-h1);
-  font-weight: 800;
-  line-height: 1.1;
+  font-weight: 700;
+  line-height: 1.15;
 }
 
 .hero__text {
@@ -833,7 +852,10 @@ p {
 .hero__image {
   position: relative;
   width: 100%;
+  max-width: 530px;
   filter: drop-shadow(0 30px 40px rgb(0 0 0 / .4));
+  /* ângulo da referência */
+  transform: rotate(-9.84deg);
 }
 
 /* Segundo pote, atrás e à direita, sugerindo profundidade */
@@ -844,7 +866,7 @@ p {
   width: 82%;
   filter: blur(1.5px) brightness(.85);
   opacity: .75;
-  transform: rotate(8deg);
+  transform: rotate(-2deg);
 }
 
 .hero-card {
@@ -960,6 +982,10 @@ p {
 
 /* 9. About
    ========================================================================== */
+.about {
+  overflow: hidden;
+}
+
 .about__inner {
   display: grid;
   gap: var(--space-5);
@@ -980,38 +1006,65 @@ p {
   margin-inline: auto;
 }
 
+/* Mask group.png — foto de apoio com opacidade .4, deslocada para a esquerda */
+/* A foto de apoio fica fora do fluxo do grid da composição */
+.about__mask-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about__mask {
+  position: absolute;
+  top: 2%;
+  left: -14%;
+  width: 116%;
+  max-width: none;
+  opacity: .4;
+  filter: grayscale(.4);
+}
+
 /* Glóbulo vermelho decorativo */
 .about__cell {
   position: absolute;
-  top: 12%;
-  right: 2%;
-  z-index: 1;
-  width: 16%;
+  top: 38%;
+  left: 4%;
+  z-index: 2;
+  width: 13%;
   filter: blur(1px);
 }
 
-.about__photo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 955 / 591;
-  object-fit: cover;
-  object-position: 30% 20%;
-  filter: grayscale(1);
-  opacity: .22;
+.about__media {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: 0;
+  align-items: center;
 }
 
-.about__media > picture:last-child {
+.about__bottle,
+.about__illustration {
   position: relative;
-  width: 100%;
-  max-width: 460px;
-  margin-inline: auto;
+  z-index: 1;
 }
 
-.about__composition {
+.about__bottle {
+  margin-right: -18%;
+  transform: scale(1.18);
+  transform-origin: center left;
+}
+
+.about__bottle img {
   width: 100%;
-  filter: drop-shadow(0 18px 24px rgb(0 0 0 / .18));
+  filter: drop-shadow(0 18px 24px rgb(0 0 0 / .25));
+}
+
+.about__illustration {
+  padding-block: 4%;
+}
+
+.about__illustration img {
+  width: 100%;
 }
 
 .about__content {
@@ -1030,12 +1083,6 @@ p {
 
 .about__content .btn {
   margin-top: var(--space-2);
-}
-
-@media (min-width: 768px) {
-  .about__photo {
-    width: 78%;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -1100,7 +1147,7 @@ p {
   z-index: 0;
   content: "";
   background: var(--bg-light);
-  border-bottom: 2px solid var(--red-accent);
+  border-bottom: 2px solid var(--color-red-700);
   border-radius: var(--radius-md);
   mask-image: radial-gradient(circle var(--notch) at 50% 0, transparent 99%, #000 100%);
 }
@@ -1172,6 +1219,7 @@ p {
    ========================================================================== */
 .why {
   --chamfer: 48px;
+  --k: calc(100vw / 1920);
 
   overflow: hidden;
   isolation: isolate;
@@ -1184,9 +1232,28 @@ p {
   clip-path: polygon(0 var(--chamfer), 18% 0, 82% 0, 100% var(--chamfer), 100% 100%, 0 100%);
 }
 
+/* Elemento branco que forma o divisor (a seção anterior é branca) */
+.why::before {
+  position: absolute;
+  top: calc(var(--chamfer) * -1);
+  right: 0;
+  left: 0;
+  z-index: -1;
+  height: calc(var(--chamfer) + 2px);
+  content: "";
+  background: var(--color-white);
+  border-radius: 20px;
+}
+
 @media (min-width: 768px) {
   .why {
     --chamfer: 72px;
+  }
+}
+
+@media (min-width: 1920px) {
+  .why {
+    --k: 1;
   }
 }
 
@@ -1194,15 +1261,16 @@ p {
   color: rgb(255 255 255 / .6);
 }
 
+/* 2148729868 1.png — 1155 x 770, top -13, left -127, opacity .4 */
 .why__bg {
   position: absolute;
-  inset: 0;
+  top: calc(-13px * var(--k));
+  left: calc(-127px * var(--k));
   z-index: -1;
-  width: 100%;
-  height: 100%;
+  width: calc(1155px * var(--k));
+  height: calc(770px * var(--k));
   object-fit: cover;
-  object-position: center 30%;
-  opacity: .16;
+  opacity: .4;
   mix-blend-mode: luminosity;
 }
 
@@ -1214,15 +1282,17 @@ p {
   background: radial-gradient(ellipse at center, transparent 0%, rgb(26 5 8 / .7) 100%);
 }
 
+/* 30008 1.png — 1386 x 777, left 556.95, opacity .4 */
 .why__texture {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: calc(556.95px * var(--k));
   z-index: -1;
-  width: 100%;
-  height: 100%;
+  width: calc(1386.05px * var(--k));
+  height: calc(777.11px * var(--k));
   object-fit: cover;
-  opacity: .25;
-  mix-blend-mode: soft-light;
+  opacity: .4;
+  mix-blend-mode: luminosity;
 }
 
 .why__inner {
@@ -1353,7 +1423,7 @@ p {
 .marquee {
   width: 100%;
   max-width: 100%;
-  padding-block: .8rem;
+  padding-block: 16px;
   overflow: hidden;
   font-family: var(--font-heading);
   font-size: clamp(.875rem, .55rem + .9vw, 1.25rem);
@@ -1407,11 +1477,7 @@ p {
   }
 }
 
-@media (min-width: 1024px) {
-  .marquee {
-    padding-block: 1rem;
-  }
-}
+
 
 /* 13. Testimonials / carrossel
    ========================================================================== */
@@ -1483,8 +1549,8 @@ p {
 
 .testimonial__author {
   font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--red-primary);
+  font-weight: 600;
+  color: var(--color-red-800);
 }
 
 /* No Figma é só o check verde + texto cinza, sem pílula */
@@ -1514,32 +1580,43 @@ p {
   gap: var(--space-4);
   align-items: center;
   justify-content: center;
-  margin-block: var(--space-2) var(--space-7);
+  margin-block: var(--space-2) var(--space-6);
 }
 
-/* Setas nas laterais só a partir de 1280px, onde há espaço fora do container */
-@media (min-width: 1280px) {
-  .carousel__arrow {
-    position: absolute;
-    top: 46%;
-    z-index: 2;
-    transform: translateY(-50%);
-  }
+/* As setas ficam ancoradas ao centro do viewport dos cards (--arrow-center),
+   calculado a partir da altura do viewport. Assim elas não sobem nem descem
+   quando o texto dos depoimentos muda de tamanho. */
+.carousel__arrow {
+  position: absolute;
+  top: var(--arrow-center, 50%);
+  z-index: 3;
+  transform: translateY(-50%);
+}
 
+.carousel__arrow[data-carousel-prev] {
+  left: -12px;
+}
+
+.carousel__arrow[data-carousel-next] {
+  right: -12px;
+}
+
+.carousel__arrow:hover:not(:disabled) {
+  transform: translateY(-50%) scale(1.06);
+}
+
+.carousel__controls {
+  min-height: 0;
+  margin-block: 0 var(--space-6);
+}
+
+@media (min-width: 1280px) {
   .carousel__arrow[data-carousel-prev] {
     left: -28px;
   }
 
   .carousel__arrow[data-carousel-next] {
     right: -28px;
-  }
-
-  .carousel__arrow:hover:not(:disabled) {
-    transform: translateY(-50%) scale(1.06);
-  }
-
-  .carousel__controls {
-    margin-block: 0 var(--space-7);
   }
 }
 
@@ -1712,8 +1789,8 @@ p {
   height: 100%;
   overflow: hidden;
   background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-red-800);
+  border-radius: 20px;
   box-shadow: var(--shadow-md);
 }
 
@@ -1836,9 +1913,9 @@ p {
 .price-card__amount {
   font-family: var(--font-heading);
   font-size: clamp(1.75rem, 1.05rem + 3.1vw, 3.25rem);
-  font-weight: 800;
+  font-weight: 700;
   line-height: 1;
-  color: var(--red-primary);
+  color: var(--color-red-800);
 }
 
 .price-card__cents {
@@ -1950,7 +2027,7 @@ p {
 }
 
 .price-card__total strong {
-  color: var(--red-primary);
+  color: var(--color-red-800);
 }
 
 /* Ordem do Figma no mobile: MOST POPULAR → BUNDLE → BASIC */
@@ -1963,10 +2040,9 @@ p {
 }
 
 .price-card--featured article {
-  /* rosa claro do card em destaque (amostrado do export do Figma) */
-  background: #f9dfe1;
-  border: 2px solid var(--red-600);
-  box-shadow: 0 20px 50px rgb(169 30 44 / .22);
+  background: #f9e4e4;
+  border: 1px solid var(--color-red-800);
+  box-shadow: 0 20px 50px rgb(169 63 72 / .22);
 }
 
 .price-card--featured .price-card__supply,
@@ -2028,7 +2104,15 @@ p {
 }
 
 .guarantee__content p {
-  color: var(--gray-700);
+  max-width: 589px;
+  font-size: clamp(.9375rem, .8rem + .6vw, 1.25rem);
+  line-height: 1.35;
+  color: var(--color-gray-600);
+}
+
+#guarantee-title {
+  color: var(--color-wine-950);
+  text-transform: uppercase;
 }
 
 @media (min-width: 768px) {
@@ -2075,7 +2159,7 @@ p {
   overflow: hidden;
   color: var(--text);
   background: var(--white);
-  border-radius: var(--radius-md);
+  border-radius: 10px;
   box-shadow: var(--shadow-sm);
 }
 
@@ -2135,8 +2219,8 @@ p {
 
 @media (min-width: 768px) {
   .accordion__trigger {
-    min-height: 56px;
-    padding: var(--space-4) var(--space-5);
+    min-height: 72px;
+    padding: 20px 24px;
   }
 
   .accordion__content p {
@@ -2150,7 +2234,7 @@ p {
 
 .accordion__item.is-open .accordion__trigger {
   color: var(--white);
-  background: var(--red-700);
+  background: var(--color-red-700);
 }
 
 .accordion__item.is-open .accordion__trigger:focus-visible {
@@ -2320,6 +2404,7 @@ p {
   color: rgb(255 255 255 / .75);
   text-align: center;
   background: var(--color-wine-900);
+  border-top: 4px solid var(--color-wine-950);
 }
 
 .logo--footer {

@@ -81,6 +81,9 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 - **Texturas em alta:** as três texturas do hero, o logo e o selo "Made in the USA" foram reimportados da pasta `home` (resoluções maiores que as do primeiro pacote).
 - **Não veio no pacote e continua gerado por script:** só o favicon.
 
+### Camadas de fundo com as medidas da referência
+As três texturas do hero e as duas da seção de benefícios são posicionadas com as coordenadas do layout (ex.: `30008 1.png` em 1500×841, `top: -32`, `left: 947`), escaladas por um fator `--k = 100vw / 1920` para acompanhar a largura da tela. **A opacidade, porém, é menor que a do arquivo de especificação** (0,12–0,16 em vez de 0,6–1,0): aplicada literalmente, cada textura virava um retângulo visível com bordas duras, enquanto na referência elas são quase imperceptíveis. Também acrescentei uma `mask-image` radial para dissolver as bordas.
+
 ### Três decisões sobre os assets que valem destaque
 - **Falta o ícone `b2`.** A seção Why tem 6 badges e vieram 5 ícones (`b1`, `b3`–`b6`). Identificando cada um: `b1` coração com pulso, `b3` cápsula, `b4` medidor de pressão, `b5` circulação, `b6` pulmões — todos casam direto com 5 das frases. Sobrou "Helps maintain energy and overall wellness", e para ela **reutilizei o `b1` (coração/pulso)**, que é o mais próximo de energia e bem-estar geral. É a única repetição de ícone na página.
 - **`Mockup-Tenurima-1.png` (628×628) veio desfocado.** O `Mockup-Tenurima-1-1.png` (650×650) é a versão nítida do mesmo pote. Usei **a nítida no hero** e mantive no card BASIC o mockup menor do primeiro pacote. Vale pedir ao design um novo export nítido.
@@ -97,14 +100,14 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 - **O fundo do hero foi remontado a partir das cores amostradas no export** (`Home.png`): base escura descendo de `#44000C` até `#150005` e um brilho `rgb(204 73 74 / .5)` saindo do canto superior direito. O gradiente da paleta aplicado puro ficava claro demais.
 - **O gradiente da seção Why entra escurecido** (uma camada `rgb(21 0 5 / .84)` por cima, mais um brilho radial atrás do produto). Aplicados puros, eles ficavam muito mais claros que o Figma, onde as duas seções são quase pretas com um halo vermelho no produto.
 - O hero usa **o mesmo container do resto da página** (1200px). Cheguei a alargar para 1440px, mas medindo o export de 1920px o conteúdo ocupa ~1200px — só a imagem do produto e o card avançam um pouco para fora.
-- Fontes: **Poppins** (600/700/800) nos títulos e **Inter** (400/500/600) no texto, via `<link>` do Google Fonts com `preconnect` e `display=swap`.
+- Fonte: **Montserrat** (400/500/600/700/800) em toda a página, via `<link>` do Google Fonts com `preconnect` e `display=swap`. Títulos de seção em 600 e 36px no desktop, como na especificação.
 - **Dois ajustes de contraste dentro da paleta:** `#FF2D2D` como **texto** sobre branco dá 3,7:1 (abaixo dos 4,5:1 exigidos), então textos em vermelho usam o `#C1121F` da própria paleta e o `#FF2D2D` fica nos ícones e elementos gráficos. O mesmo vale para os textos pequenos em verde, que usam o `--green-dark` (`#116800`).
 - Três tokens da paleta ficam no `:root` **só como referência**: `--gradient-seal`, `--gradient-save-badge` e `--gradient-yellow-btn`. Esses elementos (selo da garantia, badge "SAVE $X" e botão BUY NOW) já vêm prontos como imagem do Figma.
 
 ### Seção por seção
 | Seção | Decisão | Por quê |
 | --- | --- | --- |
-| **Header** | **Fixo e transparente sobre o hero** (`position: sticky` + hero com `margin-top` negativo, sem cor própria): o gradiente do hero passa por trás dele. Ao rolar, o JS adiciona `.is-scrolled` e ele ganha fundo sólido + sombra. | É como o Figma mostra: header e hero são um bloco só. Cheguei a usar `position: fixed`, mas em 360px ele se dimensionava pelo viewport de layout e criava 29px de scroll horizontal (o teste de overflow pegou); com `sticky` + margem negativa o efeito é o mesmo, sem esse risco. |
+| **Header** | **Não é fixo nem sticky:** `position: relative` (fica no fluxo, sobre o gradiente do hero, e sai da tela ao rolar). | Requisito do projeto e é o que a referência mostra. O `z-index` e a margem negativa do hero mantêm o header por cima do gradiente sem tirá-lo do fluxo. |
 | **Header** | **No mobile aparecem só o logo e o "Contact Us"** — os links âncora entram a partir de 1024px, e não há menu hambúrguer. | É exatamente o header do `Mobile.png`. A navegação por âncora vira rolagem simples, e os CTAs "ORDER NOW" ao longo da página levam ao bloco de preços. |
 | **Hero** | O corte em trapézio é um **`clip-path` no próprio hero**, com altura do chanfro em variável (`--chamfer`). | Resolve em uma linha de CSS, sem SVG extra, e escala com a largura. |
 | **Hero** | **Dois potes:** o da frente nítido e um segundo atrás/à direita com `blur(2px) brightness(.55)` e 70% de opacidade, usando o mesmo arquivo. | O export tem um pote só; a profundidade do layout vem do tratamento em CSS, sem editar imagem. |
@@ -191,7 +194,9 @@ Cada item abaixo é uma decisão consciente, não um descuido:
 | **Menu no mobile** | Só logo + "Contact Us" | Igual à referência | O texto do pedido falava em hambúrguer, mas o `Mobile.png` não tem um; segui a referência. |
 | **Avaliação** | "4.9/5 Customer Rating" | Igual à referência | O texto do pedido citava 4.85 e 4.92; mantive o que está no layout. |
 | **Card do hero** | 3 benefícios + "Made in the USA" | Igual à referência | O texto do pedido listava 4 benefícios. |
-| **Rosa do card "MOST POPULAR"** | `#F9DFE1` (amostrado do export) | Usei o valor amostrado | Esse tom não está na lista da paleta, mas está na referência. |
+| **Rosa do card "MOST POPULAR"** | `#F9E4E4` | Valor da especificação | — |
+| **Opacidade das texturas** | 0,6 a 1,0 no arquivo de medidas | 0,12 a 0,16 | Com os valores originais as imagens viravam retângulos opacos sobre o hero; a referência mostra apenas um sutil brilho. Mantive posição e tamanho exatos. |
+| **Divisor da seção de benefícios** | Retângulo branco 2761×92 | Chanfro em `clip-path` + faixa branca atrás | O recorte em ângulo é o que aparece no `Desktop.png`; a faixa branca atrás garante que o vão fique branco, como pede a especificação. |
 
 ## Limitações conhecidas
 
