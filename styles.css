@@ -1787,16 +1787,19 @@ p {
 }
 
 /* 2148729868 1.png, valores do Figma: 1155 x 770 em top -13 / left -127,
-   rotação 0, opacity .4, luminosity, dentro de um frame de 702 x 675 em
-   top 141 / left 51 com opacity .3.
-   O PNG exportado já é essa imagem recortada no frame da seção: casa com o
-   Beneficios.png em 988.5 x 757 na origem (correlação .93) e traz os .4 no
-   próprio alfa, por isso a opacidade aplicada aqui é só a do frame (.3).
-   O frame vira máscara com as bordas dissolvidas em 40px (o export não
-   mostra o contorno). Fica acima do escurecimento da seção (::after), como
-   no export. Os 15px de cima do frame ficam sob a seção de Ingredientes.
-   Medidas escaladas com a largura abaixo de 1920px (1920px = 19.2vw por
-   100px). */
+   rotação 0, opacity .4, luminosity, dentro de um grupo com opacity .3
+   mascarado por um retângulo #D9D9D9 de 702 x 675 em top 141 / left 51
+   com blur de 236.375px.
+   - O PNG exportado já é essa imagem recortada nos limites do grupo (o
+     blur estende a máscara até x 753 + 236 = 989, a largura do export) e
+     traz os .4 no alfa: vai em 988.5 x 757 na origem do frame (correlação
+     .93 com o Beneficios.png), sem opacidade própria além da do grupo (.3).
+   - A máscara é o retângulo desfocado (why-couple-mask.png, gerado com
+     σ = 118, metade do blur do Figma; é o valor que reproduz o contraste
+     do export dentro do frame: 1.8 contra 1.9).
+   Fica acima do escurecimento da seção, como no export. Os 15px de cima do
+   frame ficam sob a seção de Ingredientes. Medidas escaladas abaixo de
+   1920px. */
 .why__bg {
   position: absolute;
   top: max(-15px, -0.7813vw);
@@ -1806,11 +1809,8 @@ p {
   height: min(757px, 39.4271vw);
   opacity: .3;
   mix-blend-mode: luminosity;
-  /* Frame: x 51-753 e y 141-816 (passa da base da imagem) */
-  mask-image:
-    linear-gradient(90deg, transparent 5.16%, #000 9.21%, #000 72.13%, transparent 76.18%),
-    linear-gradient(180deg, transparent 18.63%, #000 23.91%);
-  mask-composite: intersect;
+  mask-image: url("assets/img/why-couple-mask.png");
+  mask-size: 100% 100%;
 }
 
 /* Gradiente por cima das texturas, como no Figma */

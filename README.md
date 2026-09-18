@@ -59,7 +59,7 @@ Usei os arquivos exportados do Figma diretamente, sem recriar à mão nada que j
 | `Frame 1707480045.png` | `about-composition` | About (composição pronta) |
 | `2148492240 1.png` | `about-woman-capsule` | About: foto de apoio (960×640, opacity .6, luminosity), recortada pela máscara `about-photo-mask.png` |
 | `Mask group.png` (about) | `about-mask.png` → `about-photo-mask.png` | O export do grupo já vem com máscara e opacidades aplicadas; a máscara usada no CSS é o alfa dele dividido pela opacidade da foto (.6), ou seja, o formato da máscara com os .4 do grupo |
-| `2148729868 1.png` | `why-couple-running` | Fundo da seção Why: o export já é a foto recortada no frame da seção, com os .4 de opacidade no alfa (988,5×757 na origem); o frame de 702×675 em 51/141 com opacity .3 vira máscara |
+| `2148729868 1.png` | `why-couple-running` | Fundo da seção Why: o export já é a foto recortada no frame da seção, com os .4 de opacidade no alfa (988,5×757 na origem); o grupo (opacity .3) é mascarado por um retângulo de 702×675 em 51/141 com blur de 236px, reproduzido em `why-couple-mask.png` (retângulo desfocado com σ = 118) |
 | `ing-1.png` … `ing-6.png` | `ing-hawthorn`, `ing-garlic`, `ing-olive-leaf`, `ing-hibiscus`, `ing-vitamin-b6`, `ing-vitamin-b12` | Cards de ingredientes, na ordem pedida |
 | `dep-1-tenurima 1.png` … `dep-tenurima-4 1.png` | `testimonial-michael`, `-susan`, `-walter`, `-diane` | Carrossel de depoimentos |
 | `rotulo-tenurima.png` | `label-supplement-facts` | Rótulo abaixo do FAQ |
