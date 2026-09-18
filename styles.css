@@ -1044,7 +1044,10 @@ p {
   --h: 494.19;
 }
 
-/* 30008 1.png (pasta home) — 1500 x 841, top -32, left 947, opacity .6 */
+/* 30008 1.png (pasta home), valores do Figma: 1500 x 841, top -32,
+   left 947, rotação 0, opacity .6, luminosity, backdrop blur 6px. Sem a
+   máscara de bordas das outras camadas, que não faz parte da especificação.
+   O blur acompanha a escala da composição (6px em 1920px). */
 .hero__layer--heart {
   --x: 947;
   --y: -32;
@@ -1052,6 +1055,8 @@ p {
   --h: 841;
 
   opacity: .6;
+  mask-image: none;
+  backdrop-filter: blur(calc(6 * var(--mu)));
 }
 
 /* 3146 1.png — 709 x 567, top 169.86, left 780.86 */
