@@ -58,7 +58,9 @@
   --overlay-wine-20: #6c2d3933;
 
   /* Gradientes da referência */
-  --gradient-hero: linear-gradient(58.16deg, #44000c 30.85%, #cc494a 56.87%, #a93f48 65.4%);
+  /* Cores do figma-spec (#80161a -> #150005). O spec diz 135deg, mas nos
+     pixels do export o tom claro fica no canto superior direito: 45deg */
+  --gradient-hero: linear-gradient(45deg, #150005 0%, #80161a 100%);
   --gradient-why-choose: linear-gradient(48.32deg, #44000c 20.94%, #cc494a 47.36%, #a93f48 62.26%);
   --gradient-seal: linear-gradient(313.26deg, #c1121f 51.48%, #ff5763 71.46%);
   --gradient-save-badge: linear-gradient(126.19deg, #ff929a 14.89%, #c1121f 54.23%, #ff929a 88.28%);
@@ -125,6 +127,13 @@
   --section-y: clamp(2.25rem, .9rem + 5.6vw, 7rem);
   --gutter: 1rem;
   --container: 1200px;
+
+  /* Aba escura na base do hero (divisor.png): altura e meias-larguras do
+     topo e da base, a partir do centro. 31 / 97.5 / 66.5px no Mobile.png
+     (360px) e 55 / 435 / 372px no Desktop.png (1920px). */
+  --hero-cut-h: clamp(31px, 2.865vw, 55px);
+  --hero-cut-top: clamp(97.5px, 22.656vw, 435px);
+  --hero-cut-bottom: clamp(66.5px, 19.375vw, 372px);
 
   /* Bordas e sombras */
   --radius-sm: 8px;
@@ -340,6 +349,13 @@ p {
   background: var(--gray-50);
 }
 
+/* A seção logo depois do hero sobe por baixo da aba: as laterais recortadas
+   mostram o cinza dela (#F4F4F4 no export), e não o fundo da página */
+.hero + .section {
+  margin-top: calc(var(--hero-cut-h) * -1);
+  padding-top: calc(var(--section-y) + var(--hero-cut-h));
+}
+
 /* O chanfro do hero mostra o que está atrás dele: a referência usa #F4F4F4 */
 .section--gray::before {
   position: absolute;
@@ -486,6 +502,28 @@ p {
     min-height: 65px;
     padding: 18px 104px;
     font-size: 1.125rem;
+  }
+}
+
+/* No hero o texto do botão é maior: ~146px de "ORDER NOW" no export, o que
+   fecha os 396px de largura com o padding de 104px */
+@media (min-width: 1024px) {
+  .hero__cta .btn--green {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  /* Com o ícone de 21px, padding de 18px + bordas fecham os 65px de altura */
+  .hero__cta .btn--green .icon {
+    width: 21px;
+    height: 21px;
+  }
+
+  /* Export: 26px entre o parágrafo e o botão, 19px entre o botão e a
+     garantia (medidos do fim da linha de texto ao topo do elemento) */
+  .hero__cta {
+    gap: 12px;
+    margin-top: 25px;
   }
 }
 
@@ -860,18 +898,32 @@ p {
 /* 8. Hero
    ========================================================================== */
 .hero {
-  --chamfer: 48px;
+  --chamfer: var(--hero-cut-h);
+  /* Escala da composição (1px = 1px do canvas de 1920): pote, cápsulas,
+     card e texturas usam o mesmo valor */
+  --mu: .43px;
 
   position: relative;
+  /* Acima da seção seguinte, que sobe por baixo da aba */
+  z-index: 1;
   padding-block: calc(var(--header-h) + var(--space-5)) calc(var(--space-8) + var(--chamfer));
   overflow: hidden;
   color: var(--white);
   /* Ordem do Figma: gradiente embaixo, texturas em luminosity sobre ele,
      conteúdo por cima */
-  background-color: var(--bg-dark);
+  background-color: #150005; /* fundo da home no Figma */
   background-image: var(--gradient-hero);
-  /* Corte em trapézio na base da seção */
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--chamfer)), 82% 100%, 18% 100%, 0 calc(100% - var(--chamfer)));
+  /* Aba central na base, com as laterais retas (formato do divisor.png) */
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--hero-cut-h)),
+    calc(50% + var(--hero-cut-top)) calc(100% - var(--hero-cut-h)),
+    calc(50% + var(--hero-cut-bottom)) 100%,
+    calc(50% - var(--hero-cut-bottom)) 100%,
+    calc(50% - var(--hero-cut-top)) calc(100% - var(--hero-cut-h)),
+    0 calc(100% - var(--hero-cut-h))
+  );
 }
 
 /* Escurecimento vertical acima das texturas: nos exports a base do hero é
@@ -906,13 +958,14 @@ p {
 @media (min-width: 1024px) {
   .hero::after {
     background: linear-gradient(180deg,
-      rgb(21 0 5 / 0) 100px,
-      rgb(21 0 5 / .3) 200px,
-      rgb(21 0 5 / .64) 320px,
-      rgb(21 0 5 / .8) 400px,
-      rgb(21 0 5 / .9) 490px,
-      rgb(21 0 5 / .97) 580px,
-      rgb(21 0 5) 680px);
+      rgb(21 0 5 / 0) 220px,
+      rgb(21 0 5 / .32) 280px,
+      rgb(21 0 5 / .5) 340px,
+      rgb(21 0 5 / .62) 400px,
+      rgb(21 0 5 / .75) 460px,
+      rgb(21 0 5 / .85) 520px,
+      rgb(21 0 5 / .93) 590px,
+      rgb(21 0 5) 670px);
   }
 }
 
@@ -930,18 +983,16 @@ p {
 
 /* Três texturas com as medidas da referência (canvas de 1920px).
    Cada camada é posicionada a partir de um ponto de ancoragem da composição
-   (--ox/--oy no canvas, --ax/--ay na tela) e escalada por --u (1px = 1px do
-   canvas). Sem z-index aqui: o contêiner não pode isolar o mix-blend-mode,
-   senão o luminosity não enxerga o gradiente do .hero.
+   (--ox/--oy no canvas, --ax/--ay na tela) e escalada por --mu, a mesma
+   escala do pote. Sem z-index aqui: o contêiner não pode isolar o
+   mix-blend-mode, senão o luminosity não enxerga o gradiente do .hero.
 
-   Mobile (coluna única): a âncora vertical é o centro do pote (y 357 no
-   canvas), que fica a uma distância fixa da base do hero. Na horizontal o
-   ponto x 1100 vai para o centro da tela: assim o coração da textura do peito
-   cai à esquerda do pote, onde aparece na referência mobile. */
+   Coluna única (abaixo de 1024px): a âncora é o centro do par de potes
+   (x 1171 / y 421 no canvas), que fica centralizado e a uma distância fixa
+   da base do hero (--ay). */
 .hero__layers {
-  --u: .6044px; /* pote de 320px / 529.43px */
-  --ox: 1100;
-  --oy: 357;
+  --ox: 1171;
+  --oy: 421;
   --ax: 50%;
   --ay: calc(100% - 406px);
 
@@ -953,16 +1004,14 @@ p {
 
 @media (min-width: 768px) {
   .hero__layers {
-    --u: 1px; /* pote de ~530px, o mesmo tamanho do desktop */
     --ay: calc(100% - 465px);
   }
 }
 
-/* Desktop: a âncora é a borda direita do conteúdo (x 1560 no canvas), onde
-   o pote está alinhado; a escala acompanha a largura da coluna do pote. */
+/* Desktop: a âncora é a borda direita do conteúdo (x 1560 no canvas), a
+   mesma referência usada para posicionar o pote */
 @media (min-width: 1024px) {
   .hero__layers {
-    --u: min(1px, (100vw - 56px) / 1085.33);
     --ox: 1560;
     --oy: 0;
     --ax: calc(50% + min(50%, 616px) - 16px);
@@ -972,10 +1021,10 @@ p {
 
 .hero__layer {
   position: absolute;
-  top: calc(var(--ay) + (var(--y) - var(--oy)) * var(--u));
-  left: calc(var(--ax) + (var(--x) - var(--ox)) * var(--u));
-  width: calc(var(--w) * var(--u));
-  height: calc(var(--h) * var(--u));
+  top: calc(var(--ay) + (var(--y) - var(--oy)) * var(--mu));
+  left: calc(var(--ax) + (var(--x) - var(--ox)) * var(--mu));
+  width: calc(var(--w) * var(--mu));
+  height: calc(var(--h) * var(--mu));
   max-width: none;
   object-fit: cover;
   mix-blend-mode: luminosity;
@@ -1027,15 +1076,22 @@ p {
   justify-items: start;
 }
 
+/* Export de 1920px: 40px/52px, quebrando em "Support Healthy Blood /
+   Pressure, Circulation & / Oxygen Levels." */
 .hero__title {
-  font-size: var(--fs-h1);
+  max-width: 500px;
+  font-size: clamp(1.625rem, 1.05rem + 1.55vw, 2.5rem);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.3;
+  /* O balance global redistribuiria as palavras e mudaria as quebras */
+  text-wrap: wrap;
 }
 
+/* Export: 18px com entrelinha de ~22px */
 .hero__text {
-  max-width: 500px;
-  font-size: var(--fs-body);
+  max-width: 490px;
+  font-size: clamp(.875rem, .8rem + .45vw, 1.125rem);
+  line-height: 1.25;
   color: #cbbcbe;
 }
 
@@ -1050,43 +1106,103 @@ p {
   justify-items: center;
 }
 
+/* Export: 16px, peso regular */
 .hero__guarantee {
-  font-size: var(--fs-small);
-  font-weight: 600;
+  font-size: clamp(.8125rem, .75rem + .35vw, 1rem);
+  font-weight: 400;
   color: var(--white);
 }
 
-/* Cápsulas soltas, decorativas */
-.hero__capsule {
+/* Rating do hero: estrelas de 23px com 9px de espaço e texto de ~19px no
+   export de 1920px, tudo em peso regular */
+.hero .rating {
+  gap: clamp(.5rem, .4rem + .45vw, .75rem);
+  font-size: clamp(.875rem, .8rem + .4vw, 1.1875rem);
+}
+
+.hero .rating strong {
+  font-weight: 400;
+}
+
+.hero .stars {
+  gap: clamp(5px, 3px + .32vw, 9px);
+}
+
+.hero .stars .icon {
+  width: clamp(15px, 12px + .6vw, 23px);
+  height: clamp(15px, 12px + .6vw, 23px);
+}
+
+/* Composição do produto, com as medidas do export de 1920px. Cada peça
+   tem posição e largura no canvas (--x, --y, --w) relativas ao pote da
+   frente (650 x 650, em x 791 / y 89) e é escalada por --mu, a mesma escala
+   das texturas. Os potes e as cápsulas vêm prontos do Figma: o pote da
+   frente já inclinado, o de trás já desfocado. */
+.hero__media {
+  position: relative;
+  z-index: 1;
+  width: calc(650 * var(--mu));
+  /* Centraliza o par de potes (centro em x 380 do canvas), não a caixa */
+  margin-left: calc(50% - 380 * var(--mu));
+  /* Altura dos potes; o card sobe 30px sobre a base, como no Mobile.png */
+  padding-top: calc(575 * var(--mu));
+}
+
+.hero__bottle-back,
+.hero__bottle,
+.hero__capsule,
+.hero__cell {
   position: absolute;
-  width: clamp(44px, 9vw, 76px);
-  filter: drop-shadow(0 10px 14px rgb(0 0 0 / .45));
+  top: calc(var(--y) * var(--mu));
+  left: calc(var(--x) * var(--mu));
+  width: calc(var(--w) * var(--mu));
+}
+
+.hero__bottle-back img,
+.hero__bottle img {
+  width: 100%;
+}
+
+/* Mockup-Tenurima-1.png, 628px */
+.hero__bottle-back {
+  --x: 174;
+  --y: -6;
+  --w: 628;
+}
+
+/* Mockup-Tenurima-1-1.png, 650px */
+.hero__bottle {
+  --x: 0;
+  --y: 0;
+  --w: 650;
+}
+
+/* Rectangle.png: glóbulo vermelho que aparece por trás do card */
+.hero__cell {
+  --x: 594;
+  --y: 321;
+  --w: 107;
+}
+
+.hero__capsule {
+  z-index: 1;
   animation: float 6s ease-in-out infinite;
 }
 
-/* Perto da tampa do pote de trás */
-.hero__capsule--1 {
-  top: -2%;
-  right: 4%;
+/* pill.png, nítida, à esquerda do pote */
+.hero__capsule--left {
+  --x: 94;
+  --y: 392;
+  --w: 91;
 }
 
-/* Encostada nos potes, mais acima e bem visível */
-.hero__capsule--2 {
-  bottom: 34%;
-  left: 6%;
-  filter: brightness(1.1) drop-shadow(0 10px 16px rgb(0 0 0 / .5));
+/* pill-1.png, desfocada, à direita da tampa do pote de trás */
+.hero__capsule--right {
+  --x: 619;
+  --y: 158;
+  --w: 77;
+
   animation-delay: -3s;
-}
-
-/* Cápsula vermelha: o export só tem cápsulas brancas, então o tom vem de
-   um filtro CSS (sepia + saturate + hue-rotate) aplicado sobre a branca */
-.hero__capsule--3 {
-  right: 1%;
-  bottom: 18%;
-  z-index: 1;
-  width: clamp(52px, 10vw, 92px);
-  filter: sepia(1) saturate(12) hue-rotate(-60deg) brightness(.8) contrast(1.5) drop-shadow(0 8px 12px rgb(0 0 0 / .5));
-  animation-delay: -1.5s;
 }
 
 @keyframes float {
@@ -1094,52 +1210,22 @@ p {
   50% { transform: translateY(-12px) rotate(6deg); }
 }
 
-.hero__media {
-  position: relative;
-  width: min(100%, 320px);
-  margin-inline: auto;
-}
-
-@media (min-width: 768px) {
-  .hero__media {
-    width: auto;
-    max-width: 560px;
-  }
-}
-
-.hero__image {
-  position: relative;
-  width: 100%;
-  max-width: 530px;
-  filter: drop-shadow(0 30px 40px rgb(0 0 0 / .4));
-  /* ângulo da referência */
-  transform: rotate(-9.84deg);
-}
-
-/* Segundo pote, atrás e à direita, sugerindo profundidade */
-.hero__bottle-back {
-  position: absolute;
-  top: 4%;
-  right: -10%;
-  width: 82%;
-  filter: blur(1.5px) brightness(.85);
-  opacity: .75;
-  transform: rotate(-2deg);
-}
-
+/* Card de benefícios. No mobile fica abaixo dos potes (sobrepondo a base);
+   a partir de 1024px vai para a posição do export: 420 x 203 em x 1143 /
+   y 475. Checks vazados em #29EA02, divisor vertical antes do selo. */
 .hero-card {
   position: relative;
   z-index: 2;
   display: grid;
   gap: var(--space-2);
-  max-width: 265px;
+  max-width: 340px;
   padding: var(--space-3) var(--space-4);
-  margin: calc(var(--space-8) * -1) auto 0;
+  margin: -30px auto 0;
   font-size: var(--fs-small);
-  font-weight: 500;
+  font-weight: 400;
   color: var(--white);
   background: rgb(255 255 255 / .14);
-  border: 1px solid rgb(255 255 255 / .16);
+  border: 1px solid rgb(255 255 255 / .3);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
 }
@@ -1151,37 +1237,55 @@ p {
   }
 }
 
-.hero-card__badge {
-  display: inline-flex;
-  gap: var(--space-3);
+.hero-card .check-list {
+  gap: var(--space-2);
+}
+
+.hero-card .check-list li {
+  gap: .6em;
   align-items: center;
-  padding-top: var(--space-3);
-  font-size: var(--fs-small);
-  font-weight: 500;
+}
+
+.hero-card .check-icon {
+  flex-shrink: 0;
+  width: 1.05em;
+  height: 1.05em;
+  margin: 0;
+  color: #29ea02;
+}
+
+.hero-card__badge {
+  display: flex;
+  align-items: center;
+  font-size: .9em;
+  line-height: 1;
   color: var(--white);
-  border-top: 1px solid rgb(255 255 255 / .16);
 }
 
 .hero-card__badge img {
-  width: 2rem;
+  width: 2.25rem;
 }
 
-@media (min-width: 768px) {
-  .hero-card {
-    max-width: 340px;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-5);
-  }
+.hero-card__badge span {
+  order: 2;
+}
 
-  .hero-card__badge img {
-    width: 2.5rem;
-  }
+/* Divisor vertical entre o selo e o texto (order: 1 põe depois do selo) */
+.hero-card__badge::before {
+  order: 1;
+  width: 1px;
+  height: 1.55em;
+  margin-inline: .6em .65em;
+  content: "";
+  background: rgb(255 255 255 / .55);
 }
 
 .scroll-down {
   position: absolute;
   z-index: 3;
-  bottom: calc(var(--chamfer) - 18px);
+  /* A seta termina 57px acima da base no Desktop.png e 39px no Mobile.png
+     (descontado o padding de 8px do link) */
+  bottom: calc(var(--hero-cut-h) * .75 + 7.75px);
   left: 50%;
   display: grid;
   place-items: center;
@@ -1190,8 +1294,9 @@ p {
   animation: bounce 2s var(--ease-out) infinite;
 }
 
+/* 21 x 40 no desktop, metade disso no mobile */
 .scroll-down img {
-  width: 21px;
+  width: clamp(11px, 8.7px + .64vw, 21px);
 }
 
 .scroll-down:hover img {
@@ -1203,58 +1308,83 @@ p {
   50% { transform: translate(-50%, 6px); }
 }
 
+@media (min-width: 600px) {
+  .hero {
+    --mu: .6px;
+  }
+}
+
 @media (min-width: 768px) {
   .hero {
-    --chamfer: 72px;
+    --mu: .7px;
   }
 
   .hero__cta {
     justify-items: start;
   }
-
-  .hero__media {
-    padding-bottom: var(--space-8);
-  }
-
-  .hero-card {
-    position: absolute;
-    right: -4%;
-    bottom: 0;
-    left: auto;
-    margin: 0;
-  }
 }
 
 @media (min-width: 1024px) {
   .hero {
+    /* 1 a partir de 1280px; em 1024px, .74 é o maior valor em que o pote não
+       encosta no texto e o card não passa da borda do conteúdo */
+    --mu: clamp(.74px, .10156vw - .3px, 1px);
+
     /* O header de 106px já reserva o respiro que antes vinha de --space-6 */
     padding-block: calc(var(--header-h) + 2px) calc(var(--space-8) + var(--chamfer));
   }
 
+  /* A coluna de texto fica centralizada numa linha de 593px (canvas),
+     como no export; a composição do produto é posicionada por cima */
   .hero__inner {
     grid-template-columns: 1.05fr 1fr;
+    min-height: calc(593 * var(--mu));
   }
 
-  .hero-card {
-    right: -10%;
-  }
-
-  /* Composição do produto: 529.43 x 529.43 no canvas de 1920. Abaixo de
-     ~1140px ocupa a coluna inteira, para o card não encobrir o pote. */
+  /* Pote da frente em y 89 do hero e com a borda direita 119px antes do fim
+     do conteúdo (x 1441 com o conteúdo terminando em 1560) */
   .hero__media {
-    width: min(529.4313px, 100%);
-    max-width: none;
-    margin-left: auto;
-    transform: translate(max(-33px, -1.7188vw), max(-16px, -0.8333vw));
+    position: absolute;
+    top: calc(89 * var(--mu) - var(--header-h) - 2px);
+    right: calc(var(--gutter) + 119 * var(--mu));
+    height: calc(650 * var(--mu));
+    margin: 0;
+    padding: 0;
   }
-}
 
-/* Nesta faixa o pote ocupa (quase) a coluna inteira e right: -10% jogaria o
-   card para fora da tela: ele avança só o quanto o pote foi deslocado para a
-   esquerda, terminando na borda do conteúdo como no Figma */
-@media (min-width: 1024px) and (max-width: 1279px) {
   .hero-card {
-    right: -1.7188vw;
+    position: absolute;
+    top: calc(386 * var(--mu));
+    left: calc(352 * var(--mu));
+    width: calc(420 * var(--mu));
+    max-width: none;
+    gap: calc(7 * var(--mu));
+    padding: calc(14 * var(--mu)) calc(24 * var(--mu)) calc(22 * var(--mu)) calc(26 * var(--mu));
+    margin: 0;
+    font-size: calc(18 * var(--mu));
+    border-radius: calc(20 * var(--mu));
+  }
+
+  .hero-card .check-list {
+    gap: 0;
+  }
+
+  .hero-card .check-list li {
+    gap: calc(11 * var(--mu));
+    min-height: calc(36 * var(--mu));
+  }
+
+  .hero-card__badge {
+    font-size: calc(16 * var(--mu));
+  }
+
+  .hero-card__badge img {
+    width: calc(51 * var(--mu));
+  }
+
+  .hero-card__badge::before {
+    height: calc(28 * var(--mu));
+    margin-inline: calc(11 * var(--mu)) calc(12 * var(--mu));
   }
 }
 
