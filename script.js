@@ -2,6 +2,7 @@
  * Tenurima – interações da landing page (JavaScript vanilla, sem dependências).
  *
  * Módulos:
+ *  - initHeader    → header fixo com fundo ao rolar e menu mobile
  *  - initMarquee    → faixa de selos em loop infinito, sem "salto"
  *  - initAccordion  → FAQ com apenas um item aberto por vez
  *  - initCarousel   → carrossel de depoimentos renderizado a partir de dados
@@ -89,7 +90,57 @@ function rafThrottle(fn) {
 
 /* --------------------------------------------------------------------------
    Header
+   Fixo no topo: ganha fundo quando a página rola (sobre as seções claras o
+   texto branco sumiria). Abaixo de 1024px o botão abre/fecha o painel da
+   navegação, que fecha ao escolher um link, com Esc ou com clique fora.
    -------------------------------------------------------------------------- */
+const DESKTOP_NAV = window.matchMedia('(min-width: 1024px)');
+
+function initHeader(header) {
+  const toggle = header.querySelector('[data-menu-toggle]');
+
+  const updateScrolled = () => header.classList.toggle('is-scrolled', window.scrollY > 8);
+  updateScrolled();
+  window.addEventListener('scroll', rafThrottle(updateScrolled), { passive: true });
+
+  if (!toggle) return;
+  const nav = document.getElementById(toggle.getAttribute('aria-controls'));
+
+  const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+  const setMenu = (open) => {
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    header.classList.toggle('is-menu-open', open);
+  };
+
+  // Os links vêm antes do botão no DOM: ao abrir, o foco vai para o primeiro
+  // deles, senão o Tab pularia a navegação
+  toggle.addEventListener('click', () => {
+    const open = !isOpen();
+    setMenu(open);
+    if (open) nav.querySelector('a').focus({ preventScroll: true });
+  });
+
+  nav.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setMenu(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !isOpen()) return;
+    setMenu(false);
+    toggle.focus();
+  });
+
+  document.addEventListener('click', (event) => {
+    if (isOpen() && !header.contains(event.target)) setMenu(false);
+  });
+
+  // No desktop a navegação fica sempre visível: o estado do menu não se aplica
+  DESKTOP_NAV.addEventListener('change', (event) => {
+    if (event.matches) setMenu(false);
+  });
+}
+
 /* --------------------------------------------------------------------------
    Marquee
    Clona o grupo de itens quantas vezes forem necessárias para cobrir a
@@ -377,6 +428,7 @@ function auditCtas() {
    Boot – listeners anexados somente depois que o DOM estiver pronto
    -------------------------------------------------------------------------- */
 function init() {
+  document.querySelectorAll('[data-header]').forEach(initHeader);
   document.querySelectorAll('[data-marquee]').forEach(initMarquee);
   document.querySelectorAll('[data-accordion]').forEach(initAccordion);
   document.querySelectorAll('[data-carousel]').forEach((carousel) => initCarousel(carousel, TESTIMONIALS));
