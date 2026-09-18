@@ -200,12 +200,12 @@ function createTestimonialSlide(testimonial, index, total) {
 
   const picture = document.createElement('picture');
   const source = document.createElement('source');
-  source.srcset = `${testimonial.photo}.webp`;
+  source.srcset = `${testimonial.photo}.webp?v=13`;
   source.type = 'image/webp';
 
   const photo = document.createElement('img');
   photo.className = 'testimonial__photo';
-  photo.src = `${testimonial.photo}.png`;
+  photo.src = `${testimonial.photo}.png?v=13`;
   photo.width = 226;
   photo.height = 330;
   photo.loading = 'lazy';

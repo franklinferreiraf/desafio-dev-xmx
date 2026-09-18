@@ -715,7 +715,6 @@ p {
 /* Três camadas com as medidas da referência (canvas de 1920px).
    --k é o fator de escala: em telas menores tudo encolhe junto. */
 .hero__layers {
-  --k: calc(100vw / 1920);
 
   position: absolute;
   inset: 0;
@@ -737,30 +736,30 @@ p {
 
 /* 2151847309 1.png — 867 x 494, top -1, left 473 */
 .hero__layer--chest {
-  top: calc(-1px * var(--k));
-  left: calc(473px * var(--k));
-  width: calc(867px * var(--k));
-  height: calc(494px * var(--k));
+  top: max(-1px, -0.0521vw);
+  left: min(473px, 24.6354vw);
+  width: min(867px, 45.1562vw);
+  height: min(494.19px, 25.7391vw);
   opacity: 1;
   mix-blend-mode: luminosity;
 }
 
 /* 30008 1.png — 1500 x 841, top -32, left 947, opacity .6 */
 .hero__layer--heart {
-  top: calc(-32px * var(--k));
-  left: calc(947px * var(--k));
-  width: calc(1500px * var(--k));
-  height: calc(841px * var(--k));
+  top: max(-32px, -1.6667vw);
+  left: min(947px, 49.3229vw);
+  width: min(1500px, 78.125vw);
+  height: min(841px, 43.8021vw);
   opacity: .6;
   mix-blend-mode: luminosity;
 }
 
 /* 3146 1.png — 709 x 567, top 169.86, left 780.86 */
 .hero__layer--vessels {
-  top: calc(169.86px * var(--k));
-  left: calc(780.86px * var(--k));
-  width: calc(709.29px * var(--k));
-  height: calc(567.43px * var(--k));
+  top: min(169.86px, 8.8469vw);
+  left: min(780.86px, 40.6698vw);
+  width: min(709.2867px, 36.942vw);
+  height: min(567.4293px, 29.5536vw);
   opacity: 1;
   mix-blend-mode: luminosity;
 }
@@ -988,6 +987,14 @@ p {
 
   .hero-card {
     right: -10%;
+  }
+
+  /* Composição do produto: 529.43 x 529.43 no canvas de 1920 */
+  .hero__media {
+    width: min(529.4313px, 27.5745vw);
+    max-width: none;
+    margin-left: auto;
+    transform: translate(max(-33px, -1.7188vw), max(-16px, -0.8333vw));
   }
 }
 
@@ -1230,7 +1237,6 @@ p {
    ========================================================================== */
 .why {
   --chamfer: 48px;
-  --k: calc(100vw / 1920);
 
   overflow: hidden;
   isolation: isolate;
@@ -1245,11 +1251,11 @@ p {
    sobre ele, reproduzindo o corte em ângulo do layout. */
 .why::before {
   position: absolute;
-  top: calc(-31px * var(--k));
-  left: calc(-419px * var(--k));
+  top: max(-31px, -1.6146vw);
+  left: max(-419px, -21.8229vw);
   z-index: -1;
-  width: calc(2761px * var(--k));
-  height: calc(91.98px * var(--k));
+  width: min(2761px, 143.8021vw);
+  height: min(91.9827px, 4.7908vw);
   content: "";
   background: var(--color-white);
   border-radius: 20px;
@@ -1261,12 +1267,6 @@ p {
   }
 }
 
-@media (min-width: 1920px) {
-  .why {
-    --k: 1;
-  }
-}
-
 .eyebrow--light {
   color: rgb(255 255 255 / .6);
 }
@@ -1274,11 +1274,11 @@ p {
 /* 2148729868 1.png — 1155 x 770, top -13, left -127, opacity .4 */
 .why__bg {
   position: absolute;
-  top: calc(-13px * var(--k));
-  left: calc(-127px * var(--k));
+  top: max(-13px, -0.6771vw);
+  left: max(-127px, -6.6146vw);
   z-index: 0;
-  width: calc(1155px * var(--k));
-  height: calc(770px * var(--k));
+  width: min(1154.9999px, 60.1562vw);
+  height: min(770px, 40.1042vw);
   object-fit: cover;
   opacity: .4;
   mix-blend-mode: luminosity;
@@ -1300,10 +1300,10 @@ p {
 .why__texture {
   position: absolute;
   top: 0;
-  left: calc(556.95px * var(--k));
+  left: min(556.95px, 29.0078vw);
   z-index: 0;
-  width: calc(1386.05px * var(--k));
-  height: calc(777.11px * var(--k));
+  width: min(1386.0524px, 72.1902vw);
+  height: min(777.1133px, 40.4747vw);
   object-fit: cover;
   opacity: .4;
   mix-blend-mode: luminosity;
@@ -1792,21 +1792,53 @@ p {
   color: var(--color-red-800);
 }
 
+/* Até 768px: empilhado. Acima: os três lado a lado, com o gap do layout. */
 .pricing__grid {
-  display: grid;
-  gap: var(--space-5);
-  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  max-width: 384px;
   margin-inline: auto;
 }
 
-@media (min-width: 600px) {
+.pricing__grid > .price-card {
+  flex: none;
+  width: 100%;
+  max-width: 384px;
+  min-width: 0;
+}
+
+@media (min-width: 769px) {
+  /* espaço para os três cards de 384px + 30px de gap */
+  .pricing .container {
+    max-width: calc(384px * 3 + 30px * 2 + var(--gutter) * 2);
+  }
+
   .pricing__grid {
-    gap: var(--space-7);
-    max-width: 420px;
+    flex-direction: row;
+    gap: 30px;
+    align-items: stretch;
+    justify-content: center;
+    max-width: calc(384px * 3 + 30px * 2);
+  }
+
+  /* 384px é a largura do protótipo; encolhem juntos só se faltar espaço */
+  .pricing__grid > .price-card {
+    flex: 0 1 384px;
+    width: auto;
   }
 }
 
+.price-card {
+  display: flex;
+}
+
 .price-card article {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   height: 100%;
   overflow: hidden;
   background: var(--white);
@@ -1830,6 +1862,7 @@ p {
    como no Figma. A partir de 600px volta a ser uma coluna centralizada. */
 .price-card__body {
   display: grid;
+  flex: 1;
   grid-template-areas:
     "title price"
     "supply price"
@@ -1861,7 +1894,7 @@ p {
 .payment-cards { grid-area: payment; }
 .price-card__total { grid-area: total; }
 
-@media (min-width: 600px) {
+@media (min-width: 769px) {
   .price-card__body {
     grid-template-areas: none;
     grid-template-columns: 1fr;
@@ -2056,12 +2089,14 @@ p {
 }
 
 /* Ordem do Figma no mobile: MOST POPULAR → BUNDLE → BASIC */
-.price-card--featured {
-  order: -1;
-}
+@media (max-width: 768px) {
+  .price-card--featured {
+    order: -1;
+  }
 
-.pricing__grid > .price-card:first-child {
-  order: 1;
+  .pricing__grid > .price-card:first-child {
+    order: 1;
+  }
 }
 
 .price-card--featured article {
@@ -2080,23 +2115,10 @@ p {
   background: #b5484b;
 }
 
-@media (min-width: 1024px) {
-  .pricing__grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-5);
-    align-items: center;
-    max-width: 1200px;
-  }
-
-  .price-card--featured {
-    position: relative;
-    z-index: 1;
-    order: 0;
-    transform: scale(1.06);
-  }
-
-  .pricing__grid > .price-card:first-child {
-    order: 0;
+@media (min-width: 769px) {
+  /* O card em destaque é mais alto no protótipo (904 x 870) */
+  .price-card--featured .price-card__body {
+    padding-block: var(--space-7) 40px;
   }
 }
 
