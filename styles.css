@@ -1553,6 +1553,28 @@ p {
 
 /* 10. Ingredients
    ========================================================================== */
+/* Grid de linhas sutil do fundo (Desktop.png e Mobile.png): linhas de 1px em
+   #F2F1F1. Verticais a cada 200px no desktop e a cada ~133.5px no mobile de
+   360px (x 26 / 159.5 / 293, como no Mobile.png); horizontais na proporção
+   medida no desktop (251 / 200), a primeira 145px abaixo do topo da seção.
+   O espaçamento cresce de forma contínua entre as duas medidas. */
+.ingredients {
+  --grid-x: clamp(133.5px, 133.5px + (100vw - 360px) * .0426, 200px);
+  --grid-y: calc(var(--grid-x) * 1.255);
+  /* Linha vertical mais próxima do centro: 20.5px antes dele no Mobile.png
+     (x 159.5 em 360px) e 2px antes no Desktop.png (x 958 em 1920px) */
+  --grid-o: clamp(-20.5px, -20.5px + (100vw - 360px) * .01186, -2px);
+
+  background-color: var(--white);
+  background-image:
+    linear-gradient(90deg, #f2f1f1 1px, transparent 1px),
+    linear-gradient(180deg, #f2f1f1 1px, transparent 1px);
+  background-position:
+    calc(50% + var(--grid-x) / 2 + var(--grid-o)) 0,
+    0 145px;
+  background-size: var(--grid-x) var(--grid-y);
+}
+
 .ingredients__grid {
   display: grid;
   gap: 3.75rem var(--space-6);
