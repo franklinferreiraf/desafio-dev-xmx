@@ -1824,19 +1824,36 @@ p {
    Sem top informado para a imagem: fica na origem do frame, cujos 15px de
    cima estão sob a seção de Ingredientes. Acima do escurecimento da seção,
    como no export. */
+/* Coluna única (até 1023px), valores do frame mobile do Figma: imagem de
+   1386.05 x 777.11 em top -28 / left -367.05 (grupo mascarado pelo mesmo
+   retângulo de 702 x 675, em top 64 / left 148). A posição da imagem em
+   relação à máscara é a mesma do desktop (-515 / -92), então a máscara é a
+   mesma. Ancorada no centro do frame de 360px e sem escala, para a textura
+   ficar atrás da coluna de conteúdo em qualquer largura. */
 .why__texture {
   position: absolute;
-  top: max(-15px, -0.7813vw);
-  left: min(556.95px, 29.0078vw);
+  top: -28px;
+  left: calc(50% - 180px - 367.05px);
   z-index: 2;
-  width: min(1386.0524px, 72.1902vw);
-  height: min(777.1133px, 40.4747vw);
+  width: 1386.0524px;
+  max-width: none;
+  height: 777.1133px;
   object-fit: cover;
   opacity: .3;
   mix-blend-mode: luminosity;
-  backdrop-filter: blur(min(5.5442px, .2888vw));
+  backdrop-filter: blur(5.5442px);
   mask-image: url("assets/img/why-texture-mask.png");
   mask-size: 100% 100%;
+}
+
+@media (min-width: 1024px) {
+  .why__texture {
+    top: max(-15px, -0.7813vw);
+    left: min(556.95px, 29.0078vw);
+    width: min(1386.0524px, 72.1902vw);
+    height: min(777.1133px, 40.4747vw);
+    backdrop-filter: blur(min(5.5442px, .2888vw));
+  }
 }
 
 .why__inner {
