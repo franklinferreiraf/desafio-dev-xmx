@@ -1518,11 +1518,17 @@ p {
    do hero). O bloco de mídia começa na borda do conteúdo (x 360) e no fim
    do respiro da seção, então cada peça fica em (x - 360, y - respiro).
    Foto e pote: valores do Figma. Ilustração e glóbulo: medidos no
-   Sobre.png (ilustração por correlação, 261 x 383 em 710 / 94). */
+   Sobre.png (ilustração por correlação, 261 x 383 em 710 / 94).
+   --as escala a composição abaixo de ~1222px: é o maior valor que ainda
+   deixa 16px entre a ilustração (que termina em x 611 do bloco) e o texto
+   (sem ela, em 1024px a ilustração cobria o título). Em 1024px vale .84;
+   a partir de ~1222px, 1 (as medidas do Figma). */
 @media (min-width: 1024px) {
   .about__media {
+    --as: min(1px, min(100vw, 1232px) / 1222);
+
     display: block;
-    height: calc(591px - 2 * var(--section-y));
+    height: calc(591 * var(--as) - 2 * var(--section-y));
   }
 
   .about__photo,
@@ -1536,19 +1542,19 @@ p {
   }
 
   .about__photo {
-    top: calc(-6px - var(--section-y));
-    left: -365px;
-    width: 960px;
-    height: 640px;
+    top: calc(-6 * var(--as) - var(--section-y));
+    left: calc(-365 * var(--as));
+    width: calc(960 * var(--as));
+    height: calc(640 * var(--as));
   }
 
   /* Mockup: caixa de 475.97 x 475.97 em top 54 / left 352 do frame (top
      -31.86 / left -55.94 dentro do grupo), imagem inteira pela largura */
   .about__bottle {
-    top: calc(54px - var(--section-y));
-    left: -8px;
-    width: 475.97px;
-    height: 475.97px;
+    top: calc(54 * var(--as) - var(--section-y));
+    left: calc(-8 * var(--as));
+    width: calc(475.97 * var(--as));
+    height: calc(475.97 * var(--as));
   }
 
   .about__bottle img {
@@ -1557,16 +1563,16 @@ p {
   }
 
   .about__illustration {
-    top: calc(94px - var(--section-y));
-    left: 350px;
-    width: 261px;
+    top: calc(94 * var(--as) - var(--section-y));
+    left: calc(350 * var(--as));
+    width: calc(261 * var(--as));
   }
 
   /* Estimado: mancha vermelha à esquerda do pote, centro em (446, 302) */
   .about__cell {
-    top: calc(269px - var(--section-y));
-    left: 46px;
-    width: 80px;
+    top: calc(269 * var(--as) - var(--section-y));
+    left: calc(46 * var(--as));
+    width: calc(80 * var(--as));
   }
 }
 
@@ -1935,13 +1941,22 @@ p {
   display: none;
 }
 
+/* Tablet (600-1023px): as duas listas lado a lado (esquerda | direita,
+   como no desktop) com o produto embaixo, em vez de cada lista virar um
+   grid de 2 colunas (que deixava 2 + 1 badges em cada uma) */
 @media (min-width: 600px) {
-  .why__badges {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .pill-badge {
     width: 100%;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .why__stage {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .why__product {
+    grid-column: 1 / -1;
   }
 }
 
@@ -2002,10 +2017,18 @@ p {
     z-index: 3;
   }
 
+  /* As peças se posicionam a partir do bloco dos cards, e não do topo da
+     seção: o título e o respiro não escalam junto com --wk, e em 1024px o
+     pote chegava a cobrir o título. y 301 do frame fica no topo do bloco,
+     o que deixa o topo do pote (y 265) 36px acima dele, abaixo do título. */
+  .why__stage {
+    position: relative;
+  }
+
   .why__pedestal,
   .why__bottle {
     position: absolute;
-    top: calc((var(--y) - 61) * var(--wk) - var(--section-y));
+    top: calc((var(--y) - 301) * var(--wk));
     left: calc(50% + (var(--x) - 961) * var(--wk));
     display: block;
     width: calc(var(--w) * var(--wk));
@@ -2434,7 +2457,18 @@ p {
   min-width: 0;
 }
 
-@media (min-width: 769px) {
+/* Tablet (600-1023px, sem referência no Figma): continua o layout do
+   mobile, empilhado e na ordem do Mobile.png, com o card horizontal um
+   pouco mais largo. As três colunas só a partir de 1024px: abaixo disso
+   cada card ficava com 226-300px e o conteúdo do desktop não cabia. */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .pricing__grid,
+  .pricing__grid > .price-card {
+    max-width: 520px;
+  }
+}
+
+@media (min-width: 1024px) {
   /* espaço para os três cards de 384px + 30px de gap */
   .pricing .container {
     max-width: calc(384px * 3 + 30px * 2 + var(--gutter) * 2);
@@ -2518,7 +2552,7 @@ p {
 .payment-cards { grid-area: payment; }
 .price-card__total { grid-area: total; }
 
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
   .price-card__body {
     grid-template-areas: none;
     grid-template-columns: 1fr;
@@ -2713,7 +2747,7 @@ p {
 }
 
 /* Ordem do Figma no mobile: MOST POPULAR → BUNDLE → BASIC */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .price-card--featured {
     order: -1;
   }
@@ -2739,7 +2773,7 @@ p {
   background: #b5484b;
 }
 
-@media (min-width: 769px) {
+@media (min-width: 1024px) {
   /* O card em destaque é mais alto no protótipo (904 x 870) */
   .price-card--featured .price-card__body {
     padding-block: var(--space-7) 40px;
@@ -2787,7 +2821,9 @@ p {
   text-transform: uppercase;
 }
 
-@media (min-width: 768px) {
+/* Selo ao lado do texto só a partir de 1024px: em tablet a coluna do texto
+   ficava estreita demais para o botão de 396px ("ORDER / NOW") */
+@media (min-width: 1024px) {
   .guarantee__card {
     grid-template-columns: auto 1fr;
     gap: var(--space-7);
