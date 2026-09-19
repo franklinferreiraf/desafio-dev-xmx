@@ -1923,16 +1923,16 @@ p {
   display: none;
 }
 
-/* Tablet (600-1023px): as duas listas lado a lado (esquerda | direita,
-   como no desktop) com o produto embaixo, em vez de cada lista virar um
-   grid de 2 colunas (que deixava 2 + 1 badges em cada uma) */
-@media (min-width: 600px) {
+/* Até 767px: os seis badges numa lista única e o produto depois dela,
+   como no Mobile.png. Tablet (768-1023px): as duas listas lado a lado
+   (esquerda | direita, como no desktop) com o produto embaixo. */
+@media (min-width: 768px) {
   .pill-badge {
     width: 100%;
   }
 }
 
-@media (min-width: 600px) and (max-width: 1023px) {
+@media (min-width: 768px) and (max-width: 1023px) {
   .why__stage {
     grid-template-columns: 1fr 1fr;
   }
@@ -2126,22 +2126,51 @@ p {
   position: relative;
 }
 
+/* Abaixo de 768px (como no Mobile.png): o card ativo ocupa a coluna e o
+   seguinte aparece na borda direita da tela, 20px depois. O viewport vai
+   até a borda direita da tela; o passo do slide é a largura da coluna +
+   o espaço entre os cards. */
+@media (max-width: 767px) {
+  .carousel {
+    --peek-gap: 20px;
+  }
+
+  .carousel__viewport {
+    margin-right: calc(var(--gutter) * -1);
+  }
+}
+
 .carousel__viewport {
   padding-block: var(--space-2) var(--space-5);
   overflow: hidden;
 }
 
 .carousel__track {
+  --slide-step: calc(100% / var(--per-view));
+
   display: flex;
   margin-inline: calc(var(--slide-gap) * -1);
+  transform: translateX(calc(var(--index, 0) * var(--slide-step) * -1));
   transition: transform .5s var(--ease-out);
   touch-action: pan-y;
 }
 
 .carousel__slide {
-  flex: 0 0 calc(100% / var(--per-view));
+  flex: 0 0 var(--slide-step);
   min-width: 0;
   padding-inline: var(--slide-gap);
+}
+
+@media (max-width: 767px) {
+  .carousel__track {
+    --slide-step: calc(100% - var(--gutter) + var(--peek-gap));
+
+    margin-inline: 0;
+  }
+
+  .carousel__slide {
+    padding-inline: 0 var(--peek-gap);
+  }
 }
 
 /* Mobile: foto em cima, texto embaixo (como no Figma). A partir de 600px
@@ -2290,7 +2319,7 @@ p {
 .carousel__arrow[data-carousel-prev] {
   color: var(--red-primary);
   background: var(--white);
-  border-color: var(--white);
+  border: 1px solid var(--gray-200);
 }
 
 .carousel__arrow:hover:not(:disabled) {
@@ -2300,8 +2329,11 @@ p {
 }
 
 .carousel__arrow:disabled {
-  color: var(--gray-500);
   cursor: not-allowed;
+}
+
+.carousel__arrow[data-carousel-next]:disabled {
+  color: var(--gray-500);
   background: var(--white);
   border-color: var(--gray-200);
 }

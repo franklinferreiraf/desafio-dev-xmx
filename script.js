@@ -266,7 +266,9 @@ function initCarousel(carousel, data) {
   };
 
   function update() {
-    track.style.transform = `translateX(${(-index * 100) / perView}%)`;
+    // O passo de cada slide fica no CSS (--slide-step): no mobile o card
+    // não ocupa o viewport inteiro (o próximo aparece na borda)
+    track.style.setProperty('--index', index);
 
     slides.forEach((slide, i) => {
       const visible = i >= index && i < index + perView;
