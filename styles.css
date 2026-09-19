@@ -1,17 +1,4 @@
-/* ==========================================================================
-   Tenurima – Landing page
-   CSS puro, mobile-first. Breakpoints: 600px, 768px, 1024px, 1280px.
-   Cores: paleta oficial do projeto (ver README). Espaçamentos e tamanhos de
-   fonte são medidos a partir dos exports Desktop.png e Mobile.png.
-   ========================================================================== */
-
-/* 1. Tokens
-   ========================================================================== */
 :root {
-  /* ---------------------------------------------------------------
-     PALETA OFICIAL (nomes conforme o guia de identidade do projeto).
-     Abaixo dela ficam os apelidos semânticos usados no resto do CSS.
-     --------------------------------------------------------------- */
   --color-white: #fff;
 
   --color-wine-950: #150005;
@@ -50,16 +37,12 @@
   --color-off-white-4: #f9fbfb;
   --color-off-white-5: #f9fafb;
 
-  /* Transparências */
   --overlay-white-20: #ffffff33;
   --overlay-white-40: #ffffff66;
   --overlay-white-60: #ffffff99;
   --overlay-dark-20: #00000033;
   --overlay-wine-20: #6c2d3933;
 
-  /* Gradientes da referência */
-  /* Cores do figma-spec (#80161a -> #150005). O spec diz 135deg, mas nos
-     pixels do export o tom claro fica no canto superior direito: 45deg */
   --gradient-hero: linear-gradient(45deg, #150005 0%, #80161a 100%);
   --gradient-why-choose: linear-gradient(48.32deg, #44000c 20.94%, #cc494a 47.36%, #a93f48 62.26%);
   --gradient-seal: linear-gradient(313.26deg, #c1121f 51.48%, #ff5763 71.46%);
@@ -67,9 +50,6 @@
   --gradient-green-btn: linear-gradient(180deg, #35f60f 0%, #1fa604 100%);
   --gradient-yellow-btn: linear-gradient(270deg, #ffdc17 0%, #ffd900 100%);
 
-  /* --------------------------------------------------------------- */
-  /* Apelidos semânticos                                             */
-  /* --------------------------------------------------------------- */
   --wine-900: var(--color-wine-950);
   --wine-800: var(--color-wine-900);
   --wine-600: var(--color-red-800);
@@ -105,7 +85,6 @@
   --gradient-green: var(--gradient-green-btn);
   --gradient-yellow: var(--gradient-yellow-btn);
 
-  /* Tipografia */
   --font-heading: "Montserrat", "Segoe UI", Arial, sans-serif;
   --font-body: "Montserrat", "Segoe UI", Arial, sans-serif;
   --fs-h1: clamp(1.6rem, .95rem + 2.9vw, 2.875rem);
@@ -115,7 +94,6 @@
   --fs-body: clamp(.875rem, .82rem + .25vw, .9375rem);
   --fs-small: clamp(.8125rem, .78rem + .2vw, .875rem);
 
-  /* Espaçamentos */
   --space-1: .25rem;
   --space-2: .5rem;
   --space-3: .75rem;
@@ -125,20 +103,14 @@
   --space-7: 3rem;
   --space-8: 4rem;
   --section-y: clamp(2.25rem, .9rem + 5.6vw, 7rem);
-  /* Margem lateral: 63px em 360px, como no Mobile.png (conteúdo numa coluna
-     centralizada de ~238px), diminuindo de forma contínua até 16px em
-     1024px, onde começa o layout do desktop */
+
   --gutter: clamp(16px, 63px - (100vw - 360px) * .0708, 63px);
   --container: 1200px;
 
-  /* Aba escura na base do hero (divisor.png): altura e meias-larguras do
-     topo e da base, a partir do centro. 31 / 97.5 / 66.5px no Mobile.png
-     (360px) e 55 / 435 / 372px no Desktop.png (1920px). */
   --hero-cut-h: clamp(31px, 2.865vw, 55px);
   --hero-cut-top: clamp(97.5px, 22.656vw, 435px);
   --hero-cut-bottom: clamp(66.5px, 19.375vw, 372px);
 
-  /* Bordas e sombras */
   --radius-sm: 8px;
   --radius-md: 16px;
   --radius-lg: 24px;
@@ -151,8 +123,6 @@
   --ease-out: cubic-bezier(.22, .61, .36, 1);
 }
 
-/* 2. Reset
-   ========================================================================== */
 *,
 *::before,
 *::after {
@@ -177,7 +147,7 @@ body {
   color: var(--text);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
-  /* Garantia extra contra scroll horizontal (ex.: elementos decorativos) */
+
   overflow-x: clip;
 }
 
@@ -244,8 +214,6 @@ p {
   }
 }
 
-/* 3. Utilitários
-   ========================================================================== */
 .sprite {
   position: absolute;
   width: 0;
@@ -293,8 +261,6 @@ p {
   text-align: center;
 }
 
-/* Texto vermelho sobre fundo claro usa o tom escuro da paleta (contraste AA);
-   o #FF2D2D fica para ícones e elementos gráficos. */
 .text-red {
   color: var(--red-primary);
 }
@@ -310,7 +276,6 @@ p {
   fill: currentColor;
 }
 
-/* Foco visível consistente em todos os elementos interativos */
 :focus-visible {
   outline: 3px solid var(--yellow-400);
   outline-offset: 3px;
@@ -339,8 +304,6 @@ p {
   color: var(--white);
 }
 
-/* 4. Tipografia de seção
-   ========================================================================== */
 .section {
   position: relative;
   padding-block: var(--section-y);
@@ -351,14 +314,11 @@ p {
   background: var(--gray-50);
 }
 
-/* A seção logo depois do hero sobe por baixo da aba: as laterais recortadas
-   mostram o cinza dela (#F4F4F4 no export), e não o fundo da página */
 .hero + .section {
   margin-top: calc(var(--hero-cut-h) * -1);
   padding-top: calc(var(--section-y) + var(--hero-cut-h));
 }
 
-/* O chanfro do hero mostra o que está atrás dele: a referência usa #F4F4F4 */
 .section--gray::before {
   position: absolute;
   top: calc(var(--chamfer, 72px) * -1);
@@ -418,8 +378,6 @@ p {
   color: var(--white);
 }
 
-/* 5. Botões
-   ========================================================================== */
 .btn {
   display: inline-flex;
   gap: var(--space-2);
@@ -447,7 +405,6 @@ p {
   transform: translateY(0);
 }
 
-/* Um único elemento: gradiente + borda inferior sólida, como na referência */
 .btn--green {
   color: var(--white);
   background: var(--gradient-green-btn);
@@ -456,11 +413,7 @@ p {
   text-shadow: 0 1px 1px rgb(0 0 0 / .2);
 }
 
-/* No Mobile.png os botões verdes ocupam a largura da coluna */
 @media (max-width: 599px) {
-  /* Rating do hero: estrelas de ~13px como no export. O texto não se parte
-     ao meio; na coluna de 234px (360px) ele não cabe ao lado das estrelas
-     em Montserrat (o export usa uma fonte mais estreita) e desce inteiro */
   .hero .rating {
     gap: .25rem .5rem;
     font-size: .75rem;
@@ -484,7 +437,6 @@ p {
     width: 100%;
   }
 
-  /* O bloco do botão do hero se ajustava ao conteúdo */
   .hero__cta {
     justify-self: stretch;
   }
@@ -532,7 +484,6 @@ p {
     padding: 1rem 2.5rem;
   }
 
-  /* Medida da referência: 396 x 65, padding 18px 104px, gap 16px */
   .btn--green {
     gap: 16px;
     min-height: 65px;
@@ -541,22 +492,17 @@ p {
   }
 }
 
-/* No hero o texto do botão é maior: ~146px de "ORDER NOW" no export, o que
-   fecha os 396px de largura com o padding de 104px */
 @media (min-width: 1024px) {
   .hero__cta .btn--green {
     font-size: 1.25rem;
     line-height: 1;
   }
 
-  /* Com o ícone de 21px, padding de 18px + bordas fecham os 65px de altura */
   .hero__cta .btn--green .icon {
     width: 21px;
     height: 21px;
   }
 
-  /* Export: 26px entre o parágrafo e o botão, 19px entre o botão e a
-     garantia (medidos do fim da linha de texto ao topo do elemento) */
   .hero__cta {
     gap: 12px;
     margin-top: 25px;
@@ -567,8 +513,6 @@ p {
   width: 100%;
 }
 
-/* 6. Componentes pequenos
-   ========================================================================== */
 .rating {
   display: flex;
   flex-wrap: wrap;
@@ -615,13 +559,6 @@ p {
   margin-top: .15rem;
 }
 
-/* 7. Header
-   ========================================================================== */
-/* Medidas dos exports: Desktop.png (1920px) e Mobile.png (360px).
-   Nas páginas internas o header fica no fluxo; na landing ele fica sobre o
-   hero (.site-header--overlay), transparente, e rola junto com a página
-   (não é fixo). Abaixo de 1024px mostra só logo + Contact Us, como o
-   Mobile.png: não há menu mobile. */
 .site-header {
   position: relative;
   z-index: 50;
@@ -661,8 +598,6 @@ p {
   line-height: 1;
 }
 
-/* Contact Us no mobile: 102 x 30 no export. A área clicável é ampliada
-   por um pseudo-elemento para chegar a 44px sem mudar o desenho. */
 .site-header__contact {
   position: relative;
   flex-shrink: 0;
@@ -687,8 +622,6 @@ p {
   height: 11px;
 }
 
-/* Os links da nav só existem a partir de 1024px (o Mobile.png não tem
-   navegação); abaixo disso a página é percorrida por rolagem e pelos CTAs */
 .site-nav {
   display: none;
 }
@@ -762,8 +695,6 @@ p {
     --header-h: 106px;
   }
 
-  /* No export o header vai de 350 a 1570px: 20px mais largo que o
-     container das seções */
   .site-header__inner {
     max-width: calc(1220px + var(--gutter) * 2);
   }
@@ -780,7 +711,6 @@ p {
     font-size: 2.125rem;
   }
 
-  /* 191 x 57 no export, texto de 20px */
   .site-header__contact {
     gap: 13px;
     min-height: 57px;
@@ -799,31 +729,27 @@ p {
 
   .site-nav {
     display: block;
-    /* 40px até o Contact Us no export (28px + o gap de 12px do inner) */
+
     margin-right: 28px;
     margin-left: auto;
   }
 }
 
-/* 8. Hero
-   ========================================================================== */
 .hero {
   --chamfer: var(--hero-cut-h);
-  /* Escala da composição (1px = 1px do canvas de 1920): pote, cápsulas,
-     card e texturas usam o mesmo valor */
+
   --mu: .43px;
 
   position: relative;
-  /* Acima da seção seguinte, que sobe por baixo da aba */
+
   z-index: 1;
   padding-block: calc(var(--header-h) + var(--space-5)) calc(var(--space-8) + var(--chamfer));
   overflow: hidden;
   color: var(--white);
-  /* Ordem do Figma: gradiente embaixo, texturas em luminosity sobre ele,
-     conteúdo por cima */
-  background-color: #150005; /* fundo da home no Figma */
+
+  background-color: #150005;
   background-image: var(--gradient-hero);
-  /* Aba central na base, com as laterais retas (formato do divisor.png) */
+
   clip-path: polygon(
     0 0,
     100% 0,
@@ -836,14 +762,6 @@ p {
   );
 }
 
-/* Escurecimento vertical acima das texturas: nos exports a base do hero é
-   #150005 uniforme em toda a largura, cobrindo inclusive as texturas.
-   Paradas medidas pixel a pixel nos exports (Mobile.png em 360px e
-   Home.png em 1920px), já com o gradiente #150005 -> #80161a por baixo.
-   Coluna única: a parte do texto segue o topo do hero; a faixa mais clara,
-   onde aparecem o coração e os vasos, acompanha o topo do pote, que fica a
-   --hero-bt da base do hero (medido: 458-518px até 599px, 557px até 767px,
-   616px até 1023px). */
 .hero::after {
   --hero-bt: 490px;
 
@@ -896,7 +814,6 @@ p {
   }
 }
 
-/* Padrão de pontos sutil */
 .hero::before {
   position: absolute;
   inset: 0;
@@ -908,15 +825,6 @@ p {
   mask-image: linear-gradient(90deg, #000 0%, transparent 55%, #000 100%);
 }
 
-/* Três texturas com as medidas da referência (canvas de 1920px).
-   Cada camada é posicionada a partir de um ponto de ancoragem da composição
-   (--ox/--oy no canvas, --ax/--ay na tela) e escalada por --mu, a mesma
-   escala do pote. Sem z-index aqui: o contêiner não pode isolar o
-   mix-blend-mode, senão o luminosity não enxerga o gradiente do .hero.
-
-   Coluna única (abaixo de 1024px): a âncora é o centro do par de potes
-   (x 1171 / y 421 no canvas), que fica centralizado e a uma distância fixa
-   da base do hero (--ay). */
 .hero__layers {
   --ox: 1171;
   --oy: 421;
@@ -935,8 +843,6 @@ p {
   }
 }
 
-/* Desktop: a âncora é a borda direita do conteúdo (x 1560 no canvas), a
-   mesma referência usada para posicionar o pote */
 @media (min-width: 1024px) {
   .hero__layers {
     --ox: 1560;
@@ -955,21 +861,13 @@ p {
   max-width: none;
   object-fit: cover;
   mix-blend-mode: luminosity;
-  /* Bordas dissolvidas: na referência nenhuma textura mostra o contorno
-     retangular da imagem */
+
   mask-image:
     linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent),
     linear-gradient(180deg, transparent, #000 15%, #000 85%, transparent);
   mask-composite: intersect;
 }
 
-/* 2151847309 1.png, valores do Figma: imagem de 867 x 494.19 em top -1 /
-   left 473, rotação 0, opacity 1, luminosity, dentro de um frame de
-   570 x 596 em top 51 / left 670 com opacity .3. O frame vira uma máscara
-   na própria imagem e a opacidade dele é aplicada nela: um contêiner com
-   opacidade isolaria o luminosity do gradiente. Limites do frame, em
-   relação à imagem: 52 em cima, 100 à direita (1340 - 1240), 197 à
-   esquerda (670 - 473); embaixo o frame passa da imagem. */
 .hero__layer--chest {
   --x: 473;
   --y: -1;
@@ -977,21 +875,13 @@ p {
   --h: 494.19;
 
   opacity: .3;
-  /* Limites do frame: 22.7% a 88.5% na horizontal, a partir de 10.5% na
-     vertical. A Home.png não mostra o contorno do frame, então as bordas
-     são dissolvidas ao longo de ~70px em vez de cortadas. */
+
   mask-image:
     linear-gradient(90deg, transparent 22.7%, #000 30.8%, #000 80.4%, transparent 88.5%),
     linear-gradient(180deg, transparent 10.5%, #000 24.7%);
   mask-composite: intersect;
 }
 
-/* 30008 1.png, valores do Figma: 1500 x 841, top -32, left 947, rotação 0,
-   opacity .6, luminosity, backdrop blur 6px. O arquivo é o exportado na
-   pasta de benefícios (coração + vasos): é ele que aparece na Home.png.
-   Dentro da caixa a imagem ocupa a altura e fica perto da direita
-   (1166 x 841 em x ~1251), posição encontrada por correlação com o export.
-   O blur acompanha a escala da composição (6px em 1920px). */
 .hero__layer--heart {
   --x: 947;
   --y: -32;
@@ -1001,16 +891,11 @@ p {
   opacity: .6;
   object-fit: contain;
   object-position: 91% 50%;
-  /* A imagem começa em ~20% da caixa; a Home.png não mostra emenda ali,
-     então só essa borda é dissolvida */
+
   mask-image: linear-gradient(90deg, transparent 20.3%, #000 26%);
   backdrop-filter: blur(calc(6 * var(--mu)));
 }
 
-/* 3146 1.png — 709 x 567, top 169.86, left 780.86. Na referência os
-   glóbulos são quase imperceptíveis: opacity .12 com soft-light (ajustado
-   contra o hero-section-flat.png; com opacidade 1 as células apareciam em
-   volta dos potes e escureciam a área ao lado do pote da frente) */
 .hero__layer--vessels {
   --x: 780.86;
   --y: 169.86;
@@ -1035,27 +920,21 @@ p {
   justify-items: start;
 }
 
-/* Export de 1920px: 40px/52px, quebrando em "Support Healthy Blood /
-   Pressure, Circulation & / Oxygen Levels." */
 .hero__title {
   max-width: 500px;
   font-size: clamp(1.625rem, 1.05rem + 1.55vw, 2.5rem);
   font-weight: 700;
   line-height: 1.3;
-  /* Coluna única: quebra equilibrada, como no Mobile.png ("Support Healthy /
-     Blood Pressure, / Circulation & / Oxygen Levels.") */
+
   text-wrap: balance;
 }
 
-/* No desktop o balance redistribuiria as palavras e mudaria as quebras do
-   Desktop.png ("Support Healthy Blood / Pressure, Circulation & / ...") */
 @media (min-width: 1024px) {
   .hero__title {
     text-wrap: wrap;
   }
 }
 
-/* Export: 18px com entrelinha de ~22px */
 .hero__text {
   max-width: 490px;
   font-size: clamp(.875rem, .8rem + .45vw, 1.125rem);
@@ -1074,15 +953,12 @@ p {
   justify-items: center;
 }
 
-/* Export: 16px, peso regular */
 .hero__guarantee {
   font-size: clamp(.8125rem, .75rem + .35vw, 1rem);
   font-weight: 400;
   color: var(--white);
 }
 
-/* Rating do hero: estrelas de 23px com 9px de espaço e texto de ~19px no
-   export de 1920px, tudo em peso regular */
 .hero .rating {
   gap: clamp(.5rem, .4rem + .45vw, .75rem);
   font-size: clamp(.875rem, .8rem + .4vw, 1.1875rem);
@@ -1101,18 +977,10 @@ p {
   height: clamp(15px, 12px + .6vw, 23px);
 }
 
-/* Composição do produto, com as medidas do export de 1920px. Cada peça
-   tem posição e largura no canvas (--x, --y, --w) relativas ao pote da
-   frente (650 x 650, em x 791 / y 89) e é escalada por --mu, a mesma escala
-   das texturas. Os potes e as cápsulas vêm prontos do Figma: o pote da
-   frente já inclinado, o de trás já desfocado. */
-/* Coluna única: o bloco ocupa a coluna inteira (o card fica na largura
-   dela, como no Mobile.png) e as peças são centralizadas pelo par de potes
-   (centro em x 380 do canvas), podendo passar da coluna como no export */
 .hero__media {
   position: relative;
   z-index: 1;
-  /* Altura dos potes; o card sobe 30px sobre a base, como no Mobile.png */
+
   padding-top: calc(575 * var(--mu));
 }
 
@@ -1131,21 +999,18 @@ p {
   width: 100%;
 }
 
-/* Mockup-Tenurima-1.png, 628px */
 .hero__bottle-back {
   --x: 174;
   --y: -6;
   --w: 628;
 }
 
-/* Mockup-Tenurima-1-1.png, 650px */
 .hero__bottle {
   --x: 0;
   --y: 0;
   --w: 650;
 }
 
-/* Rectangle.png: glóbulo vermelho que aparece por trás do card */
 .hero__cell {
   --x: 594;
   --y: 321;
@@ -1157,14 +1022,12 @@ p {
   animation: float 6s ease-in-out infinite;
 }
 
-/* pill.png, nítida, à esquerda do pote */
 .hero__capsule--left {
   --x: 94;
   --y: 392;
   --w: 91;
 }
 
-/* pill-1.png, desfocada, à direita da tampa do pote de trás */
 .hero__capsule--right {
   --x: 619;
   --y: 158;
@@ -1178,9 +1041,6 @@ p {
   50% { transform: translateY(-12px) rotate(6deg); }
 }
 
-/* Card de benefícios. No mobile fica abaixo dos potes (sobrepondo a base);
-   a partir de 1024px vai para a posição do export: 420 x 203 em x 1143 /
-   y 475. Checks vazados em #29EA02, divisor vertical antes do selo. */
 .hero-card {
   position: relative;
   z-index: 2;
@@ -1238,7 +1098,6 @@ p {
   order: 2;
 }
 
-/* Divisor vertical entre o selo e o texto (order: 1 põe depois do selo) */
 .hero-card__badge::before {
   order: 1;
   width: 1px;
@@ -1251,8 +1110,7 @@ p {
 .scroll-down {
   position: absolute;
   z-index: 3;
-  /* A seta termina 57px acima da base no Desktop.png e 39px no Mobile.png
-     (descontado o padding de 8px do link) */
+
   bottom: calc(var(--hero-cut-h) * .75 + 7.75px);
   left: 50%;
   display: grid;
@@ -1262,7 +1120,6 @@ p {
   animation: bounce 2s var(--ease-out) infinite;
 }
 
-/* 21 x 40 no desktop, metade disso no mobile */
 .scroll-down img {
   width: clamp(11px, 8.7px + .64vw, 21px);
 }
@@ -1294,23 +1151,16 @@ p {
 
 @media (min-width: 1024px) {
   .hero {
-    /* 1 a partir de 1280px; em 1024px, .74 é o maior valor em que o pote não
-       encosta no texto e o card não passa da borda do conteúdo */
     --mu: clamp(.74px, .10156vw - .3px, 1px);
 
-    /* O header de 106px já reserva o respiro que antes vinha de --space-6 */
     padding-block: calc(var(--header-h) + 2px) calc(var(--space-8) + var(--chamfer));
   }
 
-  /* A coluna de texto fica centralizada numa linha de 593px (canvas),
-     como no export; a composição do produto é posicionada por cima */
   .hero__inner {
     grid-template-columns: 1.05fr 1fr;
     min-height: calc(593 * var(--mu));
   }
 
-  /* Pote da frente em y 89 do hero e com a borda direita 119px antes do fim
-     do conteúdo (x 1441 com o conteúdo terminando em 1560) */
   .hero__media {
     position: absolute;
     top: calc(89 * var(--mu) - var(--header-h) - 2px);
@@ -1364,8 +1214,6 @@ p {
   }
 }
 
-/* 9. About
-   ========================================================================== */
 .about {
   overflow: hidden;
 }
@@ -1382,13 +1230,6 @@ p {
   }
 }
 
-/* Foto (em tons de cinza, ao fundo) + composição pronta sobreposta na base */
-/* Coluna única: a composição é a mesma do desktop reduzida (no Mobile.png,
-   0.487x): foto, pote, ilustração e glóbulo medidos no export de 360px por
-   correlação (pote 232px em x 11, ilustração 129px em x 184). Ocupa a largura
-   inteira da seção, não só a coluna de texto: a foto começa fora da tela, à
-   esquerda, e se dissolve para a direita. --ak é 1px do frame de 360px;
-   escala com a tela até 768px e fica fixo (centralizado) até 1023px. */
 .about__media {
   --ak: min(100vw / 360, 2.1333px);
 
@@ -1397,12 +1238,6 @@ p {
   margin-inline: calc(var(--gutter) * -1);
 }
 
-/* Foto de apoio (2148492240 1.png), valores do Figma: 960 x 640 em top -6 /
-   left -5 do frame, rotação 0, opacity .6, luminosity, dentro do "Mask
-   group" (opacity .4). A máscara vem do próprio export do grupo: o alfa do
-   Mask group.png dividido pela opacidade da foto, ou seja, o formato da
-   máscara já com os .4 do grupo (about-photo-mask.png). Sem z-index nos
-   ancestrais, para o luminosity enxergar o cinza da seção. */
 .about__photo {
   position: absolute;
   top: calc(10 * var(--ak));
@@ -1412,7 +1247,7 @@ p {
   pointer-events: none;
   opacity: .6;
   mix-blend-mode: luminosity;
-  /* A máscara (955 x 591) cobre a foto a partir de (5, 6) */
+
   mask-image: url("assets/img/about-photo-mask.png");
   mask-position: 100% 12.24%;
   mask-size: 99.48% 92.34%;
@@ -1425,9 +1260,6 @@ p {
   object-fit: cover;
 }
 
-/* No Mobile.png a foto tem bem mais presença que no desktop (contraste ~3x
-   no rosto): mesma máscara, mas em intensidade total (sem os .4 do grupo) e
-   opacidade .7, calibrada pelo contraste do export (20 contra 20.2) */
 @media (max-width: 1023px) {
   .about__photo {
     opacity: .7;
@@ -1435,7 +1267,6 @@ p {
   }
 }
 
-/* Glóbulo vermelho decorativo (32px em x 56 / y 542 do Mobile.png) */
 .about__cell {
   position: absolute;
   top: calc(147 * var(--ak));
@@ -1451,7 +1282,6 @@ p {
   z-index: 1;
 }
 
-/* Mockup-Tenurima-1 (1).png: o pote do About no export (não é o do hero) */
 .about__bottle {
   top: calc(42 * var(--ak));
   left: calc(50% + (11 - 180) * var(--ak));
@@ -1462,7 +1292,6 @@ p {
   width: 100%;
 }
 
-/* Corpo com o sistema circulatório + coluna dos 4 círculos de vasos */
 .about__illustration {
   top: calc(59 * var(--ak));
   left: calc(50% + (184 - 180) * var(--ak));
@@ -1473,15 +1302,6 @@ p {
   width: 100%;
 }
 
-/* Desktop: coordenadas do frame do About (1920 x 591, começa na base da aba
-   do hero). O bloco de mídia começa na borda do conteúdo (x 360) e no fim
-   do respiro da seção, então cada peça fica em (x - 360, y - respiro).
-   Foto e pote: valores do Figma. Ilustração e glóbulo: medidos no
-   Sobre.png (ilustração por correlação, 261 x 383 em 710 / 94).
-   --as escala a composição abaixo de ~1222px: é o maior valor que ainda
-   deixa 16px entre a ilustração (que termina em x 611 do bloco) e o texto
-   (sem ela, em 1024px a ilustração cobria o título). Em 1024px vale .84;
-   a partir de ~1222px, 1 (as medidas do Figma). */
 @media (min-width: 1024px) {
   .about__media {
     --as: min(1px, min(100vw, 1232px) / 1222);
@@ -1508,8 +1328,6 @@ p {
     height: calc(640 * var(--as));
   }
 
-  /* Mockup: caixa de 475.97 x 475.97 em top 54 / left 352 do frame (top
-     -31.86 / left -55.94 dentro do grupo), imagem inteira pela largura */
   .about__bottle {
     top: calc(54 * var(--as) - var(--section-y));
     left: calc(-8 * var(--as));
@@ -1528,7 +1346,6 @@ p {
     width: calc(261 * var(--as));
   }
 
-  /* Estimado: mancha vermelha à esquerda do pote, centro em (446, 302) */
   .about__cell {
     top: calc(269 * var(--as) - var(--section-y));
     left: calc(46 * var(--as));
@@ -1565,18 +1382,10 @@ p {
   }
 }
 
-/* 10. Ingredients
-   ========================================================================== */
-/* Grid de linhas sutil do fundo (Desktop.png e Mobile.png): linhas de 1px em
-   #F2F1F1. Verticais a cada 200px no desktop e a cada ~133.5px no mobile de
-   360px (x 26 / 159.5 / 293, como no Mobile.png); horizontais na proporção
-   medida no desktop (251 / 200), a primeira 145px abaixo do topo da seção.
-   O espaçamento cresce de forma contínua entre as duas medidas. */
 .ingredients {
   --grid-x: clamp(133.5px, 133.5px + (100vw - 360px) * .0426, 200px);
   --grid-y: calc(var(--grid-x) * 1.255);
-  /* Linha vertical mais próxima do centro: 20.5px antes dele no Mobile.png
-     (x 159.5 em 360px) e 2px antes no Desktop.png (x 958 em 1920px) */
+
   --grid-o: clamp(-20.5px, -20.5px + (100vw - 360px) * .01186, -2px);
 
   background-color: var(--white);
@@ -1597,7 +1406,6 @@ p {
   margin-bottom: var(--space-6);
 }
 
-/* No mobile o Figma mostra os cards mais estreitos e centralizados */
 .ingredient-card {
   width: clamp(230px, 68vw, 300px);
 }
@@ -1616,7 +1424,6 @@ p {
   }
 }
 
-/* Card cinza com um entalhe semicircular no topo, onde o ícone encaixa */
 .ingredient-card {
   --notch: clamp(40px, 12vw, 52px);
 
@@ -1630,8 +1437,6 @@ p {
   transition: transform .25s var(--ease-out);
 }
 
-/* O fundo do card é um pseudo-elemento: assim a máscara do entalhe não
-   recorta o ícone, que fica por cima */
 .ingredient-card::before {
   position: absolute;
   inset: 0;
@@ -1652,10 +1457,6 @@ p {
   transform: translateY(-4px);
 }
 
-/* Ícone "vazando" para fora do topo do card */
-/* O <picture> é quem se posiciona no entalhe; a imagem só preenche.
-   (Com a imagem em absolute, ela se posicionava pelo <picture> e caía
-   por cima do título.) */
 .ingredient-card > .ingredient-card__media {
   position: absolute;
   top: 0;
@@ -1706,29 +1507,13 @@ p {
   }
 }
 
-/* 11. Why choose
-   ========================================================================== */
-/* Recorte por clip-path, e não overflow: hidden: as formas do divisor
-   podem passar 2px acima do topo. Com o topo caindo no meio de um pixel
-   (escalas de tela de 125% / 150%), o overflow cortava as formas brancas na
-   mesma fileira do fundo escuro, e o escuro vazava como uma linha cinza. */
 .why {
-  /* Corta só na horizontal (as formas vão além da tela) sem criar área de
-     rolagem; na vertical o clip-path deixa os 2px acima do topo */
   overflow-x: clip;
   isolation: isolate;
   background: var(--bg-dark);
   clip-path: inset(-2px 0 0 0);
 }
 
-/* Divisor do topo: duas formas brancas (#FFFFFF) de 1048.22 x 91.98, raio
-   20px, em top -31 do frame (left -419 e, girada 180°, left 1293.78). A
-   ponta interna de cada uma é cortada em diagonal (1.1px por px, medido no
-   Beneficios.png), o que forma a aba escura central. Na página, os 15px de
-   cima do frame ficam sob a seção de Ingredientes, então as formas começam
-   46px acima do topo visível da seção. Ancoradas no centro: a aba fica
-   centralizada em qualquer largura (no mobile ela ocupa a tela inteira e o
-   topo fica reto, como no Mobile.png). */
 .why__divider {
   position: absolute;
   top: -46px;
@@ -1739,7 +1524,6 @@ p {
   pointer-events: none;
 }
 
-/* Largura sem a inclinação: 1048.22 - 91.98 x 1.1 = 947.04 */
 .why__divider::before,
 .why__divider::after {
   position: absolute;
@@ -1751,16 +1535,12 @@ p {
   border-radius: 20px;
 }
 
-/* Ponta superior direita em x 629.22 (330.78 antes do centro). O canto
-   interno de baixo tem ~132°: os 20px do Figma nesse ângulo equivalem a 4px
-   aplicados antes da inclinação (medido contra o export). */
 .why__divider::before {
   right: calc(50% + 381.37px);
   border-bottom-right-radius: 4px;
   transform: skewX(-47.73deg);
 }
 
-/* Espelhada: ponta superior esquerda em x 1293.78 (333.78 depois do centro) */
 .why__divider::after {
   left: calc(50% + 384.37px);
   border-bottom-left-radius: 4px;
@@ -1768,7 +1548,6 @@ p {
 }
 
 @media (min-width: 768px) {
-  /* A faixa escura inteira começa 46px abaixo do topo da aba */
   .why {
     padding-top: calc(var(--section-y) + 46px);
   }
@@ -1778,20 +1557,6 @@ p {
   color: rgb(255 255 255 / .6);
 }
 
-/* 2148729868 1.png, valores do Figma: 1155 x 770 em top -13 / left -127,
-   rotação 0, opacity .4, luminosity, dentro de um grupo com opacity .3
-   mascarado por um retângulo #D9D9D9 de 702 x 675 em top 141 / left 51
-   com blur de 236.375px.
-   - O PNG exportado já é essa imagem recortada nos limites do grupo (o
-     blur estende a máscara até x 753 + 236 = 989, a largura do export) e
-     traz os .4 no alfa: vai em 988.5 x 757 na origem do frame (correlação
-     .93 com o Beneficios.png), sem opacidade própria além da do grupo (.3).
-   - A máscara é o retângulo desfocado (why-couple-mask.png, gerado com
-     σ = 118, metade do blur do Figma; é o valor que reproduz o contraste
-     do export dentro do frame: 1.8 contra 1.9).
-   Fica acima do escurecimento da seção, como no export. Os 15px de cima do
-   frame ficam sob a seção de Ingredientes. Medidas escaladas abaixo de
-   1920px. */
 .why__bg {
   position: absolute;
   top: max(-15px, -0.7813vw);
@@ -1805,31 +1570,6 @@ p {
   mask-size: 100% 100%;
 }
 
-/* Frame do Figma: 1922 x 824 em top 2656 / left -1, fundo #150005 (o
-   --bg-dark da seção). Não há camada de escurecimento sobre as imagens:
-   sem ela o fundo bate com o Beneficios.png fora da faixa clara do topo
-   (mediana de erro 1.0, contra 4.0 com a camada). */
-
-/* 30008 1.png (pasta de benefícios: coração + vasos), valores do Figma:
-   1386.05 x 777.11 em left 556.95, rotação 0, opacity .4, luminosity,
-   backdrop blur 5.544px, dentro de um grupo com opacity .3 mascarado por
-   um retângulo #D9D9D9 de 702 x 675 em top 92 / left 1072 com blur de
-   236.375px.
-   - A máscara é esse retângulo desfocado (why-texture-mask.png, σ = 118,
-     o mesmo critério da foto do casal).
-   - Opacidade efetiva .3, medida no export: com .4 x .3 = .12 a textura
-     fica com metade do brilho e do contraste do Beneficios.png; com .3
-     fica 21.8 / 2.27 contra 23.1 / 2.38 no coração e 11.6 / .58 contra
-     12.7 / .58 fora do frame.
-   Sem top informado para a imagem: fica na origem do frame, cujos 15px de
-   cima estão sob a seção de Ingredientes. Acima do escurecimento da seção,
-   como no export. */
-/* Coluna única (até 1023px), valores do frame mobile do Figma: imagem de
-   1386.05 x 777.11 em top -28 / left -367.05 (grupo mascarado pelo mesmo
-   retângulo de 702 x 675, em top 64 / left 148). A posição da imagem em
-   relação à máscara é a mesma do desktop (-515 / -92), então a máscara é a
-   mesma. O frame mobile do Figma tem 540px de largura (o Mobile.png é ele
-   em 2x): --wm é 1px desse frame na tela, ancorado no centro (x 270). */
 .why__texture {
   position: absolute;
   top: calc(-28 * var(--wm));
@@ -1865,9 +1605,6 @@ p {
   text-align: center;
 }
 
-/* Em coluna única (até 1023px) as duas listas de badges ficam empilhadas:
-   o espaço entre elas é o mesmo dos badges (no Mobile.png os seis ficam
-   com espaçamento uniforme). O produto mantém o respiro próprio. */
 .why__stage {
   display: grid;
   gap: var(--space-3);
@@ -1895,8 +1632,6 @@ p {
 }
 
 .pill-badge {
-  /* Quebra equilibrada, como no export ("Supports healthy blood / pressure
-     levels"), em vez de deixar uma palavra sozinha na segunda linha */
   text-wrap: balance;
   display: flex;
   gap: var(--space-3);
@@ -1935,14 +1670,10 @@ p {
   filter: drop-shadow(0 24px 30px rgb(0 0 0 / .35));
 }
 
-/* O pote maior só entra no desktop: no mobile fica o produto.png inteiro */
 .why__bottle {
   display: none;
 }
 
-/* Até 767px: os seis badges numa lista única e o produto depois dela,
-   como no Mobile.png. Tablet (768-1023px): as duas listas lado a lado
-   (esquerda | direita, como no desktop) com o produto embaixo. */
 @media (min-width: 768px) {
   .pill-badge {
     width: 100%;
@@ -1992,16 +1723,9 @@ p {
     gap: var(--space-6);
   }
 
-  /* O produto vira só o espaço da coluna central; as peças são posicionadas
-     com as coordenadas do frame do Figma (1922 x 824), relativas ao
-     .why__inner: x ancorado no centro, y a partir do topo do frame (15px
-     acima da seção, que começa 46px + o respiro antes do .why__inner).
-     --wk escala tudo abaixo de 1920px. */
   .why {
     --wk: min(1px, 100vw / 1920);
 
-    /* O marquee começa em y 762 do frame (747px abaixo do topo visível) e
-       cobre a base do pedestal, como no export */
     min-height: calc(747 * var(--wk));
   }
 
@@ -2016,10 +1740,6 @@ p {
     z-index: 3;
   }
 
-  /* As peças se posicionam a partir do bloco dos cards, e não do topo da
-     seção: o título e o respiro não escalam junto com --wk, e em 1024px o
-     pote chegava a cobrir o título. y 301 do frame fica no topo do bloco,
-     o que deixa o topo do pote (y 265) 36px acima dele, abaixo do título. */
   .why__stage {
     position: relative;
   }
@@ -2033,9 +1753,6 @@ p {
     width: calc(var(--w) * var(--wk));
   }
 
-  /* produto.png é o grupo exportado do Figma: brilho vermelho, anéis de
-     fundo (as elipses de contorno branco), pedestal e um pote menor. Vai
-     inteiro em 600 x 678 / 659, 144 (medido no export, correlação .88) */
   .why__pedestal {
     --x: 659;
     --y: 144;
@@ -2048,9 +1765,6 @@ p {
     filter: none;
   }
 
-  /* Pote do layout final: bottle-basic com 489.49px de largura em 716 / 241
-     (largura e left do Figma; topo medido no export), cobrindo o pote menor
-     que vem no produto.png */
   .why__bottle {
     --x: 716;
     --y: 241;
@@ -2063,7 +1777,6 @@ p {
     width: 100%;
   }
 
-  /* Leve curvatura das badges ao redor do produto */
   .why__badges--left .pill-badge:nth-child(2) {
     margin-right: var(--space-6);
   }
@@ -2073,20 +1786,6 @@ p {
   }
 }
 
-/* Composição do produto na coluna única (até 1023px), no frame mobile do
-   Figma (540px; F = px do Mobile.png / 2), conferida no Mobile.png:
-   - produto.png (brilho, anéis, pedestal e pote) com 602 de largura em
-     left -31 / top 824 (ajuste por correlação; é a mesma relação do
-     desktop com o bloco "produto" de 489.49 x 571.48 em left 25 / top 945:
-     -57 / -121). O topo fica 11.5 acima da base do último badge (835.5);
-   - a seção termina em 1445.5 (início do marquee), cortando a base do
-     pedestal, como no export;
-   - pill capsule.003 (72.89 x 69.70, rotação 83.95°, blur 6px) em
-     left 353 / top 1086 e left 110 / top 1259: esses valores são a caixa
-     já girada (77 x 79.8), então os centros ficam em (391.5, 1125.9) e
-     (148.5, 1298.9). O PNG exportado já vem girado.
-   --wm escala com a tela até 540px e fica em 1px depois: acima disso o
-   produto.png (608px) passaria do tamanho nativo e perderia nitidez. */
 @media (max-width: 1023px) {
   .why {
     --wm: min(100vw / 540, 1px);
@@ -2094,13 +1793,6 @@ p {
     padding-bottom: 0;
   }
 
-  /* Foto do casal (2148729868) atrás do produto, como no Mobile.png:
-     603 x 462 (0.61 do tamanho do desktop) em left -136 / top 885 do
-     frame, medida por correlação no export (o rosto da senhora aparece à
-     esquerda do pote, o senhor fica atrás dele). Ancorada na base da
-     seção (1445.5), que no mobile é a base do produto: assim acompanha o
-     pote mesmo que o texto acima mude de altura. Mesma máscara, opacidade
-     e blend do desktop. */
   .why__bg {
     top: auto;
     bottom: calc((1445.5 - 885 - 461.8) * var(--wm));
@@ -2110,7 +1802,6 @@ p {
     height: calc(461.8 * var(--wm));
   }
 
-  /* O topo do produto (só o brilho) entra 11.5 sob o último badge */
   .why__badges {
     position: relative;
     z-index: 1;
@@ -2167,8 +1858,6 @@ p {
   }
 }
 
-/* 12. Marquee (componente reutilizável)
-   ========================================================================== */
 .marquee {
   width: 100%;
   max-width: 100%;
@@ -2181,7 +1870,7 @@ p {
   text-transform: uppercase;
   letter-spacing: .06em;
   white-space: nowrap;
-  /* cor exata da faixa na referência (#FF2D2D) */
+
   background: var(--color-red-600);
 }
 
@@ -2206,7 +1895,6 @@ p {
   color: var(--yellow-400);
 }
 
-/* A animação só começa depois que o JS duplica o conteúdo (evita "salto") */
 .marquee.is-ready .marquee__track {
   animation: marquee var(--marquee-duration, 30s) linear infinite;
 }
@@ -2226,10 +1914,6 @@ p {
   }
 }
 
-
-
-/* 13. Testimonials / carrossel
-   ========================================================================== */
 .carousel {
   --per-view: 1;
   --slide-gap: 12px;
@@ -2237,10 +1921,6 @@ p {
   position: relative;
 }
 
-/* Abaixo de 768px (como no Mobile.png): o card ativo ocupa a coluna e o
-   seguinte aparece na borda direita da tela, 20px depois. O viewport vai
-   até a borda direita da tela; o passo do slide é a largura da coluna +
-   o espaço entre os cards. */
 @media (max-width: 767px) {
   .carousel {
     --peek-gap: 20px;
@@ -2284,8 +1964,6 @@ p {
   }
 }
 
-/* Mobile: foto em cima, texto embaixo (como no Figma). A partir de 600px
-   a foto vai para o lado. */
 .testimonial {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -2296,10 +1974,6 @@ p {
   box-shadow: var(--shadow-sm);
 }
 
-/* Card vertical (até 599px): as fotos são retratos (~0.69), então a faixa
-   da foto usa a proporção do Mobile.png (237 x 207) e o recorte fica no
-   terço de cima, onde está o rosto. Com uma faixa baixa e larga o rosto era
-   cortado, e as setas (centralizadas no card) caíam sobre as estrelas. */
 .testimonial > picture {
   max-height: 340px;
   aspect-ratio: 237 / 207;
@@ -2337,7 +2011,6 @@ p {
   color: var(--color-red-800);
 }
 
-/* No Figma é só o check verde + texto cinza, sem pílula */
 .verified {
   display: inline-flex;
   gap: var(--space-2);
@@ -2367,9 +2040,6 @@ p {
   margin-block: var(--space-2) var(--space-6);
 }
 
-/* As setas ficam ancoradas ao centro do viewport dos cards (--arrow-center),
-   calculado a partir da altura do viewport. Assim elas não sobem nem descem
-   quando o texto dos depoimentos muda de tamanho. */
 .carousel__arrow {
   position: absolute;
   top: var(--arrow-center, 50%);
@@ -2381,9 +2051,6 @@ p {
   left: -12px;
 }
 
-/* Card vertical: setas na base da foto (8px de respiro do viewport + altura
-   da foto - metade da seta), para não caírem sobre as estrelas quando o
-   texto do card cresce */
 @media (max-width: 599px) {
   .carousel__arrow {
     top: calc(8px + min(340px, (100vw - 2 * var(--gutter)) * 207 / 237) - 20px);
@@ -2427,7 +2094,6 @@ p {
   transition: background-color .2s, color .2s, border-color .2s, transform .2s;
 }
 
-/* Mobile: setas de 40px, como no Mobile.png (60px no desktop do Figma) */
 @media (max-width: 1023px) {
   .carousel__arrow {
     width: 40px;
@@ -2446,9 +2112,6 @@ p {
   border-color: var(--wine-600);
 }
 
-/* A seta da esquerda continua branca no hover (só o contorno escurece).
-   O hover não mexe no transform: o translateY(-50%) que centraliza a seta
-   precisa ficar, senão ela "desce" ao passar o mouse ou clicar. */
 .carousel__arrow[data-carousel-prev]:hover:not(:disabled) {
   background: var(--white);
   border-color: var(--gray-500);
@@ -2463,10 +2126,6 @@ p {
   background: var(--white);
   border-color: var(--gray-200);
 }
-
-
-
-
 
 @media (min-width: 600px) {
   .testimonial {
@@ -2489,9 +2148,6 @@ p {
 
 }
 
-
-/* 14. Free shipping banner
-   ========================================================================== */
 .shipping-banner {
   position: relative;
   overflow: hidden;
@@ -2552,13 +2208,10 @@ p {
   }
 }
 
-/* 15. Pricing
-   ========================================================================== */
 .pricing .text-red {
   color: var(--color-red-800);
 }
 
-/* Até 768px: empilhado. Acima: os três lado a lado, com o gap do layout. */
 .pricing__grid {
   display: flex;
   flex-direction: column;
@@ -2576,9 +2229,6 @@ p {
   min-width: 0;
 }
 
-/* Mobile: os cards podem passar da coluna de 63px de margem (até 16px da
-   borda), sempre centralizados. No export o card tem ~235px, mas com
-   fontes bem menores; com as da página o conteúdo não cabia nessa largura */
 @media (max-width: 599px) {
   .pricing__grid {
     --pw: min(100vw - 32px, 384px);
@@ -2589,10 +2239,6 @@ p {
   }
 }
 
-/* Tablet (600-1023px, sem referência no Figma): continua o layout do
-   mobile, empilhado e na ordem do Mobile.png, com o card horizontal um
-   pouco mais largo. As três colunas só a partir de 1024px: abaixo disso
-   cada card ficava com 226-300px e o conteúdo do desktop não cabia. */
 @media (min-width: 600px) and (max-width: 1023px) {
   .pricing__grid,
   .pricing__grid > .price-card {
@@ -2601,7 +2247,6 @@ p {
 }
 
 @media (min-width: 1024px) {
-  /* espaço para os três cards de 384px + 30px de gap */
   .pricing .container {
     max-width: calc(384px * 3 + 30px * 2 + var(--gutter) * 2);
   }
@@ -2614,7 +2259,6 @@ p {
     max-width: calc(384px * 3 + 30px * 2);
   }
 
-  /* 384px é a largura do protótipo; encolhem juntos só se faltar espaço */
   .pricing__grid > .price-card {
     flex: 0 1 384px;
     width: auto;
@@ -2648,8 +2292,6 @@ p {
   background: var(--wine-800);
 }
 
-/* Mobile: card em duas colunas (imagem à esquerda, compra à direita),
-   como no Figma. A partir de 600px volta a ser uma coluna centralizada. */
 .price-card__body {
   display: grid;
   flex: 1;
@@ -2668,7 +2310,6 @@ p {
   text-align: center;
 }
 
-/* sem min-width os itens do grid empurram o card além da tela */
 .price-card__body > * {
   min-width: 0;
   max-width: 100%;
@@ -2726,7 +2367,6 @@ p {
   margin-inline: auto;
 }
 
-/* BASIC: a mesma imagem de 1 pote duas vezes, levemente sobrepostas */
 .price-card__pair {
   display: flex;
   justify-content: center;
@@ -2818,7 +2458,6 @@ p {
   background: var(--gold);
 }
 
-/* Botão BUY NOW: imagem pronta do Figma dentro de um link real */
 .buy-btn {
   display: block;
   width: 100%;
@@ -2878,7 +2517,6 @@ p {
   color: var(--color-red-800);
 }
 
-/* Ordem do Figma no mobile: MOST POPULAR → BUNDLE → BASIC */
 @media (max-width: 1023px) {
   .price-card--featured {
     order: -1;
@@ -2906,14 +2544,11 @@ p {
 }
 
 @media (min-width: 1024px) {
-  /* O card em destaque é mais alto no protótipo (904 x 870) */
   .price-card--featured .price-card__body {
     padding-block: var(--space-7) 40px;
   }
 }
 
-/* 16. Guarantee
-   ========================================================================== */
 .guarantee {
   padding-top: 0;
 }
@@ -2931,7 +2566,6 @@ p {
 }
 
 @media (max-width: 599px) {
-  /* No Mobile.png o botão ocupa quase toda a largura do card */
   .guarantee__card {
     padding-inline: 12px;
   }
@@ -2960,8 +2594,6 @@ p {
   text-transform: uppercase;
 }
 
-/* Selo ao lado do texto só a partir de 1024px: em tablet a coluna do texto
-   ficava estreita demais para o botão de 396px ("ORDER / NOW") */
 @media (min-width: 1024px) {
   .guarantee__card {
     grid-template-columns: auto 1fr;
@@ -2980,8 +2612,6 @@ p {
   }
 }
 
-/* 17. FAQ / accordion
-   ========================================================================== */
 .faq__inner {
   max-width: calc(1060px + var(--gutter) * 2);
 }
@@ -3034,7 +2664,6 @@ p {
   color: var(--red-700);
 }
 
-/* Outline interno, já que o item tem overflow: hidden */
 .accordion__trigger:focus-visible {
   outline-color: var(--red-700);
   outline-offset: -5px;
@@ -3098,7 +2727,6 @@ p {
   visibility: visible;
 }
 
-/* Rótulo / Supplement Facts */
 .label {
   margin-top: var(--space-7);
 }
@@ -3123,8 +2751,6 @@ p {
   transform: scale(1.02);
 }
 
-/* 18. Footer
-   ========================================================================== */
 .site-footer {
   padding-top: var(--space-6);
   font-size: var(--fs-small);
@@ -3178,7 +2804,6 @@ p {
   }
 }
 
-/* Faixa mais escura com o copyright, como no Figma */
 .site-footer__bar {
   padding-block: var(--space-4);
   margin-top: var(--space-5);
@@ -3193,8 +2818,6 @@ p {
   color: rgb(255 255 255 / .6);
 }
 
-/* 19. Páginas internas (placeholders legais, contato e checkout)
-   ========================================================================== */
 .page__inner {
   display: grid;
   gap: var(--space-4);

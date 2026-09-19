@@ -1,20 +1,5 @@
-/**
- * Tenurima – interações da landing page (JavaScript vanilla, sem dependências).
- *
- * Módulos:
- *  - initMarquee    → faixa de selos em loop infinito, sem "salto"
- *  - initAccordion  → FAQ com apenas um item aberto por vez
- *  - initCarousel   → carrossel de depoimentos renderizado a partir de dados
- *  - auditCtas      → alerta no console se algum CTA ficar sem destino
- */
 'use strict';
 
-/* --------------------------------------------------------------------------
-   Dados
-   Michael R. e Susan L. (nomes e falas) vêm do briefing; Walter J. e Diane K.
-   são nomes e falas placeholder para as fotos 3 e 4 (ver README).
-   `photo` é o caminho sem extensão: o .webp é a fonte principal e o .png o fallback.
-   -------------------------------------------------------------------------- */
 const TESTIMONIALS = [
   {
     name: 'Michael R.',
@@ -52,11 +37,6 @@ const TESTIMONIALS = [
 
 const SVG_NS = 'http://www.w3.org/2000/svg';
 
-/* --------------------------------------------------------------------------
-   Helpers
-   -------------------------------------------------------------------------- */
-
-/** Cria um <svg><use href="#icon-..."></svg> a partir do sprite do index.html */
 function createIcon(name, className = 'icon') {
   const svg = document.createElementNS(SVG_NS, 'svg');
   svg.setAttribute('class', className);
@@ -67,7 +47,6 @@ function createIcon(name, className = 'icon') {
   return svg;
 }
 
-/** Cria um elemento com classe e texto (textContent evita injeção de HTML) */
 function createEl(tag, className, text) {
   const el = document.createElement(tag);
   if (className) el.className = className;
@@ -75,7 +54,6 @@ function createEl(tag, className, text) {
   return el;
 }
 
-/** Agrupa chamadas em um único frame (usado em resize/scroll) */
 function rafThrottle(fn) {
   let frame = 0;
   return (...args) => {
@@ -87,14 +65,7 @@ function rafThrottle(fn) {
   };
 }
 
-/* --------------------------------------------------------------------------
-   Marquee
-   Clona o grupo de itens quantas vezes forem necessárias para cobrir a
-   largura do container + 1 grupo extra. A animação desloca exatamente a
-   largura de UM grupo e reinicia: como o grupo seguinte é idêntico, o
-   loop não tem salto. O container tem overflow: hidden no CSS.
-   -------------------------------------------------------------------------- */
-const MARQUEE_SPEED = 50; // px por segundo – velocidade constante em qualquer largura
+const MARQUEE_SPEED = 50;
 
 function initMarquee(marquee) {
   const track = marquee.querySelector('.marquee__track');
@@ -126,7 +97,6 @@ function initMarquee(marquee) {
 
   build();
 
-  // Recalcula quando a largura muda (rotação, resize) ou quando as fontes carregam
   const observer = new ResizeObserver(rafThrottle(() => {
     if (marquee.clientWidth !== lastWidth) build();
   }));
@@ -137,9 +107,6 @@ function initMarquee(marquee) {
   }
 }
 
-/* --------------------------------------------------------------------------
-   Accordion (FAQ)
-   -------------------------------------------------------------------------- */
 function initAccordion(accordion) {
   const items = Array.from(accordion.querySelectorAll('.accordion__item'));
   const triggers = items.map((item) => item.querySelector('.accordion__trigger'));
@@ -149,7 +116,6 @@ function initAccordion(accordion) {
     item.querySelector('.accordion__trigger').setAttribute('aria-expanded', String(open));
   };
 
-  // Sincroniza o estado inicial com o aria-expanded definido no HTML
   items.forEach((item) => {
     setOpen(item, item.querySelector('.accordion__trigger').getAttribute('aria-expanded') === 'true');
   });
@@ -159,11 +125,10 @@ function initAccordion(accordion) {
 
     trigger.addEventListener('click', () => {
       const willOpen = !item.classList.contains('is-open');
-      // Apenas um item aberto por vez
+
       items.forEach((other) => setOpen(other, other === item && willOpen));
     });
 
-    // Navegação por teclado entre as perguntas (padrão WAI-ARIA)
     trigger.addEventListener('keydown', (event) => {
       const last = triggers.length - 1;
       const targets = {
@@ -180,13 +145,6 @@ function initAccordion(accordion) {
   });
 }
 
-/* --------------------------------------------------------------------------
-   Carrossel de depoimentos
-   - 1 card por vez no mobile/tablet, 2 no desktop (valor lido de --per-view
-     no CSS, para que o breakpoint exista em um único lugar)
-   - Avança 1 card por clique; setas desabilitam nas extremidades
-   - Suporta teclado (← →), swipe e bolinhas de paginação
-   -------------------------------------------------------------------------- */
 function createTestimonialSlide(testimonial, index, total) {
   const slide = createEl('div', 'carousel__slide');
   slide.setAttribute('role', 'group');
@@ -267,8 +225,6 @@ function initCarousel(carousel, data) {
   };
 
   function update() {
-    // O passo de cada slide fica no CSS (--slide-step): no mobile o card
-    // não ocupa o viewport inteiro (o próximo aparece na borda)
     track.style.setProperty('--index', index);
 
     slides.forEach((slide, i) => {
@@ -276,7 +232,6 @@ function initCarousel(carousel, data) {
       slide.setAttribute('aria-hidden', String(!visible));
     });
 
-    // Se o botão focado ficar desabilitado, o foco vai para o outro lado
     const focused = document.activeElement;
     prev.disabled = index === 0;
     next.disabled = index >= maxIndex();
@@ -305,7 +260,6 @@ function initCarousel(carousel, data) {
     if (event.key === 'ArrowRight') goTo(index + 1);
   });
 
-  // Swipe com Pointer Events (touch, caneta e mouse)
   const SWIPE_THRESHOLD = 50;
   let startX = null;
 
@@ -326,7 +280,6 @@ function initCarousel(carousel, data) {
     startX = null;
   });
 
-  // Evita que imagens sejam "arrastadas" pelo navegador ao fazer swipe com mouse
   viewport.addEventListener('dragstart', (event) => event.preventDefault());
 
   const syncLayout = () => {
@@ -337,7 +290,6 @@ function initCarousel(carousel, data) {
     goTo(index);
   };
 
-  // Mantém as setas centradas nos cards, sem depender da altura dos textos
   const syncArrows = () => {
     const height = viewport.getBoundingClientRect().height;
     const padding = parseFloat(getComputedStyle(viewport).paddingBottom) || 0;
@@ -358,11 +310,6 @@ function initCarousel(carousel, data) {
   syncArrows();
 }
 
-/* --------------------------------------------------------------------------
-   Auditoria de CTAs
-   Garante (em desenvolvimento) que nenhum botão de compra fique sem destino.
-   Não gera saída no console quando está tudo certo.
-   -------------------------------------------------------------------------- */
 function auditCtas() {
   const broken = Array.from(document.querySelectorAll('a.btn, a.buy-btn')).filter((link) => {
     const href = link.getAttribute('href');
@@ -373,9 +320,6 @@ function auditCtas() {
   }
 }
 
-/* --------------------------------------------------------------------------
-   Boot – listeners anexados somente depois que o DOM estiver pronto
-   -------------------------------------------------------------------------- */
 function init() {
   document.querySelectorAll('[data-marquee]').forEach(initMarquee);
   document.querySelectorAll('[data-accordion]').forEach(initAccordion);
