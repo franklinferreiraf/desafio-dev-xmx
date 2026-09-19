@@ -1383,11 +1383,18 @@ p {
 }
 
 /* Foto (em tons de cinza, ao fundo) + composição pronta sobreposta na base */
+/* Coluna única: a composição é a mesma do desktop reduzida (no Mobile.png,
+   0.487x): foto, pote, ilustração e glóbulo medidos no export de 360px por
+   correlação (pote 232px em x 11, ilustração 129px em x 184). Ocupa a largura
+   inteira da seção, não só a coluna de texto: a foto começa fora da tela, à
+   esquerda, e se dissolve para a direita. --ak é 1px do frame de 360px;
+   escala com a tela até 768px e fica fixo (centralizado) até 1023px. */
 .about__media {
+  --ak: min(100vw / 360, 2.1333px);
+
   position: relative;
-  width: 100%;
-  max-width: 580px;
-  margin-inline: auto;
+  height: calc(269 * var(--ak));
+  margin-inline: calc(var(--gutter) * -1);
 }
 
 /* Foto de apoio (2148492240 1.png), valores do Figma: 960 x 640 em top -6 /
@@ -1398,9 +1405,9 @@ p {
    ancestrais, para o luminosity enxergar o cinza da seção. */
 .about__photo {
   position: absolute;
-  top: 1%;
-  left: -14.6%;
-  width: 116.6%;
+  top: calc(10 * var(--ak));
+  left: calc(50% + (-163 - 180) * var(--ak));
+  width: calc(467.5 * var(--ak));
   aspect-ratio: 960 / 640;
   pointer-events: none;
   opacity: .6;
@@ -1418,42 +1425,48 @@ p {
   object-fit: cover;
 }
 
-/* Glóbulo vermelho decorativo */
-.about__cell {
-  position: absolute;
-  top: 38%;
-  left: 4%;
-  z-index: 2;
-  width: 13%;
-  filter: blur(1px);
+/* No Mobile.png a foto tem bem mais presença que no desktop (contraste ~3x
+   no rosto): mesma máscara, mas em intensidade total (sem os .4 do grupo) e
+   opacidade .7, calibrada pelo contraste do export (20 contra 20.2) */
+@media (max-width: 1023px) {
+  .about__photo {
+    opacity: .7;
+    mask-image: url("assets/img/about-photo-mask-full.png");
+  }
 }
 
-.about__media {
-  display: grid;
-  grid-template-columns: 1.25fr .75fr;
-  gap: 0;
-  align-items: center;
+/* Glóbulo vermelho decorativo (32px em x 56 / y 542 do Mobile.png) */
+.about__cell {
+  position: absolute;
+  top: calc(147 * var(--ak));
+  left: calc(50% + (56 - 180) * var(--ak));
+  z-index: 2;
+  width: calc(32 * var(--ak));
+  filter: blur(1px);
 }
 
 .about__bottle,
 .about__illustration {
-  position: relative;
+  position: absolute;
   z-index: 1;
 }
 
+/* Mockup-Tenurima-1 (1).png: o pote do About no export (não é o do hero) */
 .about__bottle {
-  margin-right: -18%;
-  transform: scale(1.18);
-  transform-origin: center left;
+  top: calc(42 * var(--ak));
+  left: calc(50% + (11 - 180) * var(--ak));
+  width: calc(232 * var(--ak));
 }
 
-/* Mockup-Tenurima-1 (1).png: o pote do About no export (não é o do hero) */
 .about__bottle img {
   width: 100%;
 }
 
+/* Corpo com o sistema circulatório + coluna dos 4 círculos de vasos */
 .about__illustration {
-  padding-block: 4%;
+  top: calc(59 * var(--ak));
+  left: calc(50% + (184 - 180) * var(--ak));
+  width: calc(129 * var(--ak));
 }
 
 .about__illustration img {
@@ -1475,6 +1488,7 @@ p {
 
     display: block;
     height: calc(591 * var(--as) - 2 * var(--section-y));
+    margin-inline: 0;
   }
 
   .about__photo,
