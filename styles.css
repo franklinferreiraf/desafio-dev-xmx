@@ -1828,20 +1828,20 @@ p {
    1386.05 x 777.11 em top -28 / left -367.05 (grupo mascarado pelo mesmo
    retângulo de 702 x 675, em top 64 / left 148). A posição da imagem em
    relação à máscara é a mesma do desktop (-515 / -92), então a máscara é a
-   mesma. Ancorada no centro do frame de 360px e sem escala, para a textura
-   ficar atrás da coluna de conteúdo em qualquer largura. */
+   mesma. O frame mobile do Figma tem 540px de largura (o Mobile.png é ele
+   em 2x): --wm é 1px desse frame na tela, ancorado no centro (x 270). */
 .why__texture {
   position: absolute;
-  top: -28px;
-  left: calc(50% - 180px - 367.05px);
+  top: calc(-28 * var(--wm));
+  left: calc(50% + (-367.05 - 270) * var(--wm));
   z-index: 2;
-  width: 1386.0524px;
+  width: calc(1386.0524 * var(--wm));
   max-width: none;
-  height: 777.1133px;
+  height: calc(777.1133 * var(--wm));
   object-fit: cover;
   opacity: .3;
   mix-blend-mode: luminosity;
-  backdrop-filter: blur(5.5442px);
+  backdrop-filter: blur(calc(5.5442 * var(--wm)));
   mask-image: url("assets/img/why-texture-mask.png");
   mask-size: 100% 100%;
 }
@@ -2070,6 +2070,84 @@ p {
 
   .why__badges--right .pill-badge:nth-child(2) {
     margin-left: var(--space-6);
+  }
+}
+
+/* Composição do produto na coluna única (até 1023px), no frame mobile do
+   Figma (540px; F = px do Mobile.png / 2), conferida no Mobile.png:
+   - produto.png (brilho, anéis, pedestal e pote) com 602 de largura em
+     left -31 / top 824 (ajuste por correlação; é a mesma relação do
+     desktop com o bloco "produto" de 489.49 x 571.48 em left 25 / top 945:
+     -57 / -121). O topo fica 11.5 acima da base do último badge (835.5);
+   - a seção termina em 1445.5 (início do marquee), cortando a base do
+     pedestal, como no export;
+   - pill capsule.003 (72.89 x 69.70, rotação 83.95°, blur 6px) em
+     left 353 / top 1086 e left 110 / top 1259: esses valores são a caixa
+     já girada (77 x 79.8), então os centros ficam em (391.5, 1125.9) e
+     (148.5, 1298.9). O PNG exportado já vem girado.
+   --wm escala com a tela até 540px e fica em 1px depois: acima disso o
+   produto.png (608px) passaria do tamanho nativo e perderia nitidez. */
+@media (max-width: 1023px) {
+  .why {
+    --wm: min(100vw / 540, 1px);
+
+    padding-bottom: 0;
+  }
+
+  /* O topo do produto (só o brilho) entra 11.5 sob o último badge */
+  .why__badges {
+    position: relative;
+    z-index: 1;
+  }
+
+  .why__product {
+    position: relative;
+    justify-self: stretch;
+    width: auto;
+    height: calc((1445.5 - 824) * var(--wm));
+    margin-top: calc(-11.5 * var(--wm) - var(--space-3));
+  }
+
+  .why__pedestal {
+    position: absolute;
+    top: 0;
+    left: calc(50% - 301 * var(--wm));
+    display: block;
+    width: calc(602 * var(--wm));
+  }
+
+  .why__pedestal img {
+    filter: none;
+  }
+
+  .why__capsule {
+    position: absolute;
+    z-index: 1;
+    width: calc(86.5 * var(--wm));
+    filter: blur(calc(6 * var(--wm)));
+    transform: translate(-50%, -50%);
+  }
+
+  .why__capsule--right {
+    top: calc((1125.9 - 824) * var(--wm));
+    left: calc(50% + 121.5 * var(--wm));
+  }
+
+  .why__capsule--left {
+    top: calc((1298.9 - 824) * var(--wm));
+    left: calc(50% - 121.5 * var(--wm));
+  }
+}
+
+@media (min-width: 600px) and (max-width: 1023px) {
+  .why__product {
+    margin-top: calc(-11.5 * var(--wm) - var(--space-4));
+  }
+}
+
+@media (min-width: 1024px) {
+  .why__capsule {
+    display: none;
   }
 }
 
