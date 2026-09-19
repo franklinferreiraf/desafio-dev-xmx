@@ -210,7 +210,10 @@ A regra geral: **até 1023px a página usa a lógica do mobile (coluna única, o
 
 ### Pontos que ficaram como estão (decisões conscientes)
 
-- **Margens laterais no mobile:** o `Mobile.png` usa ~63px de cada lado (coluna de ~238px); a página usa 16px. Com 63px o corpo de texto precisaria ficar em ~11px para caber como no export. Mantive 16px, então as quebras de linha diferem do export no mobile.
+- **Coluna centralizada no mobile (como no `Mobile.png`):** a margem lateral é de 63px em 360px (coluna de ~234px, igual ao export) e diminui de forma contínua até 16px em 1024px (`--gutter` com `clamp`, sem degraus no redimensionamento). Logo + Contact Us, textos, botões verdes (na largura da coluna) e o card do hero seguem essa coluna. Duas exceções conscientes:
+  - **cards de preço** podem ir até 16px da borda (continuam centralizados): no export eles têm ~235px com fontes bem menores, e com as fontes da página o conteúdo não cabia nessa largura;
+  - **rating do hero** em 360px: o texto "4.9/5 Customer Rating" desce inteiro para a linha de baixo das estrelas. O export usa uma fonte mais estreita que a Montserrat; na mesma linha ele alargava a coluna.
+- **Texturas do hero no mobile:** a camada de escurecimento foi recalibrada pixel a pixel contra o `Mobile.png` (depois da troca para o gradiente do spec ela tinha ficado escura demais e escondia as texturas). A faixa em que aparecem o coração e os vasos acompanha o topo do pote.
 - **Prévia do próximo depoimento:** o `Mobile.png` mostra a borda do card seguinte; a página mostra 1 card inteiro, com setas, bolinhas e swipe.
 - **Quebras que a auditoria marca, mas que são iguais ao Figma:** "(Pyridoxal-5- / Phosphate)", "(Cyanocobalamin)" e "GUARANTEED" em linha própria.
 
@@ -238,7 +241,7 @@ Cada item abaixo é uma decisão consciente, não um descuido:
 | --- | --- | --- | --- |
 | **Texto do botão verde** | Branco no `Desktop.png` | Mantive **branco** | O guia de cores pedia texto preto, mas a referência visual mostra branco, e a regra combinada é que a referência manda. |
 | **Faixa vermelha (marquee)** | `#FF2D2D` com texto branco pequeno | Mantive a cor e o texto exatos | No mobile isso dá 3,7:1 de contraste (o mínimo é 4,5:1) e o axe acusa. Preferi a fidelidade numa faixa decorativa a inventar outra cor; levaria ao design a sugestão de escurecer para `#D20606`, que passa. É a **única** violação de contraste da página. |
-| **Corpo de texto no mobile** | ~12,5px | **14px** | 12,5px num container de 360px fica no limite da legibilidade; 14px mantém a proporção do layout e a leitura. |
+| **Corpo de texto no mobile** | ~12,5px | **14px** | 12,5px fica no limite da legibilidade; com 14px na coluna de 234px os parágrafos ficam com algumas linhas a mais que no export. |
 | **Transcrição do rótulo** | Só a imagem do Supplement Facts | Imagem + `<details>` "Read the label as text" com a transcrição em tabela | Acréscimo de acessibilidade (WCAG 1.1.1): o conteúdo do rótulo não cabe num `alt`. Recolhido por padrão, sem mudar o visual. |
 | **Menu no mobile** | Só logo + "Contact Us" | **Igual à referência** (sem hambúrguer) | Um hambúrguer chegou a ser implementado e foi removido para seguir fielmente o `Mobile.png`. Consequência assumida: abaixo de 1024px não há atalho para as seções; a navegação é por rolagem e pelos CTAs. |
 | **Avaliação** | "4.9/5 Customer Rating" | Igual à referência | O texto do pedido citava 4.85 e 4.92; mantive o que está no layout. |
