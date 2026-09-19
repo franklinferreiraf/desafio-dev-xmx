@@ -583,7 +583,8 @@ p {
 /* Medidas dos exports: Desktop.png (1920px) e Mobile.png (360px).
    Nas páginas internas o header fica no fluxo; na landing ele fica sobre o
    hero (.site-header--overlay), transparente, e rola junto com a página
-   (não é fixo). Ganha fundo só quando o menu mobile está aberto. */
+   (não é fixo). Abaixo de 1024px mostra só logo + Contact Us, como o
+   Mobile.png: não há menu mobile. */
 .site-header {
   position: relative;
   z-index: 50;
@@ -594,12 +595,6 @@ p {
 .site-header--overlay {
   position: absolute;
   inset: 0 0 auto;
-  transition: background-color .25s, box-shadow .25s;
-}
-
-.site-header--overlay.is-menu-open {
-  background-color: rgb(21 0 5 / .97);
-  box-shadow: 0 6px 20px rgb(0 0 0 / .25);
 }
 
 .site-header__inner {
@@ -629,12 +624,6 @@ p {
   line-height: 1;
 }
 
-.site-header__actions {
-  display: flex;
-  gap: var(--space-2);
-  align-items: center;
-}
-
 /* Contact Us no mobile: 102 x 30 no export. A área clicável é ampliada
    por um pseudo-elemento para chegar a 44px sem mudar o desenho. */
 .site-header__contact {
@@ -661,116 +650,48 @@ p {
   height: 11px;
 }
 
-/* Botão do menu mobile (não existe no export: o Figma mobile não mostra a
-   navegação). Só aparece com JS, que é quem abre e fecha o menu. */
-.menu-toggle {
-  display: none;
-  flex-shrink: 0;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  margin-right: -10px;
-  padding: 0;
-  color: var(--white);
-  cursor: pointer;
-  background: none;
-  border: 0;
-  border-radius: var(--radius-sm);
-}
-
-.js .menu-toggle {
-  display: grid;
-}
-
-.menu-toggle__bars,
-.menu-toggle__bars::before,
-.menu-toggle__bars::after {
-  display: block;
-  width: 22px;
-  height: 2px;
-  background: currentColor;
-  border-radius: 2px;
-  transition: transform .25s var(--ease-out), opacity .2s;
-}
-
-.menu-toggle__bars {
-  position: relative;
-}
-
-.menu-toggle__bars::before,
-.menu-toggle__bars::after {
-  position: absolute;
-  left: 0;
-  content: "";
-}
-
-.menu-toggle__bars::before {
-  top: -7px;
-}
-
-.menu-toggle__bars::after {
-  top: 7px;
-}
-
-.menu-toggle[aria-expanded="true"] .menu-toggle__bars {
-  background: transparent;
-}
-
-.menu-toggle[aria-expanded="true"] .menu-toggle__bars::before {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.menu-toggle[aria-expanded="true"] .menu-toggle__bars::after {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Abaixo de 1024px a navegação vira um painel que desce do header */
+/* Os links da nav só existem a partir de 1024px (o Mobile.png não tem
+   navegação); abaixo disso a página é percorrida por rolagem e pelos CTAs */
 .site-nav {
   display: none;
 }
 
-.js .site-nav {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  left: 0;
-  display: block;
-  visibility: hidden;
-  padding: var(--space-2) var(--gutter) var(--space-4);
-  background: rgb(21 0 5 / .97);
-  border-top: 1px solid rgb(255 255 255 / .08);
-  box-shadow: 0 16px 30px rgb(0 0 0 / .35);
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity .25s, transform .25s var(--ease-out), visibility 0s .25s;
-}
-
-.js .is-menu-open .site-nav {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-  transition: opacity .25s, transform .25s var(--ease-out), visibility 0s;
-}
-
 .site-nav__list {
-  display: grid;
+  display: flex;
+  gap: 26.5px;
   padding: 0;
   list-style: none;
 }
 
 .site-nav__link {
+  position: relative;
   display: block;
-  padding: var(--space-3) 0;
-  font-size: 1rem;
+  padding: var(--space-2) 0;
+  font-size: 1.25rem;
   font-weight: 400;
   color: var(--white);
   text-decoration: none;
-  border-bottom: 1px solid rgb(255 255 255 / .08);
   transition: color .2s;
 }
 
 .site-nav__link:hover {
   color: var(--coral);
+}
+
+.site-nav__link::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: var(--coral);
+  transform: scaleX(0);
+  transition: transform .25s var(--ease-out);
+}
+
+.site-nav__link:hover::after {
+  transform: scaleX(1);
 }
 
 @media (min-width: 600px) {
@@ -822,10 +743,6 @@ p {
     font-size: 2.125rem;
   }
 
-  .site-header__actions {
-    display: contents;
-  }
-
   /* 191 x 57 no export, texto de 20px */
   .site-header__contact {
     gap: 13px;
@@ -843,53 +760,11 @@ p {
     height: 16px;
   }
 
-  .js .menu-toggle {
-    display: none;
-  }
-
-  .site-nav,
-  .js .site-nav {
-    position: static;
+  .site-nav {
     display: block;
-    visibility: visible;
     /* 40px até o Contact Us no export (28px + o gap de 12px do inner) */
     margin-right: 28px;
     margin-left: auto;
-    padding: 0;
-    background: none;
-    border: 0;
-    box-shadow: none;
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
-
-  .site-nav__list {
-    display: flex;
-    gap: 26.5px;
-  }
-
-  .site-nav__link {
-    position: relative;
-    padding: var(--space-2) 0;
-    font-size: 1.25rem;
-    border: 0;
-  }
-
-  .site-nav__link::after {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    content: "";
-    background: var(--coral);
-    transform: scaleX(0);
-    transition: transform .25s var(--ease-out);
-  }
-
-  .site-nav__link:hover::after {
-    transform: scaleX(1);
   }
 }
 

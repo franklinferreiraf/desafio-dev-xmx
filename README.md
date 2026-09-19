@@ -35,7 +35,7 @@ python -m http.server 8080      # ou: npx serve .
 ```
 ├── index.html            # landing page (12 seções)
 ├── styles.css            # todo o CSS, organizado em seções numeradas
-├── script.js             # menu mobile, marquee, accordion, carrossel
+├── script.js             # marquee, accordion, carrossel
 ├── contact.html          # páginas de destino dos links do footer / garantia
 ├── terms.html · privacy.html · disclaimer.html · reference.html · refund.html · shipping.html
 ├── checkout.html         # destino placeholder dos 3 botões BUY NOW
@@ -116,8 +116,8 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
 ### Seção por seção
 | Seção | Decisão | Por quê |
 | --- | --- | --- |
-| **Header** | **Não é fixo:** na landing fica sobre o hero (`.site-header--overlay`, `position: absolute`), transparente, e rola junto com a página. Só ganha fundo com o menu mobile aberto. As páginas internas mantêm o header no fluxo. | Definido na revisão do layout: o header acompanha o hero, como no export. |
-| **Header** | **Menu hambúrguer abaixo de 1024px**, à direita do "Contact Us": abre um painel com os 4 links; fecha ao escolher um link, com Esc (o foco volta ao botão) ou clicando fora. Ao abrir, o foco vai para o primeiro link. Sem JS o botão não aparece. | O pedido exige hambúrguer; o `Mobile.png` não tem um (mostra só logo + "Contact Us"), então o botão e o painel são desenho meu, no estilo do header. |
+| **Header** | **Não é fixo:** na landing fica sobre o hero (`.site-header--overlay`, `position: absolute`), transparente, e rola junto com a página. As páginas internas mantêm o header no fluxo. | Definido na revisão do layout: o header acompanha o hero, como no export. |
+| **Header** | **Sem menu mobile.** Abaixo de 1024px o header mostra só logo + "Contact Us"; os links Price / Ingredientes / Testimonials / FAQ aparecem a partir de 1024px. Os ids das seções continuam no HTML (as âncoras funcionam no desktop). | **Removido para seguir fielmente o `Mobile.png`, que não inclui navegação mobile** — decisão final, tomada após confirmação. No mobile a navegação depende da rolagem e dos CTAs (ORDER NOW / BUY NOW), sem menu de atalho para as seções. |
 | **Header** | Nav com **"Ingredientes"** (marcado com `lang="pt"`), entre "Price", "Testimonials" e "FAQ". | É o texto do export e do pedido. |
 | **Hero** | A base do hero é uma **aba central** (laterais retas, formato do `divisor.png`) feita com `clip-path`; as medidas ficam em `--hero-cut-*` no `:root`. A seção seguinte sobe por baixo da aba, então os recortes mostram o `#F4F4F4` dela. | Resolve sem SVG extra e escala entre as medidas do mobile (31px de altura) e do desktop (55px). |
 | **Hero** | **Composição com as coordenadas do export** (pote da frente 650px em x 791 / y 89; pote de trás, cápsulas, glóbulo e card posicionados em relação a ele) e uma única escala `--mu` para potes, card e texturas: 1 a partir de 1280px, .74 em 1024px, .7 e .6 nas faixas de tablet e .43 no mobile. | Mantém a composição inteira proporcional em qualquer largura, sem o card cobrir o pote nem sair da tela. |
@@ -186,7 +186,7 @@ A regra geral: **até 1023px a página usa a lógica do mobile (coluna única, o
 
 | Seção | Tablet (768–1023px) | Por quê |
 | --- | --- | --- |
-| Header | Logo + Contact Us + hambúrguer (nav visível a partir de 1024px) | Os 4 links + botão de 191px não cabem ao lado do logo antes disso. |
+| Header | Logo + Contact Us, sem menu (nav visível a partir de 1024px) | Segue o `Mobile.png`; os 4 links + botão de 191px só cabem ao lado do logo a partir de 1024px. |
 | Hero / About | Coluna única, composição do produto centralizada abaixo do texto | Mesma lógica do mobile, com a escala da composição maior. |
 | Ingredients | **2 colunas** (3 a partir de 1024px) | Estado intermediário entre 1 e 3 colunas; 3 colunas em 768px deixariam o texto dos cards espremido. |
 | Why | **Listas de badges lado a lado**, produto embaixo | Mantém a divisão esquerda/direita do desktop sem espremer o produto no meio. |
@@ -225,7 +225,6 @@ A regra geral: **até 1023px a página usa a lógica do mobile (coluna única, o
   - carrossel: 4 slides; em 1440px a sequência visível foi Michael+Susan → Susan+Walter → Walter+Diane, e em 360px Michael → Susan → Walter → Diane, com a seta "próximo" desabilitando no fim e as 4 fotos carregando (WebP);
   - accordion: abrir um item fecha o anterior e o `aria-expanded` acompanha;
   - marquee: 3 grupos em 360px e 5 em 1920px, com a animação andando;
-  - menu mobile abre e fecha, inclusive ao clicar num link;
   - transcrição do rótulo (`<details>`) abre e mostra a tabela.
 - **axe-core 4.10** em 360 e 1440px: **1 violação conhecida e documentada** (o contraste da faixa vermelha no mobile, explicado na tabela acima). Antes dessa mudança de cor eram 0 violações (inclusive depois de trocar o botão BUY NOW por imagem e de aplicar a paleta oficial — foi o axe que pegou o `#FF2D2D` sem contraste como texto).
 - **`tools/check-links.mjs`:** 9 páginas e 260 referências (HTML + `script.js`) sem problemas.
@@ -241,7 +240,7 @@ Cada item abaixo é uma decisão consciente, não um descuido:
 | **Faixa vermelha (marquee)** | `#FF2D2D` com texto branco pequeno | Mantive a cor e o texto exatos | No mobile isso dá 3,7:1 de contraste (o mínimo é 4,5:1) e o axe acusa. Preferi a fidelidade numa faixa decorativa a inventar outra cor; levaria ao design a sugestão de escurecer para `#D20606`, que passa. É a **única** violação de contraste da página. |
 | **Corpo de texto no mobile** | ~12,5px | **14px** | 12,5px num container de 360px fica no limite da legibilidade; 14px mantém a proporção do layout e a leitura. |
 | **Transcrição do rótulo** | Só a imagem do Supplement Facts | Imagem + `<details>` "Read the label as text" com a transcrição em tabela | Acréscimo de acessibilidade (WCAG 1.1.1): o conteúdo do rótulo não cabe num `alt`. Recolhido por padrão, sem mudar o visual. |
-| **Menu no mobile** | Só logo + "Contact Us" | Logo + "Contact Us" + **hambúrguer** | O pedido exige menu hambúrguer funcional; o botão é o único elemento do header que não está no export. |
+| **Menu no mobile** | Só logo + "Contact Us" | **Igual à referência** (sem hambúrguer) | Um hambúrguer chegou a ser implementado e foi removido para seguir fielmente o `Mobile.png`. Consequência assumida: abaixo de 1024px não há atalho para as seções; a navegação é por rolagem e pelos CTAs. |
 | **Avaliação** | "4.9/5 Customer Rating" | Igual à referência | O texto do pedido citava 4.85 e 4.92; mantive o que está no layout. |
 | **Card do hero** | 3 benefícios + "Made in the USA" | Igual à referência | O texto do pedido listava 4 benefícios. |
 | **Rosa do card "MOST POPULAR"** | `#F9E4E4` | Valor da especificação | — |
