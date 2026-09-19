@@ -2094,6 +2094,22 @@ p {
     padding-bottom: 0;
   }
 
+  /* Foto do casal (2148729868) atrás do produto, como no Mobile.png:
+     603 x 462 (0.61 do tamanho do desktop) em left -136 / top 885 do
+     frame, medida por correlação no export (o rosto da senhora aparece à
+     esquerda do pote, o senhor fica atrás dele). Ancorada na base da
+     seção (1445.5), que no mobile é a base do produto: assim acompanha o
+     pote mesmo que o texto acima mude de altura. Mesma máscara, opacidade
+     e blend do desktop. */
+  .why__bg {
+    top: auto;
+    bottom: calc((1445.5 - 885 - 461.8) * var(--wm));
+    left: calc(50% + (-136 - 270) * var(--wm));
+    width: calc(603 * var(--wm));
+    max-width: none;
+    height: calc(461.8 * var(--wm));
+  }
+
   /* O topo do produto (só o brilho) entra 11.5 sob o último badge */
   .why__badges {
     position: relative;
