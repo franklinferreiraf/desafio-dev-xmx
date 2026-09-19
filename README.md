@@ -123,15 +123,15 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
 | **Hero** | **Composição com as coordenadas do export** (pote da frente 650px em x 791 / y 89; pote de trás, cápsulas, glóbulo e card posicionados em relação a ele) e uma única escala `--mu` para potes, card e texturas: 1 a partir de 1280px, .74 em 1024px, .7 e .6 nas faixas de tablet e .43 no mobile. | Mantém a composição inteira proporcional em qualquer largura, sem o card cobrir o pote nem sair da tela. |
 | **Hero** | A mancha vermelha atrás do card é o **`Rectangle.png`** (glóbulo vermelho, o mesmo arquivo do About), que está na pasta do hero do Figma. | Antes era uma cápsula branca tingida por filtro CSS; o asset certo existia. |
 | **Hero** | Checks do card **vazados**, em `#29EA02` (cor amostrada), desenhados como ícone SVG. | O `check.svg` exportado é um círculo preenchido, mas o `Desktop.png` mostra o contorno. |
-| **Hero** | **Três camadas de textura** empilhadas sobre o gradiente, todas discretas: a foto com ECG cobrindo a seção (`.1`, `luminosity`), o coração/vasos concentrado atrás do produto (`.14`, com `mask` radial) e os vasos em zoom (`.16`) deslocados para a direita e girados `-8deg`. | No Figma as texturas são quase imperceptíveis e se acumulam no lado do produto; fortes demais competiam com o título. |
+| **Hero** | **Três camadas de textura** sobre o gradiente, com os valores do Figma quando informados: `2151847309` (peito/ECG, `luminosity`, dentro de um frame de 570×596 com opacity .3), `30008` (coração + vasos, 1500×841, opacity .6, `luminosity`, blur 6px) e `3146` (glóbulos, `soft-light` a .12, ajustado contra o `hero-section-flat.png`). | Na referência as texturas são sutis e se concentram atrás dos frascos. |
 | **Hero** | O card de benefícios fica **à direita, escuro e translúcido** (`#00000033` + `backdrop-filter: blur(12px)`), com texto branco. | É o que o Figma mostra: vidro escuro sobre a foto, não um card branco sólido. |
-| **Hero** | No mobile o card flutuante fica **abaixo da imagem, sobreposto em parte**. A partir de 768px ele flutua sobre a imagem. | Em 360px, sobre a imagem, ele cobriria o produto. |
-| **About** | A **foto da senhora vai ao fundo, em tons de cinza** (`filter: grayscale(1)`, como descrito no layout), e a **composição pronta** (`Frame 1707480045.png`) fica sobreposta na base, com posições em %. | A arte escala proporcionalmente em qualquer largura. O cinza da foto destaca o vermelho do pote e do sistema circulatório. |
+| **Hero** | Até 1023px (coluna única) o card fica **abaixo dos potes, sobreposto em parte**; a partir de 1024px vai para a posição do export, sobre a base do pote. | É o que o `Mobile.png` e o `Desktop.png` mostram; em coluna única, sobre o pote, ele cobriria o rótulo. |
+| **About** | A partir de 1024px, **foto, pote, ilustração e glóbulo nas coordenadas do frame do Figma**, escalados por `--as` abaixo de ~1222px (o maior valor que deixa 16px entre a ilustração e o texto). A foto fica sem cor pelo `luminosity` sobre o cinza da seção. | Com as medidas fixas do desktop, em 1024px a ilustração cobria o título. |
 | **Ingredients** | 1 coluna < 600px · 2 colunas ≥ 600px · 3 colunas ≥ 1024px. Card cinza com **entalhe semicircular no topo**, feito com `mask-image: radial-gradient(...)` **num pseudo-elemento** (`::before`), e o ícone por cima. | É o formato do Figma. A máscara precisa ficar no pseudo-elemento: aplicada no card, ela recortava também o ícone. |
 | **Ingredients** | O **ORDER NOW fica depois do grid**, e a seção Why não tem botão no topo. | É o que os exports mostram. O briefing pedia o botão no topo da Why; segui o design e o total de CTAs continua o mesmo. |
 | **Why** | **No mobile a ordem é título → badges → produto** (no desktop, badges / produto / badges). | É a ordem do `Mobile.png`; antes eu colocava o produto antes das badges. |
 | **Why** | **Divisor do topo com os valores do Figma:** duas formas brancas de 1048,22 × 91,98 (raio 20px) em top -31, left -419 e left 1293,78 (girada 180°), com a ponta interna cortada em diagonal (medida no export). Na página, os 15px de cima do frame ficam sob a seção anterior; no mobile a aba ocupa a tela inteira e o topo fica reto, como no `Mobile.png`. Eyebrow acima do título. | O export mostra os dois. No Figma o eyebrow diz "INGREDIENTS", o que parece erro de copiar/colar do design — usei **"BENEFITS"**, que é o conteúdo real da seção. |
-| **Why choose** | No mobile, produto no topo e as 6 badges empilhadas (2 colunas a partir de 600px). No desktop, 3 colunas: badges / produto / badges. Foto do casal com baixa opacidade e `mix-blend-mode: luminosity` sobre o gradiente vinho. | Layout lateral não cabe em telas estreitas. O blend mantém a foto "desbotada" no tom da seção. |
+| **Why choose** | Mobile: 6 badges empilhadas, com espaçamento uniforme, e produto embaixo. **Tablet (600–1023px): as duas listas lado a lado (esquerda / direita), produto embaixo.** Desktop: badges / produto / badges, com o produto posicionado a partir do bloco dos cards. | Antes, no tablet, cada lista virava um grid de 2 colunas e ficava 2 + 1 badges. Ancorado no topo da seção, o pote cobria o título em 1024px. |
 | **Marquee** | **Velocidade constante de 50px/s** (a duração é calculada pela largura do conteúdo), easing `linear`, pausa no hover, parada com `prefers-reduced-motion`. | Com duração fixa, a velocidade mudaria conforme a tela. `linear` é o único easing que não "engasga" no reinício do loop. |
 | **Marquee** | **Componente reutilizável:** a mesma marcação com `data-marquee` é inicializada por `initMarquee()` para cada ocorrência. O JS clona o grupo até cobrir a largura + 1 grupo e anima exatamente a largura de **um** grupo, então o loop não tem salto. Os clones têm `aria-hidden`. O container tem `overflow: hidden` + `width: 100%`, e ainda há `overflow-x: clip` no `body`. | Evita o vazamento para fora da viewport em telas largas. O recálculo usa `ResizeObserver` e `document.fonts.ready`, então vale também para 1920px+ e depois da troca de fonte. |
 | **Testimonials** | **Exatamente 4 depoimentos** no array `TESTIMONIALS` (`script.js`), com as 4 fotos reais. **1 card por vez < 1024px e 2 por vez ≥ 1024px.** Avança **1 card por clique**, sem loop: a seta fica vermelha quando a ação está disponível e branca/desabilitada no fim. Também tem bolinhas de paginação, teclado (← →) e swipe. | O carrossel de fato passa pelos 4 (Michael+Susan → Susan+Walter → Walter+Diane). Sem loop, o usuário sabe quando viu todos. O número de cards por vez vem de `--per-view` no CSS, então o breakpoint fica num só lugar. |
@@ -178,7 +178,46 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
 
 ---
 
+## Responsividade
+
+### Tablet (768–1023px): o Figma não especifica, então segui o padrão mobile → desktop
+
+A regra geral: **até 1023px a página usa a lógica do mobile (coluna única, ordem do `Mobile.png`), só mais larga; o layout em colunas do desktop começa em 1024px**, que é onde os blocos do desktop cabem sem apertar.
+
+| Seção | Tablet (768–1023px) | Por quê |
+| --- | --- | --- |
+| Header | Logo + Contact Us + hambúrguer (nav visível a partir de 1024px) | Os 4 links + botão de 191px não cabem ao lado do logo antes disso. |
+| Hero / About | Coluna única, composição do produto centralizada abaixo do texto | Mesma lógica do mobile, com a escala da composição maior. |
+| Ingredients | **2 colunas** (3 a partir de 1024px) | Estado intermediário entre 1 e 3 colunas; 3 colunas em 768px deixariam o texto dos cards espremido. |
+| Why | **Listas de badges lado a lado**, produto embaixo | Mantém a divisão esquerda/direita do desktop sem espremer o produto no meio. |
+| Testimonials | 1 card por vez (2 a partir de 1024px) | Dois cards horizontais com foto ficariam estreitos demais. |
+| Pricing | **Empilhados, na ordem do mobile, com até 520px** (3 colunas a partir de 1024px) | Entre 769 e 1023px as 3 colunas ficavam com 226–300px e cards de 733px de altura. |
+| Guarantee | Selo acima do texto (lado a lado a partir de 1024px) | Ao lado do selo de 250px, a coluna do texto não comportava o botão de 396px ("ORDER / NOW"). |
+
+### Media queries ajustadas na auditoria
+
+| Breakpoint | Seletor | Motivo |
+| --- | --- | --- |
+| padrão (até 599px) | `.testimonial > picture` | Foto na proporção do `Mobile.png` (237/207), recorte no rosto; a faixa de 190px cortava a cabeça e as setas caíam sobre as estrelas. |
+| `min-width: 600px` | `.testimonial > picture` | Volta à coluna de 170px do card horizontal. |
+| padrão / `min-width: 600px` | `.why__stage` | Espaço entre as listas de badges igual ao dos badges. |
+| `600px–1023px` | `.why__stage`, `.why__product` | Listas lado a lado, produto embaixo. |
+| `600px–1023px` | `.pricing__grid`, `.price-card` | Cards empilhados até 520px. |
+| `769px` → **`1024px`** | `.pricing__grid`, `.price-card__body`, destaque do MOST POPULAR | 3 colunas só quando cabem. |
+| `max-width: 768px` → **`1023px`** | ordem dos cards de preço | Ordem do mobile em todo o tablet. |
+| `768px` → **`1024px`** | `.guarantee__card` | Selo ao lado do texto só quando o botão cabe. |
+| `min-width: 1024px` | `.about__media` (`--as`) e `.why__stage` (âncora do produto) | Composições do Figma sem cobrir os títulos entre 1024 e 1440px. |
+
+### Pontos que ficaram como estão (decisões conscientes)
+
+- **Margens laterais no mobile:** o `Mobile.png` usa ~63px de cada lado (coluna de ~238px); a página usa 16px. Com 63px o corpo de texto precisaria ficar em ~11px para caber como no export. Mantive 16px, então as quebras de linha diferem do export no mobile.
+- **Prévia do próximo depoimento:** o `Mobile.png` mostra a borda do card seguinte; a página mostra 1 card inteiro, com setas, bolinhas e swipe.
+- **Quebras que a auditoria marca, mas que são iguais ao Figma:** "(Pyridoxal-5- / Phosphate)", "(Cyanocobalamin)" e "GUARANTEED" em linha própria.
+
 ## Como verifiquei
+
+- **Auditoria de responsividade (Chrome headless via DevTools Protocol)** nas **9 páginas × 6 larguras** (360, 414, 768, 1024, 1440, 1920): scroll horizontal, elementos passando da tela, texto vazando da caixa ou do botão, palavras partidas e órfãs em títulos e botões, sobreposições no fluxo, imagens com proporção diferente da natural e colunas de cada grid. Resultado final: **0 ocorrências** de scroll horizontal, overflow, texto fora de botão, imagem distorcida ou erro de console nas 54 combinações; os achados restantes foram conferidos um a um (iguais ao Figma, ou falsos positivos como a caixa de um texto em várias linhas).
+- **Redimensionamento ao vivo:** a mesma página, sem recarregar, de 1920 a 320px e de volta, em passos de 8px (401 passos), verificando scroll horizontal, erros de JS, cards do carrossel cortados e o marquee: **0 problemas**.
 
 - **Navegador real (Chrome headless via DevTools Protocol)** em 360, 768, 1024, 1440 e 1920px:
   - `document.documentElement.scrollWidth === clientWidth` em todas as larguras, sem nenhum elemento passando da viewport;
@@ -189,7 +228,7 @@ As posições são calculadas a partir de um ponto de ancoragem da composição,
   - menu mobile abre e fecha, inclusive ao clicar num link;
   - transcrição do rótulo (`<details>`) abre e mostra a tabela.
 - **axe-core 4.10** em 360 e 1440px: **1 violação conhecida e documentada** (o contraste da faixa vermelha no mobile, explicado na tabela acima). Antes dessa mudança de cor eram 0 violações (inclusive depois de trocar o botão BUY NOW por imagem e de aplicar a paleta oficial — foi o axe que pegou o `#FF2D2D` sem contraste como texto).
-- **`tools/check-links.mjs`:** 9 páginas e 258 referências (HTML + `script.js`) sem problemas.
+- **`tools/check-links.mjs`:** 9 páginas e 260 referências (HTML + `script.js`) sem problemas.
 - Conferência visual por screenshots de página inteira e por seção em cada largura.
 
 ## Onde eu me afastei da referência (e por quê)
@@ -215,6 +254,8 @@ Cada item abaixo é uma decisão consciente, não um descuido:
 - **Os depoimentos são renderizados por JS**, então sem JavaScript o carrossel fica vazio (o resto da página funciona). Foi uma troca consciente para ter os dados num array só.
 - A marcação do marquee se repete duas vezes no HTML, porque HTML estático não tem includes. O comportamento é um componente único no JS/CSS.
 - As imagens foram exportadas em 1x; em telas retina algumas ficam levemente suaves.
+- **About:** o segundo glóbulo vermelho do export (`imagem.png`, 76×39 girado 38,98°) não veio nos assets e não foi adicionado.
+- **Why (desktop):** o título, o eyebrow e a posição dos cards ainda diferem do `Beneficios.png`, e o brilho avermelhado do topo do frame não foi reproduzido (não há valores dessa camada).
 - **O botão BUY NOW é uma imagem**, então o texto dele não escala com o zoom de fonte do navegador nem se adapta a outro idioma. Se fosse decisão minha, manteria o botão em HTML/CSS (como os "ORDER NOW" verdes) e usaria a imagem só como referência visual.
 
 ## O que eu faria com mais tempo
