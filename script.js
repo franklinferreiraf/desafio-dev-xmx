@@ -254,6 +254,7 @@ function initCarousel(carousel, data) {
   const maxIndex = () => Math.max(0, slides.length - perView);
 
   const renderDots = () => {
+    if (!dotsWrap) return;
     dotsWrap.replaceChildren();
     dots = Array.from({ length: maxIndex() + 1 }, (_, i) => {
       const dot = createEl('button', 'carousel__dot');
@@ -330,7 +331,7 @@ function initCarousel(carousel, data) {
 
   const syncLayout = () => {
     const newPerView = getPerView();
-    if (newPerView === perView && dots.length) return;
+    if (newPerView === perView) return;
     perView = newPerView;
     renderDots();
     goTo(index);

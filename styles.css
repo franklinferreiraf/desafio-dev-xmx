@@ -2386,7 +2386,7 @@ p {
    texto do card cresce */
 @media (max-width: 599px) {
   .carousel__arrow {
-    top: calc(8px + min(340px, (100vw - 2 * var(--gutter)) * 207 / 237) - 28px);
+    top: calc(8px + min(340px, (100vw - 2 * var(--gutter)) * 207 / 237) - 20px);
   }
 }
 
@@ -2427,6 +2427,14 @@ p {
   transition: background-color .2s, color .2s, border-color .2s, transform .2s;
 }
 
+/* Mobile: setas de 40px, como no Mobile.png (60px no desktop do Figma) */
+@media (max-width: 1023px) {
+  .carousel__arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 .carousel__arrow[data-carousel-prev] {
   color: var(--red-primary);
   background: var(--white);
@@ -2436,7 +2444,14 @@ p {
 .carousel__arrow:hover:not(:disabled) {
   background: var(--wine-600);
   border-color: var(--wine-600);
-  transform: scale(1.06);
+}
+
+/* A seta da esquerda continua branca no hover (só o contorno escurece).
+   O hover não mexe no transform: o translateY(-50%) que centraliza a seta
+   precisa ficar, senão ela "desce" ao passar o mouse ou clicar. */
+.carousel__arrow[data-carousel-prev]:hover:not(:disabled) {
+  background: var(--white);
+  border-color: var(--gray-500);
 }
 
 .carousel__arrow:disabled {
@@ -2449,34 +2464,9 @@ p {
   border-color: var(--gray-200);
 }
 
-.carousel__dots {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
-  justify-content: center;
-}
 
-/* Área de toque de 24px, marcador visual menor */
-.carousel__dot {
-  display: grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-}
 
-.carousel__dot::before {
-  width: 10px;
-  height: 10px;
-  content: "";
-  background: #cfcac6;
-  border-radius: var(--radius-pill);
-  transition: width .25s var(--ease-out), background-color .25s;
-}
 
-.carousel__dot[aria-current="true"]::before {
-  width: 22px;
-  background: var(--red-600);
-}
 
 @media (min-width: 600px) {
   .testimonial {
@@ -2499,11 +2489,6 @@ p {
 
 }
 
-@media (min-width: 1280px) {
-  .carousel__dots {
-    display: none;
-  }
-}
 
 /* 14. Free shipping banner
    ========================================================================== */
@@ -3136,126 +3121,6 @@ p {
 
 .label__zoom:hover .label__image {
   transform: scale(1.02);
-}
-
-.label__caption {
-  margin-top: var(--space-4);
-}
-
-.label__details {
-  overflow: hidden;
-  color: var(--text);
-  background: var(--white);
-  border-radius: var(--radius-md);
-}
-
-.label__details summary {
-  display: flex;
-  gap: var(--space-2);
-  align-items: center;
-  min-height: 52px;
-  padding: var(--space-3) var(--space-5);
-  font-family: var(--font-heading);
-  font-weight: 600;
-  cursor: pointer;
-  list-style: none;
-}
-
-.label__details summary::-webkit-details-marker {
-  display: none;
-}
-
-.label__details summary::after {
-  width: .6em;
-  height: .6em;
-  margin-left: auto;
-  content: "";
-  border-right: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
-  transform: rotate(45deg);
-  transition: transform .25s var(--ease-out);
-}
-
-.label__details[open] summary::after {
-  transform: rotate(-135deg);
-}
-
-.label__details summary:hover {
-  color: var(--red-700);
-}
-
-.label__details summary:focus-visible {
-  outline-color: var(--red-700);
-  outline-offset: -5px;
-}
-
-.label__text {
-  display: grid;
-  gap: var(--space-3);
-  padding: 0 var(--space-5) var(--space-5);
-  font-size: var(--fs-small);
-}
-
-.label__text > p {
-  color: var(--gray-700);
-}
-
-.facts__table {
-  width: 100%;
-  margin-top: var(--space-3);
-  line-height: 1.35;
-  border: 2px solid #111;
-}
-
-.facts__caption {
-  padding: var(--space-2) var(--space-3);
-  font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 1.1rem + 1.2vw, 1.75rem);
-  font-weight: 800;
-  text-align: left;
-  border: 2px solid #111;
-  border-bottom: 0;
-}
-
-.facts__table th,
-.facts__table td {
-  padding: .35rem .5rem;
-  text-align: left;
-  vertical-align: top;
-  border-bottom: 1px solid #111;
-}
-
-.facts__table tbody th {
-  font-weight: 600;
-}
-
-.facts__serving td {
-  border-bottom-width: 6px;
-}
-
-.facts__table thead tr:last-child > *,
-.facts__table tbody tr:last-child > * {
-  font-weight: 700;
-  border-bottom-width: 4px;
-}
-
-.facts__table .facts__num {
-  text-align: right;
-  white-space: nowrap;
-}
-
-.facts__blend-list {
-  display: block;
-  font-size: .8125rem;
-  font-weight: 400;
-}
-
-.facts__table tfoot td {
-  font-size: .8125rem;
-}
-
-.facts__table tfoot tr:last-child td {
-  border-bottom: 0;
 }
 
 /* 18. Footer
